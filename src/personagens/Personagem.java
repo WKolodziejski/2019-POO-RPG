@@ -8,7 +8,7 @@ package personagens;
 import java.io.Serializable;
 import java.util.Random;
 
-public abstract class Personagem implements Serializable {
+public abstract class Personagem {
     private String nome;
     private int energia;
 

@@ -1,5 +1,6 @@
 package utils;
 
+import item.Chest;
 import personagens.Heroi;
 import personagens.Personagem;
 import personagens.Vilao;
@@ -7,7 +8,11 @@ import personagens.Vilao;
 public class SimuladorBatalha {
     
     public static void main(String[] args) {
-        lutar(new Heroi("Heroi", 10, 0), new Vilao(10));
+        //lutar(new Heroi("Heroi", 10, 0), new Vilao(10));
+        Chest chest = new Chest();
+        chest.abrir();
+        chest.abrir();
+        chest.abrir();
     }
     
     public static void lutar(Heroi heroi, Personagem adversario) {

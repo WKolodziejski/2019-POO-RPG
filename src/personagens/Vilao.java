@@ -13,7 +13,7 @@ import java.io.Serializable;
  *
  * @author Aluno
  */
-public class Vilao extends Personagem implements Serializable {
+public class Vilao extends Personagem {
     
     public Vilao(int energia) {
         super(Generator.generateName(), energia);
