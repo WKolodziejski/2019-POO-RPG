@@ -7,11 +7,13 @@ package personagens;
 
 import utils.Generator;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Aluno
  */
-public class Vilao extends Personagem {
+public class Vilao extends Personagem implements Serializable {
     
     public Vilao(int energia) {
         super(Generator.generateName(), energia);

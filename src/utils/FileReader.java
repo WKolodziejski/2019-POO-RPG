@@ -1,9 +1,8 @@
 package utils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import personagens.Vilao;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,8 +10,7 @@ import java.util.Scanner;
 public class FileReader {
 
     public static void main(String[] args) {
-        //writeFile();
-        readNames();
+
     }
 
     public static List<String> readNames() {
