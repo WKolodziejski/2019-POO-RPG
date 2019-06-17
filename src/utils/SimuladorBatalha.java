@@ -1,4 +1,4 @@
-package jogorpg;
+package utils;
 
 import personagens.Heroi;
 import personagens.Personagem;
@@ -7,7 +7,7 @@ import personagens.Vilao;
 public class SimuladorBatalha {
     
     public static void main(String[] args) {
-        lutar(new Heroi("Heroi", 10, 0), new Vilao("Vilão", 10));
+        lutar(new Heroi("Heroi", 10, 0), new Vilao(10));
     }
     
     public static void lutar(Heroi heroi, Personagem adversario) {

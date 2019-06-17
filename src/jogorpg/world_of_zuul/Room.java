@@ -38,7 +38,7 @@ public class Room
         this.exits = new HashMap<>();
         this.personagens = new HashMap<>();
 
-        personagens.put("Capitalismo", new Vilao("Capitalismo", 10));
+        personagens.put("Capitalismo", new Vilao(10));
     }
 
     /**

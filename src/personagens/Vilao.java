@@ -5,14 +5,16 @@
  */
 package personagens;
 
+import utils.Generator;
+
 /**
  *
  * @author Aluno
  */
 public class Vilao extends Personagem {
     
-    public Vilao(String nome, int energia) {
-        super(nome, energia);
+    public Vilao(int energia) {
+        super(Generator.generateName(), energia);
     }
     
 }
