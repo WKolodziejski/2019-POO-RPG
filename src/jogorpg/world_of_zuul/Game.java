@@ -34,6 +34,7 @@ public class Game
     {
         createRooms();
         parser = new Parser();
+        heroi = new Heroi("Cleytinho", 10 , 10);
     }
 
     /**
@@ -110,7 +111,7 @@ public class Game
         CommandWord commandWord = command.getCommandWord();
 
         if(commandWord == CommandWord.UNKNOWN) {
-            System.out.println("I don't know what you mean...");
+            System.out.println("Eoq?");
             return false;
         }
 
@@ -121,7 +122,7 @@ public class Game
             goRoom(command);
         }
         else if (commandWord == CommandWord.ATTACK) {
-            atacar("");
+            atacar(command.getSecondWord());
         }
         else if (commandWord == CommandWord.QUIT) {
             wantToQuit = quit(command);
@@ -140,10 +141,13 @@ public class Game
     
     private void atacar(String nome) {
         Personagem a = currentRoom.getAdversario(nome);
-        heroi.lutar(a);
-        if (a.getEnergia() <= 0) {
-            currentRoom.removeAdversario(a);
-        }
+        if (a != null) {
+            heroi.lutar(a);
+            if (a.getEnergia() <= 0) {
+                currentRoom.removeAdversario(a);
+            }
+        } else
+            System.out.println("Não há quem atacar, ô maluco.");
     }
 
     private void printHelp() 

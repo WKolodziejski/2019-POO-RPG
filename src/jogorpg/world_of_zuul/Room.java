@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.HashMap;
 import java.util.Iterator;
 import personagens.Personagem;
+import personagens.Vilao;
 
 /**
  * Class Room - a room in an adventure game.
@@ -36,6 +37,8 @@ public class Room
         this.description = description;
         this.exits = new HashMap<>();
         this.personagens = new HashMap<>();
+
+        personagens.put("Capitalismo", new Vilao("Capitalismo", 10));
     }
 
     /**
@@ -111,5 +114,6 @@ public class Room
     {
         return exits.get(direction);
     }
+
 }
 

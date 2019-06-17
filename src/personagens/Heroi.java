@@ -60,6 +60,9 @@ public class Heroi extends Personagem {
                 adversario.incremento();
             }
         }
+
+        imprimir();
+        adversario.imprimir();
     }
     
 }
