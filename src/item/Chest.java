@@ -38,4 +38,12 @@ public class Chest {
         }
     }
 
+    public void pegar(/*Item*/) {
+        if (opened) {
+
+        } else {
+            System.out.println("O baú está trancado");
+        }
+    }
+
 }
