@@ -7,9 +7,9 @@ public class Hero extends Character {
     private int maxWeight;
     private int actualWeight;
     
-    public Hero(String name, int energy, int maxWeight) {
+    public Hero(String name, int energy) {
         super(name, energy, 0);
-        this.maxWeight = maxWeight;
+        this.maxWeight = 10;
     }
     
     public boolean putItem(Item item) {

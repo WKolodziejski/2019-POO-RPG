@@ -5,6 +5,7 @@
  */
 package personagens;
 
+import item.Item;
 import utils.Generator;
 
 import java.util.Random;
@@ -13,6 +14,18 @@ public class Enemy extends Character {
     
     public Enemy() {
         super(Generator.generateName(), new Random().nextInt(10) + 1, new Random().nextInt(101));
+    }
+
+    public void checkInventory() {
+        inventory.forEach((s, item) -> {
+            System.out.println(s);
+        });
+    }
+
+    public Item takeItem(String key) {
+        if (getEnergy() <= 0) {
+            return inventory.get(key);
+        } else return null;
     }
     
 }
