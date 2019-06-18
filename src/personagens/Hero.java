@@ -4,14 +4,12 @@ import item.Item;
 import java.util.HashMap;
 
 public class Hero extends Character {
-    private HashMap<String, Item> inventory;
     private int maxWeight;
     private int actualWeight;
     
     public Hero(String name, int energy, int maxWeight) {
-        super(name, energy);
+        super(name, energy, 0);
         this.maxWeight = maxWeight;
-        this.inventory = new HashMap<String, Item>();
     }
     
     public boolean putItem(Item item) {
@@ -25,7 +23,6 @@ public class Hero extends Character {
     
     public Item removeItem(String name) {
         Item item = inventory.get(name);
-        
         if (item != null) {
             inventory.remove(item);
             actualWeight -= item.getWeight();
@@ -41,26 +38,10 @@ public class Hero extends Character {
         increaseEnergy();
         increaseEnergy();
     }
-    
-    public void fight(Character opponent) {
-        int h = luck();
-        int a = opponent.luck();
-        
-        if (h == a) {
-            decreaseEnergy();
-            opponent.decreaseEnergy();
-        } else {
-            if (h > a) {
-                increaseEnergy();
-                opponent.decreaseEnergy();
-            } else {
-                decreaseEnergy();
-                opponent.increaseEnergy();
-            }
-        }
 
-        print();
-        opponent.print();
+    public void grabCoins(int amount) {
+        coins += amount;
+        //calcular peso
     }
-    
+
 }

@@ -1,14 +1,21 @@
 package personagens;
 
+import item.Item;
+
+import java.util.HashMap;
 import java.util.Random;
 
 public abstract class Character {
+    protected HashMap<String, Item> inventory;
     private String name;
     private int energy;
+    protected int coins;
 
-    public Character(String name, int energy) {
+    public Character(String name, int energy, int coins) {
+        this.inventory = new HashMap<String, Item>();
         this.name = name;
         this.energy = energy;
+        this.coins = coins;
     }
    
     public int getEnergy() {
@@ -24,10 +31,7 @@ public abstract class Character {
     }
     
     public void decreaseEnergy() {
-        energy -= 1;
-        if (energy <= 0) {
-            //morreu
-        }
+        energy -= energy < 0 ? 0 : 1;
     }
     
     public int luck() {
