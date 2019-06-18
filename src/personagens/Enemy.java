@@ -12,8 +12,8 @@ import java.util.Random;
 
 public class Enemy extends Character {
     
-    public Enemy() {
-        super(Generator.generateName(), new Random().nextInt(10) + 1, new Random().nextInt(101));
+    public Enemy(String name) {
+        super(name, new Random().nextInt(10) + 1, new Random().nextInt(101));
     }
 
     public void checkInventory() {

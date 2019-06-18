@@ -1,10 +1,14 @@
 package jogorpg.world_of_zuul;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.HashMap;
 
+import item.Chest;
 import personagens.Character;
 import personagens.Enemy;
+import utils.Generator;
 
 /**
  * Class Room - a room in an adventure game.
@@ -20,23 +24,26 @@ import personagens.Enemy;
  * @version 2008.03.30
  */
 
-public class Room 
-{
+public class Room {
     private String description;
-    private HashMap<String, Room> exits;        // stores exits of this room.
+    private HashMap<String, Room> exits;
     private HashMap<String, Character> personagens;
+    private List<Chest> chests;
 
-    /**
-     * Create a room described "description". Initially, it has
-     * no exits. "description" is something like "a kitchen" or
-     * "an open court yard".
-     * @param description The room's description.
-     */
-    public Room(String description) 
-    {
+    public Room(String description, int chestsAmount, int enemiesAmount) {
         this.description = description;
         this.exits = new HashMap<>();
         this.personagens = new HashMap<>();
+        this.chests = new ArrayList<>();
+
+        for (int i = 0; i < chestsAmount; i++) {
+            chests.add(new Chest());
+        }
+
+        for (int i = 0; i < enemiesAmount; i++) {
+            String name = Generator.generateName();
+            personagens.put(name, new Enemy(name));
+        }
     }
 
     /**

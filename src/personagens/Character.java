@@ -12,7 +12,7 @@ public abstract class Character {
     protected int coins;
 
     public Character(String name, int energy, int coins) {
-        this.inventory = new HashMap<String, Item>();
+        this.inventory = new HashMap<>();
         this.name = name;
         this.energy = energy;
         this.coins = coins;
