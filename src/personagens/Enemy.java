@@ -7,16 +7,12 @@ package personagens;
 
 import utils.Generator;
 
-import java.io.Serializable;
+import java.util.Random;
 
-/**
- *
- * @author Aluno
- */
-public class Vilao extends Personagem {
+public class Enemy extends Character {
     
-    public Vilao(int energia) {
-        super(Generator.generateName(), energia);
+    public Enemy() {
+        super(Generator.generateName(), new Random().nextInt(10) + 1);
     }
     
 }

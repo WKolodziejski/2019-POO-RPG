@@ -2,9 +2,9 @@ package jogorpg.world_of_zuul;
 
 import java.util.Set;
 import java.util.HashMap;
-import java.util.Iterator;
-import personagens.Personagem;
-import personagens.Vilao;
+
+import personagens.Character;
+import personagens.Enemy;
 
 /**
  * Class Room - a room in an adventure game.
@@ -24,7 +24,7 @@ public class Room
 {
     private String description;
     private HashMap<String, Room> exits;        // stores exits of this room.
-    private HashMap<String, Personagem> personagens;
+    private HashMap<String, Character> personagens;
 
     /**
      * Create a room described "description". Initially, it has
@@ -37,8 +37,6 @@ public class Room
         this.description = description;
         this.exits = new HashMap<>();
         this.personagens = new HashMap<>();
-
-        personagens.put("Capitalismo", new Vilao(10));
     }
 
     /**
@@ -71,11 +69,11 @@ public class Room
         return "You are " + description + ".\n" + getExitString() + ".\n" + getPersonagensString();
     }
     
-    public Personagem getAdversario(String nome) {
+    public Character getAdversario(String nome) {
         return personagens.get(nome);
     }
     
-    public void removeAdversario(Personagem p) {
+    public void removeAdversario(Character p) {
         personagens.remove(p);
     }
 

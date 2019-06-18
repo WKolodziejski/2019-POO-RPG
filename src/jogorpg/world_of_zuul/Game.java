@@ -1,8 +1,7 @@
 package jogorpg.world_of_zuul;
 
-import personagens.Heroi;
-import personagens.Personagem;
-import personagens.Vilao;
+import personagens.Hero;
+import personagens.Character;
 
 /**
  *  This class is the main class of the "World of Zuul" application. 
@@ -25,7 +24,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-    private Heroi heroi;
+    private Hero hero;
         
     /**
      * Create the game and initialise its internal map.
@@ -34,7 +33,7 @@ public class Game
     {
         createRooms();
         parser = new Parser();
-        heroi = new Heroi("Cleytinho", 10 , 10);
+        hero = new Hero("Cleytinho", 10 , 10);
     }
 
     /**
@@ -140,10 +139,10 @@ public class Game
      */
     
     private void atacar(String nome) {
-        Personagem a = currentRoom.getAdversario(nome);
+        Character a = currentRoom.getAdversario(nome);
         if (a != null) {
-            heroi.lutar(a);
-            if (a.getEnergia() <= 0) {
+            hero.fight(a);
+            if (a.getEnergy() <= 0) {
                 currentRoom.removeAdversario(a);
             }
         } else

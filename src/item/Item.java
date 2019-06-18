@@ -1,29 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package item;
 
-/**
- *
- * @author Aluno
- */
-public class Item {
-    private String nome;
-    private int peso;
+public abstract class Item {
+    private String name;
+    private int weight;
 
-    public Item(String nome, int peso) {
-        this.nome = nome;
-        this.peso = peso;
+    public Item(String name, int weight) {
+        this.name = name;
+        this.weight = weight;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public int getPeso() {
-        return peso;
+    public int getWeight() {
+        return weight;
     }
     
 }

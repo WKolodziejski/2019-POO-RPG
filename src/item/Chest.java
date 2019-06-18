@@ -16,7 +16,7 @@ public class Chest {
         this.chances = 2;
     }
 
-    public void abrir() {
+    public void open() {
         if (chances > 0) {
             if (!opened) {
                 System.out.println("A senha é um número entre " + base + " e " + (base + 3));
@@ -28,17 +28,17 @@ public class Chest {
                     System.out.println("Você abriu o baú");
                 } else {
                     chances--;
-                    System.out.println("Você não conseguiu abrir o baú");
+                    System.out.println("Você não conseguiu open o baú");
                 }
             } else {
                 //Inventário
             }
         } else {
-            System.out.println("Você quebrou a fechadura e agora não é mais possível abrir o baú");
+            System.out.println("Você quebrou a fechadura e agora não é mais possível open o baú");
         }
     }
 
-    public void pegar(/*Item*/) {
+    public void take(/*Item*/) {
         if (opened) {
 
         } else {
