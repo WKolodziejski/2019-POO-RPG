@@ -39,6 +39,7 @@ public class FileReader {
 
     public static Room readRooms() {
         List<Room> rooms = new ArrayList<>();
+        List<HashMap<Integer, String>> exits = new ArrayList<>();
 
         try {
             File file = new File("src/data/rooms");
@@ -48,11 +49,11 @@ public class FileReader {
                 String data = scanner.nextLine();
                 int enemies = 0;
                 int chests = 0;
-                HashMap<Integer, String> exits = new HashMap<>();
 
                 if (data.equals("<room>")) {
                     data = scanner.nextLine();
                     String description = "";
+                    HashMap<Integer, String> e = new HashMap<>();
 
                     while (!data.equals("</room>")) {
 
@@ -89,7 +90,7 @@ public class FileReader {
                                 data = scanner.nextLine();
 
                                 while (!data.equals("</exits>")) {
-                                    exits.put(Integer.parseInt(data), scanner.nextLine()) ;
+                                    e.put(Integer.parseInt(data), scanner.nextLine()) ;
                                     data = scanner.nextLine();
                                 }
 
@@ -98,7 +99,8 @@ public class FileReader {
 
                         data = scanner.nextLine();
                     }
-                    rooms.add(new Room(description, chests, enemies, exits));
+                    rooms.add(new Room(description, chests, enemies));
+                    exits.add(e);
                 }
             }
             scanner.close();
@@ -106,9 +108,9 @@ public class FileReader {
             e.printStackTrace();
         }
 
-        for (Room room : rooms) {
-            for (Integer i : room.getExitsID().keySet()) {
-                room.setExit(room.getExitsID().get(i), rooms.get(i));
+        for (int i = 0; i < rooms.size(); i++) {
+            for (Integer j : exits.get(i).keySet()) {
+                rooms.get(i).setExit(exits.get(i).get(j), rooms.get(j));
             }
         }
 

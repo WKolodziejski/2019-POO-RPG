@@ -27,14 +27,12 @@ public class Room {
     private HashMap<String, Room> exits;
     private HashMap<String, Character> personagens;
     private List<Chest> chests;
-    private HashMap<Integer, String> exitsID;
 
-    public Room(String description, int chestsAmount, int enemiesAmount, HashMap<Integer, String> exitsID) {
+    public Room(String description, int chestsAmount, int enemiesAmount) {
         this.description = description;
         this.exits = new HashMap<>();
         this.personagens = new HashMap<>();
         this.chests = new ArrayList<>();
-        this.exitsID = exitsID;
 
         for (int i = 0; i < chestsAmount; i++) {
             chests.add(new Chest());
@@ -49,10 +47,6 @@ public class Room {
             personagens.put(nick, new Enemy(name));
         }
 
-    }
-
-    public HashMap<Integer, String> getExitsID() {
-        return exitsID;
     }
 
     /**
