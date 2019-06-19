@@ -74,9 +74,8 @@ public class FileReader {
                                 data = scanner.nextLine();
 
                                 while (!data.equals("</description>")) {
-                                    description = description.concat(scanner.nextLine());
+                                    description = data;
                                     data = scanner.nextLine();
-                                    System.out.println(description);
                                 }
 
                                 break;
@@ -84,7 +83,7 @@ public class FileReader {
                                 data = scanner.nextLine();
 
                                 while (!data.equals("</enemies>")) {
-                                    enemies = scanner.nextInt();
+                                    enemies = Integer.parseInt(data);
                                     data = scanner.nextLine();
                                 }
 
@@ -93,7 +92,7 @@ public class FileReader {
                                 data = scanner.nextLine();
 
                                 while (!data.equals("</chests>")) {
-                                    chests = scanner.nextInt();
+                                    chests = Integer.parseInt(data);
                                     data = scanner.nextLine();
                                 }
 

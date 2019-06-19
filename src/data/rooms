@@ -1,11 +1,22 @@
 <room>
-	<description>
-		bla bla bla
-	</description>
-	<enemies>
-		quantidade
-	</enemies>
-	<chests>
-		quantidade
-	</chests>
+<description>
+no saguão principal
+</description>
+<enemies>
+0
+</enemies>
+<chests>
+0
+</chests>
+</room>
+<room>
+<description>
+no banheiro
+</description>
+<enemies>
+0
+</enemies>
+<chests>
+0
+</chests>
 </room>

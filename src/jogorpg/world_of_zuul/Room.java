@@ -73,7 +73,7 @@ public class Room {
      */
     public String getLongDescription()
     {
-        return "You are " + description + ".\n" + getExitString() + ".\n" + getPersonagensString();
+        return "Você está " + description + ".\n" + getExitString() + ".\n" + getPersonagensString();
     }
     
     public Character getAdversario(String nome) {
@@ -91,7 +91,7 @@ public class Room {
      */
     private String getExitString()
     {
-        String returnString = "Exits:";
+        String returnString = "Caminhos:";
         Set<String> keys = exits.keySet();
         for(String exit : keys) {
             returnString += " " + exit;
