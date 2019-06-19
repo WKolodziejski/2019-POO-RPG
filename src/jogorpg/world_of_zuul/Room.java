@@ -7,6 +7,7 @@ import personagens.Character;
 import personagens.Enemy;
 import utils.Generator;
 
+
 /**
  * Class Room - a room in an adventure game.
  *
@@ -105,12 +106,12 @@ public class Room {
     }
     
     private String getPersonagensString() {
-        StringBuilder returnString = new StringBuilder("Personagens:");
+        StringBuilder returnString = new StringBuilder("Personagens: ");
         Collection<Character> keys = personagens.values();
-        for(Character p : keys) {
-            returnString.append(" ").append(p.getName());
+        for (Character p : keys) {
+            returnString.append(p.getName()).append(", ");
         }
-        return returnString.toString();
+        return returnString.toString().substring(0, returnString.length() - 2);
     }
 
     /**
