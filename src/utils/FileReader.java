@@ -4,16 +4,15 @@ import jogorpg.world_of_zuul.Room;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
 public class FileReader {
 
     public static void main(String[] args) {
-        List<Room> roomList = readRooms();
-
-        for (Room r : roomList)
-            System.out.println(r.getLongDescription());
+        Room room = readRooms();
+        System.out.println(room.getLongDescription());
     }
 
     public static List<String> readNames() {
@@ -27,20 +26,7 @@ public class FileReader {
                 String data = scanner.nextLine();
                 if (!data.isBlank()) {
                     names.add(data);
-                    //System.out.println(data);
                 }
-
-                /*if (data.equals("<names>")) {
-                    data = scanner.nextLine();
-
-                    while (!data.equals("</names>")) {
-                        if (!data.isBlank()) {
-                            names.add(data);
-                            System.out.println(data);
-                        }
-                        data = scanner.nextLine();
-                    }
-                }*/
             }
 
             scanner.close();
@@ -51,7 +37,7 @@ public class FileReader {
         return names;
     }
 
-    public static List<Room> readRooms() {
+    public static Room readRooms() {
         List<Room> rooms = new ArrayList<>();
 
         try {
@@ -62,6 +48,7 @@ public class FileReader {
                 String data = scanner.nextLine();
                 int enemies = 0;
                 int chests = 0;
+                HashMap<Integer, String> exits = new HashMap<>();
 
                 if (data.equals("<room>")) {
                     data = scanner.nextLine();
@@ -97,11 +84,21 @@ public class FileReader {
                                 }
 
                                 break;
+
+                            case "<exits>":
+                                data = scanner.nextLine();
+
+                                while (!data.equals("</exits>")) {
+                                    exits.put(Integer.parseInt(data), scanner.nextLine()) ;
+                                    data = scanner.nextLine();
+                                }
+
+                                break;
                         }
 
                         data = scanner.nextLine();
                     }
-                    rooms.add(new Room(description, chests, enemies));
+                    rooms.add(new Room(description, chests, enemies, exits));
                 }
             }
             scanner.close();
@@ -109,7 +106,13 @@ public class FileReader {
             e.printStackTrace();
         }
 
-        return rooms;
+        for (Room room : rooms) {
+            for (Integer i : room.getExitsID().keySet()) {
+                room.setExit(room.getExitsID().get(i), rooms.get(i));
+            }
+        }
+
+        return rooms.get(0);
     }
 
 }

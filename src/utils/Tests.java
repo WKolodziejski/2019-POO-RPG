@@ -12,10 +12,7 @@ import static utils.FileReader.readRooms;
 public class Tests {
     
     public static void main(String[] args) {
-        List<Room> roomList = readRooms();
 
-        for (Room r : roomList)
-            System.out.println(r.getLongDescription());
     }
 
 }

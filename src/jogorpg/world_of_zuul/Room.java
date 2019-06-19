@@ -1,9 +1,6 @@
 package jogorpg.world_of_zuul;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.HashMap;
+import java.util.*;
 
 import item.Chest;
 import personagens.Character;
@@ -29,21 +26,32 @@ public class Room {
     private HashMap<String, Room> exits;
     private HashMap<String, Character> personagens;
     private List<Chest> chests;
+    private HashMap<Integer, String> exitsID;
 
-    public Room(String description, int chestsAmount, int enemiesAmount) {
+    public Room(String description, int chestsAmount, int enemiesAmount, HashMap<Integer, String> exitsID) {
         this.description = description;
         this.exits = new HashMap<>();
         this.personagens = new HashMap<>();
         this.chests = new ArrayList<>();
+        this.exitsID = exitsID;
 
         for (int i = 0; i < chestsAmount; i++) {
             chests.add(new Chest());
         }
 
         for (int i = 0; i < enemiesAmount; i++) {
-            String name = Generator.generateName();
-            personagens.put(name, new Enemy(name));
+            String name = Generator.get().generateName();
+            String nick = name;
+            if (name.contains(" ")) {
+                nick = name.substring(0, name.indexOf(" "));
+            }
+            personagens.put(nick, new Enemy(name));
         }
+
+    }
+
+    public HashMap<Integer, String> getExitsID() {
+        return exitsID;
     }
 
     /**
@@ -51,8 +59,7 @@ public class Room {
      * @param direction The direction of the exit.
      * @param neighbor  The room to which the exit leads.
      */
-    public void setExit(String direction, Room neighbor) 
-    {
+    public void setExit(String direction, Room neighbor) {
         exits.put(direction, neighbor);
     }
 
@@ -71,8 +78,7 @@ public class Room {
      *     Exits: north west
      * @return A long description of this room
      */
-    public String getLongDescription()
-    {
+    public String getLongDescription() {
         return "Você está " + description + ".\n" + getExitString() + ".\n" + getPersonagensString();
     }
     
@@ -89,8 +95,7 @@ public class Room {
      * "Exits: north west".
      * @return Details of the room's exits.
      */
-    private String getExitString()
-    {
+    private String getExitString() {
         String returnString = "Caminhos:";
         Set<String> keys = exits.keySet();
         for(String exit : keys) {
@@ -99,14 +104,13 @@ public class Room {
         return returnString;
     }
     
-    private String getPersonagensString()
-    {
-        String returnString = "Personagens:";
-        Set<String> keys = personagens.keySet();
-        for(String p : keys) {
-            returnString += " " + p;
+    private String getPersonagensString() {
+        StringBuilder returnString = new StringBuilder("Personagens:");
+        Collection<Character> keys = personagens.values();
+        for(Character p : keys) {
+            returnString.append(" ").append(p.getName());
         }
-        return returnString;
+        return returnString.toString();
     }
 
     /**
@@ -115,8 +119,7 @@ public class Room {
      * @param direction The exit's direction.
      * @return The room in the given direction.
      */
-    public Room getExit(String direction) 
-    {
+    public Room getExit(String direction) {
         return exits.get(direction);
     }
 

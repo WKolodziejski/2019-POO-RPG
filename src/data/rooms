@@ -8,15 +8,23 @@ no saguão principal
 <chests>
 0
 </chests>
+<exits>
+1
+Porta
+</exits>
 </room>
 <room>
 <description>
 no banheiro
 </description>
 <enemies>
-0
+1
 </enemies>
 <chests>
 0
 </chests>
+<exits>
+0
+Porta
+</exits>
 </room>
