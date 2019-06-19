@@ -1,5 +1,6 @@
 package jogorpg.world_of_zuul;
 
+import mechanics.Fight;
 import personagens.Hero;
 import personagens.Character;
 
@@ -31,15 +32,15 @@ public class Game
      */
     public Game() 
     {
-        createRooms();
+        //createRooms();
         parser = new Parser();
-        hero = new Hero("Cleytinho", 10 , 10);
+        hero = new Hero("Cleytinho", 10);
     }
 
     /**
      * Create all the rooms and link their exits together.
      */
-    private void createRooms()
+    /*private void createRooms()
     {
         Room outside, theatre, pub, lab, office;
       
@@ -65,7 +66,7 @@ public class Game
         office.setExit("west", lab);
 
         currentRoom = outside;  // start game outside
-    }
+    }*/
 
     /**
      *  Main play routine.  Loops until end of play.
@@ -141,7 +142,7 @@ public class Game
     private void atacar(String nome) {
         Character a = currentRoom.getAdversario(nome);
         if (a != null) {
-            hero.fight(a);
+            Fight.fight(hero, a);
             if (a.getEnergy() <= 0) {
                 currentRoom.removeAdversario(a);
             }

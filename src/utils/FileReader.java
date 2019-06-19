@@ -10,7 +10,10 @@ import java.util.Scanner;
 public class FileReader {
 
     public static void main(String[] args) {
+        List<Room> roomList = readRooms();
 
+        for (Room r : roomList)
+            System.out.println(r.getLongDescription());
     }
 
     public static List<String> readNames() {
@@ -73,6 +76,7 @@ public class FileReader {
                                 while (!data.equals("</description>")) {
                                     description = description.concat(scanner.nextLine());
                                     data = scanner.nextLine();
+                                    System.out.println(description);
                                 }
 
                                 break;
