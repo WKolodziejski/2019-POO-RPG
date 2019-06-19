@@ -1,11 +1,10 @@
 package jogorpg.world_of_zuul;
 
+import item.Chest;
 import mechanics.Fight;
 import personagens.Hero;
 import personagens.Character;
 import utils.FileReader;
-
-import java.util.List;
 
 /**
  *  This class is the main class of the "World of Zuul" application. 
@@ -78,7 +77,10 @@ public class Game {
             goRoom(command);
         }
         else if (commandWord == CommandWord.ATTACK) {
-            atacar(command.getSecondWord());
+            attack(command);
+        }
+        else if (commandWord == CommandWord.OPEN) {
+            openChest(command);
         }
         else if (commandWord == CommandWord.QUIT) {
             wantToQuit = quit(command);
@@ -87,12 +89,22 @@ public class Game {
         return wantToQuit;
     }
 
-    private void atacar(String nome) {
-        Character a = currentRoom.getAdversario(nome);
-        if (a != null) {
-            Fight.fight(hero, a);
-            if (a.getEnergy() <= 0) {
-                currentRoom.removeAdversario(a);
+    private void openChest(Command command) {
+        Chest chest = currentRoom.getChest(Integer.parseInt(command.getSecondWord()));
+
+        if (chest != null) {
+            chest.open();
+        } else {
+            System.out.println("Não tem esse baú aí não");
+        }
+    }
+
+    private void attack(Command command) {
+        Character character = currentRoom.getAdversario(command.getSecondWord());
+        if (character != null) {
+            Fight.fight(hero, character);
+            if (character.getEnergy() <= 0) {
+                currentRoom.removeAdversario(character);
             }
         } else
             System.out.println("Atacar quem?");

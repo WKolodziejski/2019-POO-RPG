@@ -6,6 +6,7 @@ import java.util.HashMap;
 public class Hero extends Character {
     private int maxWeight;
     private int actualWeight;
+    private OnDie onDie;
     
     public Hero(String name, int energy) {
         super(name, energy, 0);
@@ -42,6 +43,10 @@ public class Hero extends Character {
     public void grabCoins(int amount) {
         coins += amount;
         //calcular peso
+    }
+
+    interface OnDie {
+        void onDie();
     }
 
 }

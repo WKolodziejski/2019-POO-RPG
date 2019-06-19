@@ -1,7 +1,6 @@
 package utils;
 
 import jogorpg.world_of_zuul.Room;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,11 +8,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FileReader {
-
-    public static void main(String[] args) {
-        Room room = readRooms();
-        System.out.println(room.getLongDescription());
-    }
 
     public static List<String> readNames() {
         List<String> names = new ArrayList<>();

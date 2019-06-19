@@ -80,6 +80,14 @@ public class Room {
     public Character getAdversario(String nome) {
         return personagens.get(nome);
     }
+
+    public Chest getChest(int i) {
+        if (i > chests.size() || i < 1) {
+            System.out.println("Fala sério");
+            return null;
+        }
+        else return chests.get(i - 1);
+    }
     
     public void removeAdversario(Character p) {
         personagens.remove(p);
