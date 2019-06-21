@@ -1,24 +1,27 @@
 package jogorpg.world_of_zuul;
 
-import item.Chest;
+import item.CoinBag;
 import mechanics.Fight;
 import personagens.Hero;
 import personagens.Character;
+import item.Item;
 import utils.FileReader;
 
+import java.util.List;
+
 /**
- *  This class is the main class of the "World of Zuul" application. 
- *  "World of Zuul" is a very simple, text based adventure game.  Users 
- *  can walk around some scenery. That's all. It should really be extended 
+ *  This class is the main class of the "World of Zuul" application.
+ *  "World of Zuul" is a very simple, text based adventure game.  Users
+ *  can walk around some scenery. That's all. It should really be extended
  *  to make it more interesting!
- * 
+ *
  *  To play this game, create an instance of this class and call the "play"
  *  method.
- * 
+ *
  *  This main class creates and initialises all the others: it creates all
  *  rooms, creates the parser and starts the game.  It also evaluates and
  *  executes the commands that the parser returns.
- * 
+ *
  * @author  Michael Kolling and David J. Barnes
  * @version 2008.03.30
  */
@@ -36,7 +39,7 @@ public class Game {
 
     public void play() {
         printWelcome();
-                
+
         boolean finished = false;
 
         while (!finished) {
@@ -77,10 +80,13 @@ public class Game {
             goRoom(command);
         }
         else if (commandWord == CommandWord.ATTACK) {
-            attack(command);
+            atacar(command.getSecondWord());
         }
-        else if (commandWord == CommandWord.OPEN) {
-            openChest(command);
+        else if (commandWord == CommandWord.PICK) {
+            pick(command.getSecondWord());
+        }
+        else if (commandWord == CommandWord.DROP) {
+            drop(command.getSecondWord());
         }
         else if (commandWord == CommandWord.QUIT) {
             wantToQuit = quit(command);
@@ -89,25 +95,38 @@ public class Game {
         return wantToQuit;
     }
 
-    private void openChest(Command command) {
-        Chest chest = currentRoom.getChest(Integer.parseInt(command.getSecondWord()));
-
-        if (chest != null) {
-            chest.open();
-        } else {
-            System.out.println("Não tem esse baú aí não");
-        }
-    }
-
-    private void attack(Command command) {
-        Character character = currentRoom.getAdversario(command.getSecondWord());
-        if (character != null) {
-            Fight.fight(hero, character);
-            if (character.getEnergy() <= 0) {
-                currentRoom.removeAdversario(character);
+    private void atacar(String nome) {
+        Character a = currentRoom.getAdversario(nome);
+        if (a != null) {
+            Fight.fight(hero, a);
+            if (a.getEnergy() <= 0) {
+                currentRoom.addItem(a.getCoinBag());
+                currentRoom.dropAllItems(a);
             }
         } else
             System.out.println("Atacar quem?");
+    }
+
+    private void pick(String pick){
+        Item item = currentRoom.deleteItem(pick);
+
+        if (item == null) {
+            System.out.println("Pegar o que?");
+        } else {
+            if(!hero.putItem(item)){
+                currentRoom.addItem(item);
+            }
+        }
+    }
+
+    private void drop(String drop){
+        Item item = hero.removeItem(drop);
+
+        if (item == null) {
+            System.out.println("Dropar o que?");
+        } else {
+            currentRoom.addItem(item);
+        }
     }
 
     private void printHelp() {

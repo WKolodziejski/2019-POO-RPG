@@ -1,7 +1,8 @@
 package personagens;
 
+import item.Item;
 import utils.Generator;
-
+import java.util.HashMap;
 import java.util.Random;
 
 public class Boss extends Character {

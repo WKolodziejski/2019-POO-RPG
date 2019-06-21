@@ -3,6 +3,7 @@ package jogorpg.world_of_zuul;
 import java.util.*;
 
 import item.Chest;
+import item.Item;
 import personagens.Character;
 import personagens.Enemy;
 import utils.Generator;
@@ -11,13 +12,13 @@ import utils.Generator;
 /**
  * Class Room - a room in an adventure game.
  *
- * This class is part of the "World of Zuul" application. 
- * "World of Zuul" is a very simple, text based adventure game.  
+ * This class is part of the "World of Zuul" application.
+ * "World of Zuul" is a very simple, text based adventure game.
  *
- * A "Room" represents one location in the scenery of the game.  It is 
- * connected to other rooms via exits.  For each existing exit, the room 
+ * A "Room" represents one location in the scenery of the game.  It is
+ * connected to other rooms via exits.  For each existing exit, the room
  * stores a reference to the neighboring room.
- * 
+ *
  * @author  Michael Kolling and David J. Barnes
  * @version 2008.03.30
  */
@@ -26,12 +27,14 @@ public class Room {
     private String description;
     private HashMap<String, Room> exits;
     private HashMap<String, Character> personagens;
+    private HashMap<String, Item> items;
     private List<Chest> chests;
 
     public Room(String description, int chestsAmount, int enemiesAmount) {
         this.description = description;
         this.exits = new HashMap<>();
         this.personagens = new HashMap<>();
+        this.items = new HashMap<>();
         this.chests = new ArrayList<>();
 
         for (int i = 0; i < chestsAmount; i++) {
@@ -76,7 +79,7 @@ public class Room {
     public String getLongDescription() {
         return "Você está " + description + ".\n" + getExitString() + ".\n" + getPersonagensString();
     }
-    
+
     public Character getAdversario(String nome) {
         return personagens.get(nome);
     }
@@ -88,9 +91,9 @@ public class Room {
         }
         else return chests.get(i - 1);
     }
-    
-    public void removeAdversario(Character p) {
-        personagens.remove(p);
+
+    public Character removeAdversario(Character p) {
+        return personagens.remove(p.getName());
     }
 
     /**
@@ -106,7 +109,7 @@ public class Room {
         }
         return returnString;
     }
-    
+
     private String getPersonagensString() {
         StringBuilder returnString = new StringBuilder("Personagens: ");
         Collection<Character> keys = personagens.values();
@@ -124,6 +127,18 @@ public class Room {
      */
     public Room getExit(String direction) {
         return exits.get(direction);
+    }
+
+    public Item deleteItem(String item){
+        return this.items.remove(item);
+    }
+
+    public void addItem(Item item){
+        items.put(item.getName(), item);
+    }
+
+    public void dropAllItems(Character character){
+        items.putAll(character.getInventory());
     }
 
 }
