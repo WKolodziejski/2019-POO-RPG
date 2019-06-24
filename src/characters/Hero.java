@@ -1,4 +1,4 @@
-package personagens;
+package characters;
 
 import item.*;
 
@@ -9,8 +9,8 @@ public class Hero extends Character {
     private int actualWeight;
     private Item[] equipped;
 
-    public Hero(String name, int energy) {
-        super(name, energy, 0);
+    public Hero(OnDie onDie) {
+        super("Cleytinho", 10, 0, onDie);
         this.maxWeight = 10;
         this.equipped = new Item[2];
     }

@@ -1,6 +1,6 @@
 package mechanics;
 
-import personagens.Character;
+import characters.Character;
 
 public class Fight {
 

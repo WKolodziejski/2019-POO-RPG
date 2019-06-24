@@ -2,10 +2,11 @@ package jogorpg.world_of_zuul;
 
 import java.util.*;
 
+import characters.OnDie;
 import item.Chest;
 import item.Item;
-import personagens.Character;
-import personagens.Enemy;
+import characters.Character;
+import characters.Enemy;
 import utils.Generator;
 
 
@@ -23,7 +24,7 @@ import utils.Generator;
  * @version 2008.03.30
  */
 
-public class Room {
+public class Room implements OnDie {
     private String description;
     private HashMap<String, Room> exits;
     private HashMap<String, Character> personagens;
@@ -47,7 +48,7 @@ public class Room {
             if (name.contains(" ")) {
                 nick = name.substring(0, name.indexOf(" "));
             }
-            personagens.put(nick, new Enemy(name));
+            personagens.put(nick, new Enemy(name, this));
         }
 
     }
@@ -139,6 +140,15 @@ public class Room {
 
     public void dropAllItems(Character character){
         items.putAll(character.getInventory());
+    }
+
+    @Override
+    public void onDie(HashMap<String, Item> inventory) {
+        System.out.println("-----Itens Droppados-----");
+        this.items.putAll(inventory);
+        inventory.forEach((s, item) -> {
+            System.out.println(item.getName());
+        });
     }
 
 }

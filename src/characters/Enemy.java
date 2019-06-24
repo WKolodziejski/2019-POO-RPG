@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package personagens;
+package characters;
 
 import item.Item;
 import utils.Generator;
@@ -12,8 +12,8 @@ import java.util.Random;
 
 public class Enemy extends Character {
     
-    public Enemy(String name) {
-        super(name, new Random().nextInt(10) + 1, new Random().nextInt(101));
+    public Enemy(String name, OnDie onDie) {
+        super(name, /*new Random().nextInt(10) + */1, new Random().nextInt(101), onDie);
     }
 
     public void checkInventory() {

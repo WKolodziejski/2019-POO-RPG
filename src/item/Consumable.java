@@ -1,6 +1,6 @@
 package item;
 
-public abstract class Consumable extends Item{
+public abstract class Consumable extends Item {
     private int uses;
 
     public Consumable(String name, int weight, int uses) {
@@ -15,4 +15,5 @@ public abstract class Consumable extends Item{
     public void setUses(int uses) {
         this.uses = uses;
     }
+
 }

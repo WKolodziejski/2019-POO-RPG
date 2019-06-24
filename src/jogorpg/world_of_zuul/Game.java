@@ -1,45 +1,47 @@
 package jogorpg.world_of_zuul;
 
-import item.CoinBag;
-import mechanics.Fight;
-import personagens.Hero;
-import personagens.Character;
+import characters.OnDie;
+import item.Chest;
 import item.Item;
+import mechanics.Fight;
+import characters.Hero;
+import characters.Character;
 import utils.FileReader;
 
-import java.util.List;
+import java.util.HashMap;
 
 /**
- *  This class is the main class of the "World of Zuul" application.
- *  "World of Zuul" is a very simple, text based adventure game.  Users
- *  can walk around some scenery. That's all. It should really be extended
+ *  This class is the main class of the "World of Zuul" application. 
+ *  "World of Zuul" is a very simple, text based adventure game.  Users 
+ *  can walk around some scenery. That's all. It should really be extended 
  *  to make it more interesting!
- *
+ * 
  *  To play this game, create an instance of this class and call the "play"
  *  method.
- *
+ * 
  *  This main class creates and initialises all the others: it creates all
  *  rooms, creates the parser and starts the game.  It also evaluates and
  *  executes the commands that the parser returns.
- *
+ * 
  * @author  Michael Kolling and David J. Barnes
  * @version 2008.03.30
  */
 
-public class Game {
+public class Game implements OnDie {
     private Parser parser;
     private Room currentRoom;
     private Hero hero;
+    private Chest lastChest;
 
     public Game() {
         currentRoom = FileReader.readRooms();
         parser = new Parser();
-        hero = new Hero("Cleytinho", 10);
+        hero = new Hero(this);
     }
 
     public void play() {
         printWelcome();
-
+                
         boolean finished = false;
 
         while (!finished) {
@@ -68,6 +70,7 @@ public class Game {
         boolean wantToQuit = false;
 
         CommandWord commandWord = command.getCommandWord();
+        lastChest = null;
 
         if(commandWord == CommandWord.UNKNOWN) {
             System.out.println("Eoq?");
@@ -80,13 +83,19 @@ public class Game {
             goRoom(command);
         }
         else if (commandWord == CommandWord.ATTACK) {
-            atacar(command.getSecondWord());
+            attack(command);
+        }
+        else if (commandWord == CommandWord.OPEN) {
+            openChest(command);
+        }
+        else if (commandWord == CommandWord.TAKE) {
+           takeItem(command);
         }
         else if (commandWord == CommandWord.PICK) {
-            pick(command.getSecondWord());
+            pick(command);
         }
         else if (commandWord == CommandWord.DROP) {
-            drop(command.getSecondWord());
+            drop(command);
         }
         else if (commandWord == CommandWord.QUIT) {
             wantToQuit = quit(command);
@@ -95,20 +104,46 @@ public class Game {
         return wantToQuit;
     }
 
-    private void atacar(String nome) {
-        Character a = currentRoom.getAdversario(nome);
-        if (a != null) {
-            Fight.fight(hero, a);
-            if (a.getEnergy() <= 0) {
-                currentRoom.addItem(a.getCoinBag());
-                currentRoom.dropAllItems(a);
+    private void openChest(Command command) {
+        if (command.getSecondWord().isBlank()) {
+            System.out.println("Abrir o que?");
+        } else {
+            int i = Integer.parseInt(command.getSecondWord());
+            Chest chest = currentRoom.getChest(i);
+
+            if (chest != null) {
+                if (chest.open()) {
+                    lastChest = chest;
+                } else {
+                    lastChest = null;
+                }
+            } else {
+                System.out.println("Não tem esse baú aí não");
+            }
+        }
+    }
+
+    private void takeItem(Command command) {
+        if (lastChest != null) {
+            lastChest.take();
+        } else {
+            System.out.println("Pegar oq?");
+        }
+    }
+
+    private void attack(Command command) {
+        Character character = currentRoom.getAdversario(command.getSecondWord());
+        if (character != null) {
+            Fight.fight(hero, character);
+            if (character.getEnergy() <= 0) {
+                currentRoom.removeAdversario(character);
             }
         } else
             System.out.println("Atacar quem?");
     }
 
-    private void pick(String pick){
-        Item item = currentRoom.deleteItem(pick);
+    private void pick(Command command){
+        Item item = currentRoom.deleteItem(command.getSecondWord());
 
         if (item == null) {
             System.out.println("Pegar o que?");
@@ -119,8 +154,8 @@ public class Game {
         }
     }
 
-    private void drop(String drop){
-        Item item = hero.removeItem(drop);
+    private void drop(Command command){
+        Item item = hero.removeItem(command.getSecondWord());
 
         if (item == null) {
             System.out.println("Dropar o que?");
@@ -165,4 +200,10 @@ public class Game {
             return true;  // signal that we want to quit
         }
     }
+
+    @Override
+    public void onDie(HashMap<String, Item> inventory) {
+        System.out.println("Você morreu!");
+    }
+
 }

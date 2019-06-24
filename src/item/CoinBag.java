@@ -16,4 +16,5 @@ public class CoinBag extends Item {
         this.amount = amount;
         this.setWeight((int) Math.ceil(this.amount/1000));
     }
+
 }

@@ -1,4 +1,4 @@
-package personagens;
+package characters;
 
 import item.CoinBag;
 import item.Item;
@@ -11,17 +11,19 @@ public abstract class Character {
     private String name;
     private int energy;
     private int enercyCap;
+    private OnDie onDie;
 
-    public Character(String name, int energy, int coins) {
+    public Character(String name, int energy, int coins, OnDie onDie) {
         this.inventory = new HashMap<>();
         this.name = name;
         this.energy = energy;
         this.enercyCap = energy;
-        inventory.put("CoinBag",new CoinBag("Saco de moeada do " + name, coins));
+        this.onDie = onDie;
+        inventory.put("CoinBag", new CoinBag("Saco de moeada do " + name, coins));
     }
 
     public CoinBag getCoinBag() {
-        return (CoinBag) inventory.get("coinBag");
+        return (CoinBag) inventory.get("CoinBag");
     }
 
     public int getEnergy() {
@@ -38,6 +40,9 @@ public abstract class Character {
 
     public void decreaseEnergy() {
         energy -= energy < 0 ? 0 : 1;
+        if (energy <= 0) {
+            onDie.onDie(inventory);
+        }
     }
 
     public int luck() {
@@ -54,4 +59,5 @@ public abstract class Character {
     public HashMap<String, Item> getInventory() {
         return inventory;
     }
+
 }
