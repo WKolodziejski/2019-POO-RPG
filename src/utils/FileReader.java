@@ -42,7 +42,7 @@ public class FileReader {
             while (scanner.hasNextLine()) {
                 String data = scanner.nextLine();
                 int enemies = 0;
-                int chests = 0;
+                boolean chest = false;
 
                 if (data.equals("<room>")) {
                     data = scanner.nextLine();
@@ -74,7 +74,7 @@ public class FileReader {
                                 data = scanner.nextLine();
 
                                 while (!data.equals("</chests>")) {
-                                    chests = Integer.parseInt(data);
+                                    chest = Boolean.parseBoolean(data);
                                     data = scanner.nextLine();
                                 }
 
@@ -93,7 +93,7 @@ public class FileReader {
 
                         data = scanner.nextLine();
                     }
-                    rooms.add(new Room(description, chests, enemies));
+                    rooms.add(new Room(description, enemies, chest));
                     exits.add(e);
                 }
             }

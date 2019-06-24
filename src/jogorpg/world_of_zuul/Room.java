@@ -26,17 +26,16 @@ public class Room implements OnDie {
     private HashMap<String, Room> exits;
     private HashMap<String, Character> characters;
     private HashMap<String, Item> items;
-    private List<Chest> chests;
+    private Chest chest;
 
-    public Room(String description, int chestsAmount, int enemiesAmount) {
+    public Room(String description, int enemiesAmount, boolean hasChest) {
         this.description = description;
         this.exits = new HashMap<>();
         this.characters = new HashMap<>();
         this.items = new HashMap<>();
-        this.chests = new ArrayList<>();
 
-        for (int i = 0; i < chestsAmount; i++) {
-            chests.add(new Chest());
+        if (hasChest) {
+            this.chest = new Chest();
         }
 
         for (int i = 0; i < enemiesAmount; i++) {
@@ -58,12 +57,8 @@ public class Room implements OnDie {
         return characters.get(nome);
     }
 
-    public Chest getChest(int i) {
-        if (i > chests.size() || i < 1) {
-            System.out.println("Fala sério");
-            return null;
-        }
-        else return chests.get(i - 1);
+    public Chest getChest() {
+        return chest;
     }
 
     public Character removeEnemy(Character p) {
@@ -103,8 +98,8 @@ public class Room implements OnDie {
             System.out.println("Há inimigos na sala: " + e.substring(0, e.length() - 2));
         }
 
-        if (!chests.isEmpty()) {
-            System.out.println("Você vê " + chests.size() + " baú(s)");
+        if (chest != null) {
+            System.out.println("Você vê um baú");
         }
 
         if (!items.isEmpty()) {

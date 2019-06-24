@@ -31,7 +31,6 @@ public class Game implements OnDie {
     private Parser parser;
     private Room currentRoom;
     private Hero hero;
-    private Chest lastChest;
 
     public Game() {
         currentRoom = FileReader.readRooms();
@@ -42,17 +41,18 @@ public class Game implements OnDie {
     public void play() {
         boolean finished = false;
 
+        System.out.println("Salve aí mermão!");
+
         while (!finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
 
-        System.out.println("Thank you for playing.  Good bye.");
+        System.out.println("Valeu mermão!");
     }
 
     private boolean processCommand(Command command) {
         CommandWord commandWord = command.getCommandWord();
-        lastChest = null;
 
         if(commandWord == CommandWord.UNKNOWN) {
             System.out.println("Eoq?");
@@ -92,27 +92,21 @@ public class Game implements OnDie {
     }
 
     private void openChest(Command command) {
-        if (command.getSecondWord().isBlank()) {
-            System.out.println("Abrir o que?");
-        } else {
-            int i = Integer.parseInt(command.getSecondWord());
-            Chest chest = currentRoom.getChest(i);
+        Chest chest = currentRoom.getChest();
 
-            if (chest != null) {
-                if (chest.open()) {
-                    lastChest = chest;
-                } else {
-                    lastChest = null;
-                }
-            } else {
-                System.out.println("Não tem esse baú aí não");
-            }
+        if (chest != null) {
+            chest.open();
+        } else {
+            System.out.println("Não tem baú aí não");
         }
+
     }
 
     private void takeItem(Command command) {
-        if (lastChest != null) {
-            lastChest.take();
+        Chest chest = currentRoom.getChest();
+
+        if (chest != null) {
+            chest.take();
         } else {
             System.out.println("Pegar oq?");
         }

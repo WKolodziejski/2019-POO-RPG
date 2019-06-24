@@ -6,7 +6,7 @@ no saguão principal
 0
 </enemies>
 <chests>
-3
+true
 </chests>
 <exits>
 1
@@ -21,7 +21,7 @@ no banheiro
 3
 </enemies>
 <chests>
-0
+false
 </chests>
 <exits>
 0
