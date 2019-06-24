@@ -21,7 +21,7 @@ import utils.Generator;
  * @version 2008.03.30
  */
 
-public class Room implements OnDie {
+public class Room {
     private String description;
     private HashMap<String, Room> exits;
     private HashMap<String, Character> characters;
@@ -44,9 +44,15 @@ public class Room implements OnDie {
             if (name.contains(" ")) {
                 nick = name.substring(0, name.indexOf(" "));
             }
-            characters.put(nick, new Enemy(name, this));
-        }
+            characters.put(nick, new Enemy(name, inventory -> {
+                System.out.println("-----Itens Droppados-----");
+                this.items.putAll(inventory);
 
+                inventory.forEach((s, item) -> {
+                    System.out.println(item.getName());
+                });
+            }));
+        }
     }
 
     public void setExit(String direction, Room neighbor) {
@@ -59,6 +65,10 @@ public class Room implements OnDie {
 
     public Chest getChest() {
         return chest;
+    }
+
+    public HashMap<String, Character> getCharacters() {
+        return characters;
     }
 
     public Character removeEnemy(Character p) {
@@ -75,15 +85,6 @@ public class Room implements OnDie {
 
     public void addItem(Item item){
         items.put(item.getName(), item);
-    }
-
-    @Override
-    public void onDie(HashMap<String, Item> inventory) {
-        System.out.println("-----Itens Droppados-----");
-        this.items.putAll(inventory);
-        inventory.forEach((s, item) -> {
-            System.out.println(item.getName());
-        });
     }
 
     public void describe() {

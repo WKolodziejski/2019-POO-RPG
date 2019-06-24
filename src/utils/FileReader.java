@@ -13,7 +13,7 @@ public class FileReader {
         List<String> names = new ArrayList<>();
 
         try {
-            File file = new File("src/data/names");
+            File file = new File("src/data/enemies/common");
             Scanner scanner = new Scanner(file);
 
             while (scanner.hasNextLine()) {
@@ -40,12 +40,12 @@ public class FileReader {
             Scanner scanner = new Scanner(file);
 
             while (scanner.hasNextLine()) {
-                String data = scanner.nextLine();
+                String data = scanner.nextLine().trim();
                 int enemies = 0;
                 boolean chest = false;
 
                 if (data.equals("<room>")) {
-                    data = scanner.nextLine();
+                    data = scanner.nextLine().trim();
                     String description = "";
                     HashMap<Integer, String> e = new HashMap<>();
 
@@ -53,45 +53,45 @@ public class FileReader {
 
                         switch (data) {
                             case "<description>":
-                                data = scanner.nextLine();
+                                data = scanner.nextLine().trim();
 
                                 while (!data.equals("</description>")) {
                                     description = data;
-                                    data = scanner.nextLine();
+                                    data = scanner.nextLine().trim();
                                 }
 
                                 break;
                             case "<enemies>":
-                                data = scanner.nextLine();
+                                data = scanner.nextLine().trim();
 
                                 while (!data.equals("</enemies>")) {
                                     enemies = Integer.parseInt(data);
-                                    data = scanner.nextLine();
+                                    data = scanner.nextLine().trim();
                                 }
 
                                 break;
-                            case "<chests>":
-                                data = scanner.nextLine();
+                            case "<chest>":
+                                data = scanner.nextLine().trim();
 
-                                while (!data.equals("</chests>")) {
+                                while (!data.equals("</chest>")) {
                                     chest = Boolean.parseBoolean(data);
-                                    data = scanner.nextLine();
+                                    data = scanner.nextLine().trim();
                                 }
 
                                 break;
 
                             case "<exits>":
-                                data = scanner.nextLine();
+                                data = scanner.nextLine().trim();
 
                                 while (!data.equals("</exits>")) {
-                                    e.put(Integer.parseInt(data), scanner.nextLine()) ;
-                                    data = scanner.nextLine();
+                                    e.put(Integer.parseInt(data), scanner.nextLine().trim()) ;
+                                    data = scanner.nextLine().trim();
                                 }
 
                                 break;
                         }
 
-                        data = scanner.nextLine();
+                        data = scanner.nextLine().trim();
                     }
                     rooms.add(new Room(description, enemies, chest));
                     exits.add(e);

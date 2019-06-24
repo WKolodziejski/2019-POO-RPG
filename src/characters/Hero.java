@@ -59,7 +59,7 @@ public class Hero extends Character {
     }
 
     public boolean grabCoins(CoinBag pickedBag){  ///retorna se eu peguei todas as moedas da coinbag;
-        CoinBag herosBag = this.getCoinBag();
+        CoinBag herosBag = getCoinBag();
         this.actualWeight -= herosBag.getWeight();
 
         int tmp = herosBag.getAmount() + pickedBag.getAmount();
@@ -77,7 +77,7 @@ public class Hero extends Character {
     }
 
     public boolean useCoins(int coins){
-        CoinBag herosBag = this.getCoinBag();
+        CoinBag herosBag = getCoinBag();
         if(herosBag.getAmount() - coins < 0){
             return false;
         } else {
@@ -93,7 +93,7 @@ public class Hero extends Character {
         int amount = new Scanner(System.in).nextInt();
         if (amount > 0) {
             if (!useCoins(amount)) {
-                amount = this.getCoinBag().getAmount();
+                amount = getCoinBag().getAmount();
                 this.useCoins(amount);
             }
             return new CoinBag("Moedas de " + this.getName(), amount);
@@ -122,7 +122,10 @@ public class Hero extends Character {
         } else {
             System.out.println("Item inexistente");
         }
+    }
 
+    private CoinBag getCoinBag() {
+        return (CoinBag) inventory.get("Moedas");
     }
 
 }

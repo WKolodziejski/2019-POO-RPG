@@ -27,7 +27,7 @@ import java.util.HashMap;
  * @version 2008.03.30
  */
 
-public class Game implements OnDie {
+public class Game {
     private Parser parser;
     private Room currentRoom;
     private Hero hero;
@@ -35,7 +35,7 @@ public class Game implements OnDie {
     public Game() {
         currentRoom = FileReader.readRooms();
         parser = new Parser();
-        hero = new Hero(this);
+        hero = new Hero(inventory -> System.out.println("Você morreu!"));
     }
 
     public void play() {
@@ -67,7 +67,7 @@ public class Game implements OnDie {
             attack(command);
         }
         else if (commandWord == CommandWord.OPEN) {
-            openChest(command);
+            open(command);
         }
         else if (commandWord == CommandWord.TAKE) {
            takeItem(command);
@@ -91,24 +91,42 @@ public class Game implements OnDie {
         return false;
     }
 
-    private void openChest(Command command) {
-        Chest chest = currentRoom.getChest();
-
-        if (chest != null) {
-            chest.open();
+    private void open(Command command) {
+        if (!command.hasSecondWord()) {
+            System.out.println("Abrir o que?");
         } else {
-            System.out.println("Não tem baú aí não");
-        }
+            if (command.getSecondWord().equals("Chest")) {
 
+                Chest chest = currentRoom.getChest();
+
+                if (chest != null) {
+                    chest.open();
+                } else {
+                    System.out.println("Não há baús na sala");
+                }
+            } else {
+                System.out.println("Abrir o que?");
+            }
+        }
     }
 
     private void takeItem(Command command) {
         Chest chest = currentRoom.getChest();
 
         if (chest != null) {
-            chest.take();
+            if (command.hasSecondWord()) {
+                Item item = chest.take(command.getSecondWord());
+
+                if (item == null) {
+                    System.out.println("Esse item não existe");
+                } else {
+                    hero.putItem(item);
+                }
+            } else {
+                System.out.println("Pegar o que?");
+            }
         } else {
-            System.out.println("Pegar oq?");
+            System.out.println("Pegar onde?");
         }
     }
 
@@ -133,8 +151,11 @@ public class Game implements OnDie {
         if (item == null) {
             System.out.println("Pegar o que?");
         } else {
-            if(!hero.putItem(item)){
+            if(hero.putItem(item)) {
+                System.out.println("Você pegou " + item.getName());
+            } else {
                 currentRoom.addItem(item);
+                System.out.println("Sem espaço no inventário!");
             }
         }
     }
@@ -166,8 +187,14 @@ public class Game implements OnDie {
         if (nextRoom == null) {
             System.out.println("Ir onde?");
         } else {
+            for (int i = 0; i < currentRoom.getCharacters().size(); i++) { //se tentar fugir os inimigos atacam
+                hero.decreaseEnergy();
+                hero.print();
+            }
+
             currentRoom = nextRoom;
             currentRoom.describe();
+
         }
     }
 
@@ -177,17 +204,12 @@ public class Game implements OnDie {
 
     private boolean quit(Command command) {
         if(command.hasSecondWord()) {
-            System.out.println("Quit what?");
+            System.out.println("Sair de onde?");
             return false;
         }
         else {
             return true;
         }
-    }
-
-    @Override
-    public void onDie(HashMap<String, Item> inventory) {
-        System.out.println("Você morreu!");
     }
 
 }

@@ -5,8 +5,8 @@ import characters.Character;
 public class Fight {
 
     public static void fight(Character c1, Character c2) {
-        int p1 = c1.luck();
-        int p2 = c2.luck();
+        int p1 = Luck.d6();
+        int p2 = Luck.d6();
 
         if (p1 == p2) {
             c1.decreaseEnergy();

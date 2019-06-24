@@ -20,4 +20,5 @@ public abstract class Item {
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
 }

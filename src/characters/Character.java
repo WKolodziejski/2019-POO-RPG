@@ -19,11 +19,7 @@ public abstract class Character {
         this.energy = energy;
         this.enercyCap = energy;
         this.onDie = onDie;
-        inventory.put("CoinBag", new CoinBag("Saco de moedas do " + name, coins));
-    }
-
-    public CoinBag getCoinBag() {
-        return (CoinBag) inventory.get("CoinBag");
+        inventory.put("Moedas", new CoinBag("Moedas do " + name, coins));
     }
 
     public int getEnergy() {
@@ -45,8 +41,8 @@ public abstract class Character {
         }
     }
 
-    public int luck() {
-        return new Random().nextInt(6) + 1;
+    public HashMap<String, Item> getInventory() {
+        return inventory;
     }
 
     public void print() {
@@ -54,10 +50,6 @@ public abstract class Character {
         System.out.println("# Nome: " + name);
         System.out.println("# Energia: " + energy);
         System.out.println("#####################");
-    }
-
-    public HashMap<String, Item> getInventory() {
-        return inventory;
     }
 
 }

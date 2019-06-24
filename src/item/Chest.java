@@ -22,7 +22,7 @@ public class Chest {
         this.inventory = new HashMap<>();
     }
 
-    public boolean open() {
+    public void open() {
         if (chances > 0) {
             if (!opened) {
                 System.out.println("A senha é um número entre " + base + " e " + (base + 3));
@@ -33,20 +33,16 @@ public class Chest {
                     opened = true;
                     System.out.println("Você abriu o baú");
                     printInventory();
-                    return true;
                 } else {
                     chances--;
                     System.out.println("Você não conseguiu open o baú");
                     open();
-                    return false;
                 }
             } else {
                 printInventory();
-                return true;
             }
         } else {
             System.out.println("Você quebrou a fechadura e agora não é mais possível open o baú");
-            return false;
         }
     }
 
@@ -57,14 +53,14 @@ public class Chest {
             returnString.append(i.getName()).append(", ");
         }
         System.out.println(returnString.toString().substring(0, returnString.length() - 2));
-
     }
 
-    public void take(/*Item*/) {
+    public Item take(String name) {
         if (opened) {
-
+            return inventory.get(name);
         } else {
             System.out.println("O baú está trancado");
+            return null;
         }
     }
 

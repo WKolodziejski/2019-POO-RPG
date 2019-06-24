@@ -17,4 +17,9 @@ public class CoinBag extends Item {
         this.setWeight((int) Math.ceil(this.amount/1000));
     }
 
+    @Override
+    public String getName() {
+        return amount + " moedas";
+    }
+
 }

@@ -1,30 +1,64 @@
 <room>
-<description>
-no saguão principal
-</description>
-<enemies>
-0
-</enemies>
-<chests>
-true
-</chests>
-<exits>
-1
-Porta
-</exits>
+    <description>
+        em frente à usina
+    </description>
+    <enemies>
+        0
+    </enemies>
+    <chest>
+        false
+    </chest>
+    <exits>
+        1
+        Entrada
+    </exits>
 </room>
 <room>
-<description>
-no banheiro
-</description>
-<enemies>
-3
-</enemies>
-<chests>
-false
-</chests>
-<exits>
-0
-Porta
-</exits>
+    <description>
+        no saguão
+    </description>
+    <enemies>
+        0
+    </enemies>
+    <chest>
+        false
+    </chest>
+    <exits>
+        0
+        Rua
+        2
+        Corredor
+    </exits>
+</room>
+<room>
+    <description>
+        no corredor
+    </description>
+    <enemies>
+        0
+    </enemies>
+    <chest>
+        false
+    </chest>
+    <exits>
+        1
+        Saguão
+        3
+        Banheiro
+    </exits>
+</room>
+<room>
+    <description>
+        no banheiro
+    </description>
+    <enemies>
+        1
+    </enemies>
+    <chest>
+        false
+    </chest>
+    <exits>
+        2
+        Corredor
+    </exits>
 </room>
