@@ -18,8 +18,8 @@ public class Fight {
             c1.decreaseEnergy(damage);
         }
 
-        c1.print();
-        c2.print();
+        c1.printLife();
+        c2.printLife();
     }
 
 }

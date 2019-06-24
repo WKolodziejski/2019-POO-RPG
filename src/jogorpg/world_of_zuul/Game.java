@@ -1,14 +1,12 @@
 package jogorpg.world_of_zuul;
 
-import characters.OnDie;
 import item.Chest;
-import item.Item;
+import item.Heal;
+import item.model.Item;
 import mechanics.Fight;
 import characters.Hero;
 import characters.Character;
 import utils.FileReader;
-
-import java.util.HashMap;
 
 /**
  *  This class is the main class of the "World of Zuul" application. 
@@ -68,6 +66,9 @@ public class Game {
         else if (commandWord == CommandWord.ATTACK) {
             attack(command);
         }
+        else if (commandWord == CommandWord.USE) {
+            use(command);
+        }
         else if (commandWord == CommandWord.OPEN) {
             open(command);
         }
@@ -109,6 +110,27 @@ public class Game {
             } else {
                 System.out.println("Abrir o que?");
             }
+        }
+    }
+
+    private void use(Command command) {
+        if (command.hasSecondWord()) {
+            Item item = hero.removeItem(command.getSecondWord());
+
+            if (item != null) {
+                if (item instanceof Heal) {
+                    hero.increaseEnergy(((Heal) item).getHealAmount());
+                    hero.printLife();
+                } else {
+                    System.out.println("Usar isso como?");
+                    hero.putItem(item);
+                }
+            } else {
+                System.out.println("Usar o que?");
+            }
+
+        } else {
+            System.out.println("Usar o que?");
         }
     }
 
@@ -192,7 +214,7 @@ public class Game {
 
             currentRoom.getCharacters().forEach((s, character) -> {
                 hero.decreaseEnergy(character.getAttack() / (1 + hero.getDefense() / 10));
-                hero.print();
+                hero.printLife();
             });
 
             currentRoom = nextRoom;

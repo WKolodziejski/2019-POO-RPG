@@ -1,5 +1,7 @@
 package item;
 
+import item.model.Item;
+
 public class CoinBag extends Item {
     private int amount;
 
@@ -20,6 +22,11 @@ public class CoinBag extends Item {
     @Override
     public String getName() {
         return amount + " moedas";
+    }
+
+    @Override
+    public boolean isConsumable() {
+        return false;
     }
 
 }

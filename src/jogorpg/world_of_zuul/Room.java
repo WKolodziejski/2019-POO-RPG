@@ -1,8 +1,8 @@
 package jogorpg.world_of_zuul;
 import java.util.*;
-import characters.OnDie;
+
 import item.Chest;
-import item.Item;
+import item.model.Item;
 import characters.Character;
 import characters.Enemy;
 import utils.Generator;

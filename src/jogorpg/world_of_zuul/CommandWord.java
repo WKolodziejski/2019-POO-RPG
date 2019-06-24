@@ -14,6 +14,7 @@ public enum CommandWord {
     HELP("help"),
 
     ATTACK("attack"),
+    USE("use"),
 
     OPEN("open"),
     CLOSE("close"),

@@ -1,4 +1,4 @@
-package item;
+package item.model;
 
 public abstract class Item {
     private String name;
@@ -20,5 +20,7 @@ public abstract class Item {
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
+    public  abstract boolean isConsumable();
 
 }

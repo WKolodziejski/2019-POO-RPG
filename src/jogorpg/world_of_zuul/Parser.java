@@ -42,7 +42,7 @@ public class Parser
         String word1 = null;
         String word2 = null;
 
-        System.out.print("> ");     // print prompt
+        System.out.print("> ");     // printLife prompt
 
         inputLine = reader.nextLine();
 

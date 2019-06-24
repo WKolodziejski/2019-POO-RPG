@@ -1,5 +1,7 @@
 package item;
 
+import item.model.Equipment;
+
 public class Weapon extends Equipment {
     private int damage;
 
@@ -11,4 +13,5 @@ public class Weapon extends Equipment {
     public int getDamage() {
         return damage;
     }
+
 }

@@ -1,6 +1,6 @@
 package characters;
 
-import item.Item;
+import item.model.Item;
 
 import java.util.HashMap;
 

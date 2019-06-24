@@ -1,4 +1,4 @@
-package item;
+package item.model;
 
 public abstract class Boosting_Equipment extends Equipment {
     protected int bonus;
