@@ -1,14 +1,11 @@
 package jogorpg.world_of_zuul;
-
 import java.util.*;
-
 import characters.OnDie;
 import item.Chest;
 import item.Item;
 import characters.Character;
 import characters.Enemy;
 import utils.Generator;
-
 
 /**
  * Class Room - a room in an adventure game.
@@ -27,14 +24,14 @@ import utils.Generator;
 public class Room implements OnDie {
     private String description;
     private HashMap<String, Room> exits;
-    private HashMap<String, Character> personagens;
+    private HashMap<String, Character> characters;
     private HashMap<String, Item> items;
     private List<Chest> chests;
 
     public Room(String description, int chestsAmount, int enemiesAmount) {
         this.description = description;
         this.exits = new HashMap<>();
-        this.personagens = new HashMap<>();
+        this.characters = new HashMap<>();
         this.items = new HashMap<>();
         this.chests = new ArrayList<>();
 
@@ -48,41 +45,17 @@ public class Room implements OnDie {
             if (name.contains(" ")) {
                 nick = name.substring(0, name.indexOf(" "));
             }
-            personagens.put(nick, new Enemy(name, this));
+            characters.put(nick, new Enemy(name, this));
         }
 
     }
 
-    /**
-     * Define an exit from this room.
-     * @param direction The direction of the exit.
-     * @param neighbor  The room to which the exit leads.
-     */
     public void setExit(String direction, Room neighbor) {
         exits.put(direction, neighbor);
     }
 
-    /**
-     * @return The short description of the room
-     * (the one that was defined in the constructor).
-     */
-    public String getShortDescription()
-    {
-        return description;
-    }
-
-    /**
-     * Return a description of the room in the form:
-     *     You are in the kitchen.
-     *     Exits: north west
-     * @return A long description of this room
-     */
-    public String getLongDescription() {
-        return "Você está " + description + ".\n" + getExitString() + ".\n" + getPersonagensString();
-    }
-
-    public Character getAdversario(String nome) {
-        return personagens.get(nome);
+    public Character getEnemy(String nome) {
+        return characters.get(nome);
     }
 
     public Chest getChest(int i) {
@@ -93,39 +66,10 @@ public class Room implements OnDie {
         else return chests.get(i - 1);
     }
 
-    public Character removeAdversario(Character p) {
-        return personagens.remove(p.getName());
+    public Character removeEnemy(Character p) {
+        return characters.remove(p.getName());
     }
 
-    /**
-     * Return a string describing the room's exits, for example
-     * "Exits: north west".
-     * @return Details of the room's exits.
-     */
-    private String getExitString() {
-        String returnString = "Caminhos:";
-        Set<String> keys = exits.keySet();
-        for(String exit : keys) {
-            returnString += " " + exit;
-        }
-        return returnString;
-    }
-
-    private String getPersonagensString() {
-        StringBuilder returnString = new StringBuilder("Personagens: ");
-        Collection<Character> keys = personagens.values();
-        for (Character p : keys) {
-            returnString.append(p.getName()).append(", ");
-        }
-        return returnString.toString().substring(0, returnString.length() - 2);
-    }
-
-    /**
-     * Return the room that is reached if we go from this room in direction
-     * "direction". If there is no room in that direction, return null.
-     * @param direction The exit's direction.
-     * @return The room in the given direction.
-     */
     public Room getExit(String direction) {
         return exits.get(direction);
     }
@@ -138,10 +82,6 @@ public class Room implements OnDie {
         items.put(item.getName(), item);
     }
 
-    public void dropAllItems(Character character){
-        items.putAll(character.getInventory());
-    }
-
     @Override
     public void onDie(HashMap<String, Item> inventory) {
         System.out.println("-----Itens Droppados-----");
@@ -149,6 +89,31 @@ public class Room implements OnDie {
         inventory.forEach((s, item) -> {
             System.out.println(item.getName());
         });
+    }
+
+    public void describe() {
+        System.out.println("Você está " + description + ".");
+        System.out.println("Você pode ir para " + exits.keySet());
+
+        if (!characters.isEmpty()) {
+            String e = "";
+            for (Character c : characters.values()) {
+                e = e.concat(c.getName()).concat(", ");
+            }
+            System.out.println("Há inimigos na sala: " + e.substring(0, e.length() - 2));
+        }
+
+        if (!chests.isEmpty()) {
+            System.out.println("Você vê " + chests.size() + " baú(s)");
+        }
+
+        if (!items.isEmpty()) {
+            String s = "";
+            for (Item i : items.values()) {
+                s = s.concat(i.getName()).concat(", ");
+            }
+            System.out.println("Há itens no chão: " + s.substring(0, s.length() - 2));
+        }
     }
 
 }

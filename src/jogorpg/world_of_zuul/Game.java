@@ -40,8 +40,6 @@ public class Game implements OnDie {
     }
 
     public void play() {
-        printWelcome();
-                
         boolean finished = false;
 
         while (!finished) {
@@ -52,31 +50,14 @@ public class Game implements OnDie {
         System.out.println("Thank you for playing.  Good bye.");
     }
 
-    private void printWelcome() {
-        System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
-        System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
-        System.out.println();
-        System.out.println(currentRoom.getLongDescription());
-    }
-
-    /**
-     * Given a command, process (that is: execute) the command.
-     * @param command The command to be processed.
-     * @return true If the command ends the game, false otherwise.
-     */
     private boolean processCommand(Command command) {
-        boolean wantToQuit = false;
-
         CommandWord commandWord = command.getCommandWord();
         lastChest = null;
 
         if(commandWord == CommandWord.UNKNOWN) {
             System.out.println("Eoq?");
-            return false;
         }
-        if (commandWord == CommandWord.HELP) {
+        else if (commandWord == CommandWord.HELP) {
             printHelp();
         }
         else if (commandWord == CommandWord.GO) {
@@ -97,11 +78,17 @@ public class Game implements OnDie {
         else if (commandWord == CommandWord.DROP) {
             drop(command);
         }
+        else if (commandWord == CommandWord.LOOK) {
+            look(command);
+        }
+        else if (commandWord == CommandWord.INVENTORY) {
+            inventory(command);
+        }
         else if (commandWord == CommandWord.QUIT) {
-            wantToQuit = quit(command);
+            return quit(command);
         }
 
-        return wantToQuit;
+        return false;
     }
 
     private void openChest(Command command) {
@@ -131,12 +118,16 @@ public class Game implements OnDie {
         }
     }
 
+    private void inventory(Command command) {
+        hero.getInventory().forEach((s, item) -> System.out.println(item.getName()));
+    }
+
     private void attack(Command command) {
-        Character character = currentRoom.getAdversario(command.getSecondWord());
+        Character character = currentRoom.getEnemy(command.getSecondWord());
         if (character != null) {
             Fight.fight(hero, character);
             if (character.getEnergy() <= 0) {
-                currentRoom.removeAdversario(character);
+                currentRoom.removeEnemy(character);
             }
         } else
             System.out.println("Atacar quem?");
@@ -165,30 +156,29 @@ public class Game implements OnDie {
     }
 
     private void printHelp() {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
-        System.out.println();
-        System.out.println("Your command words are:");
         parser.showCommands();
     }
 
     private void goRoom(Command command) {
         if(!command.hasSecondWord()) {
-            System.out.println("Go where?");
+            System.out.println("Ir onde?");
             return;
         }
 
         String direction = command.getSecondWord();
 
-        // Try to leave current room.
         Room nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {
-            System.out.println("There is no door!");
+            System.out.println("Ir onde?");
         } else {
             currentRoom = nextRoom;
-            System.out.println(currentRoom.getLongDescription());
+            currentRoom.describe();
         }
+    }
+
+    private void look(Command command) {
+        currentRoom.describe();
     }
 
     private boolean quit(Command command) {
@@ -197,7 +187,7 @@ public class Game implements OnDie {
             return false;
         }
         else {
-            return true;  // signal that we want to quit
+            return true;
         }
     }
 

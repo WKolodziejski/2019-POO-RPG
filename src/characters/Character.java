@@ -19,7 +19,7 @@ public abstract class Character {
         this.energy = energy;
         this.enercyCap = energy;
         this.onDie = onDie;
-        inventory.put("CoinBag", new CoinBag("Saco de moeada do " + name, coins));
+        inventory.put("CoinBag", new CoinBag("Saco de moedas do " + name, coins));
     }
 
     public CoinBag getCoinBag() {

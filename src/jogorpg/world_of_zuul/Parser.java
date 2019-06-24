@@ -62,8 +62,7 @@ public class Parser
     /**
      * Print out a list of valid command words.
      */
-    public void showCommands()
-    {
+    public void showCommands(){
         commands.showAll();
     }
 }

@@ -123,6 +123,6 @@ public class Hero extends Character {
             System.out.println("Item inexistente");
         }
 
-    };
+    }
 
 }
