@@ -13,7 +13,7 @@ import java.util.Random;
 public class Enemy extends Character {
     
     public Enemy(String name, OnDie onDie) {
-        super(name, /*new Random().nextInt(10) + */1, new Random().nextInt(101), onDie);
+        super(name, new Random().nextInt(10) + 1, new Random().nextInt(10) + 1, new Random().nextInt(10) + 1, new Random().nextInt(101), onDie);
     }
 
     public void checkInventory() {

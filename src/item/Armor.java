@@ -11,4 +11,5 @@ public class Armor extends Equipment {
     public int getDamageReduction() {
         return damageReduction;
     }
+
 }

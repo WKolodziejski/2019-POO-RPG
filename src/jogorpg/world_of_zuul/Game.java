@@ -35,15 +35,17 @@ public class Game {
     public Game() {
         currentRoom = FileReader.readRooms();
         parser = new Parser();
-        hero = new Hero(inventory -> System.out.println("Você morreu!"));
+        hero = new Hero(inventory -> {
+            System.out.println("Você morreu!");
+        });
     }
 
     public void play() {
-        boolean finished = false;
-
         System.out.println("Salve aí mermão!");
 
-        while (!finished) {
+        boolean finished = false;
+
+        while (!finished && hero.getEnergy() > 0) {
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
@@ -131,7 +133,7 @@ public class Game {
     }
 
     private void inventory(Command command) {
-        hero.getInventory().forEach((s, item) -> System.out.println(item.getName()));
+        hero.printInventory();
     }
 
     private void attack(Command command) {
@@ -187,10 +189,11 @@ public class Game {
         if (nextRoom == null) {
             System.out.println("Ir onde?");
         } else {
-            for (int i = 0; i < currentRoom.getCharacters().size(); i++) { //se tentar fugir os inimigos atacam
-                hero.decreaseEnergy();
+
+            currentRoom.getCharacters().forEach((s, character) -> {
+                hero.decreaseEnergy(character.getAttack() / (1 + hero.getDefense() / 10));
                 hero.print();
-            }
+            });
 
             currentRoom = nextRoom;
             currentRoom.describe();

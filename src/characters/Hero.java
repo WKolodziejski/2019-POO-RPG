@@ -10,7 +10,7 @@ public class Hero extends Character {
     private Item[] equipped;
 
     public Hero(OnDie onDie) {
-        super("Cleytinho", 10, 0, onDie);
+        super("Cleytinho", 10, 0, 0, 0, onDie);
         this.maxWeight = 10;
         this.equipped = new Item[2];
     }
@@ -50,8 +50,8 @@ public class Hero extends Character {
         increaseEnergy();
     }
 
-    public boolean increaseWeightBy(int weight) {
-        if(this.actualWeight + weight <= this.maxWeight){
+    private boolean increaseWeightBy(int weight) {
+        if (this.actualWeight + weight <= this.maxWeight) {
             this.actualWeight += weight;
             return true;
         }
@@ -83,7 +83,7 @@ public class Hero extends Character {
         } else {
             this.actualWeight -= herosBag.getWeight();
             herosBag.setAmount(herosBag.getAmount() - coins);
-            this.increaseWeightBy(herosBag.getWeight());
+            increaseWeightBy(herosBag.getWeight());
             return true;
         }
     }
@@ -96,7 +96,7 @@ public class Hero extends Character {
                 amount = getCoinBag().getAmount();
                 this.useCoins(amount);
             }
-            return new CoinBag("Moedas de " + this.getName(), amount);
+            return new CoinBag("Moedas de " + getName(), amount);
         } else {
             return null;
         }
@@ -126,6 +126,10 @@ public class Hero extends Character {
 
     private CoinBag getCoinBag() {
         return (CoinBag) inventory.get("Moedas");
+    }
+
+    public void printInventory() {
+        inventory.forEach((s, item) -> System.out.println(item.getName()));
     }
 
 }
