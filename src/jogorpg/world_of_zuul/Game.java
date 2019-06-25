@@ -87,11 +87,18 @@ public class Game {
         else if (commandWord == CommandWord.INVENTORY) {
             inventory(command);
         }
+        else if (commandWord == CommandWord.ME) {
+            me(command);
+        }
         else if (commandWord == CommandWord.QUIT) {
             return quit(command);
         }
 
         return false;
+    }
+
+    private void me(Command command) {
+        hero.printLife();
     }
 
     private void open(Command command) {
@@ -119,8 +126,11 @@ public class Game {
 
             if (item != null) {
                 if (item instanceof Heal) {
-                    hero.increaseEnergy(((Heal) item).getHealAmount());
-                    hero.printLife();
+                    if (hero.increaseEnergy(((Heal) item).getHealAmount())) {
+                        hero.printLife();
+                    } else {
+                        hero.putItem(item);
+                    }
                 } else {
                     System.out.println("Usar isso como?");
                     hero.putItem(item);

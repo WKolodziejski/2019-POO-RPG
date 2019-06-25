@@ -12,6 +12,7 @@ public enum CommandWord {
     GO("go"),
     QUIT("quit"),
     HELP("help"),
+    ME("me"),
 
     ATTACK("attack"),
     USE("use"),

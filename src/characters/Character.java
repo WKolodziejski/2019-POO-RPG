@@ -13,7 +13,7 @@ public abstract class Character {
     private int maxWeight;
     private String name;
     private int energy;
-    private int enercyCap;
+    private int energyCap;
     private int attack;
     private int defense;
 
@@ -23,7 +23,7 @@ public abstract class Character {
         this.energy = energy;
         this.attack = attack;
         this.defense = defense;
-        this.enercyCap = energy;
+        this.energyCap = energy;
         this.maxWeight = maxWeight;
         this.onDie = onDie;
         inventory.put("Moedas", new CoinBag("Moedas do " + name, coins));
@@ -37,8 +37,20 @@ public abstract class Character {
         return name;
     }
 
-    public void increaseEnergy(int amount) {
-        energy += (energy + amount <= enercyCap) ? amount : enercyCap;
+    public boolean increaseEnergy(int amount) {
+        if (energy + amount <= energyCap) {
+            energy += amount;
+            System.out.println("Recuperou " + amount + " pontos de vida");
+        } else {
+            if (energy == energyCap) {
+                System.out.println("Vida já está no máximo");
+                return false;
+            } else {
+                System.out.println("Recuperou " + (energyCap - energy) + " pontos de vida");
+                energy = energyCap;
+            }
+        }
+        return true;
     }
 
     public void decreaseEnergy(int amount) {

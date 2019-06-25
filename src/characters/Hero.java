@@ -6,7 +6,6 @@ import item.model.Equipment;
 import item.model.Item;
 
 public class Hero extends Character {
-
     private Item[] equipped;
     private Weapon weapon;
     private Armor armor;
