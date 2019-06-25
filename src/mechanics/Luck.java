@@ -1,15 +1,15 @@
 package mechanics;
 
-import java.util.Random;
+import utils.Generator;
 
 public class Luck {
 
     public static int d6() {
-        return new Random().nextInt(6) + 1;
+        return Generator.get().number(6);
     }
 
     public static int d20() {
-        return new Random().nextInt(20) + 1;
+        return Generator.get().number(20);
     }
 
 }

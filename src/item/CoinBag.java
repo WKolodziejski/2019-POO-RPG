@@ -29,4 +29,9 @@ public class CoinBag extends Item {
         return false;
     }
 
+    @Override
+    public String getKey() {
+        return "Moedas";
+    }
+
 }

@@ -1,24 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package characters;
 
 import item.model.Item;
-
-import java.util.Random;
+import utils.Generator;
+import utils.Item_Creator;
 
 public class Enemy extends Character {
     
-    public Enemy(String name, OnDie onDie) {
-        super(name,
-                new Random().nextInt(10) + 1,
-                new Random().nextInt(10) + 1,
-                new Random().nextInt(10) + 1,
-                new Random().nextInt(101),
-                new Random().nextInt(10) + 1,
+    public Enemy(OnDie onDie) {
+        super(Generator.get().name(),
+                Generator.get().number(10),
+                Generator.get().number(10),
+                Generator.get().number(10),
+                Generator.get().number(100),
+                Generator.get().number(10),
                 onDie);
+
+        for (int i = 0; i < Generator.get().number(3); i++) {
+            Item item = Item_Creator.get().getRandom();
+            inventory.put(item.getKey(), item);
+        }
     }
 
     public void checkInventory() {

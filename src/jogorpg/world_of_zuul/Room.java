@@ -1,25 +1,10 @@
 package jogorpg.world_of_zuul;
-import java.util.*;
 
+import java.util.*;
 import item.Chest;
 import item.model.Item;
 import characters.Character;
 import characters.Enemy;
-import utils.Generator;
-
-/**
- * Class Room - a room in an adventure game.
- *
- * This class is part of the "World of Zuul" application.
- * "World of Zuul" is a very simple, text based adventure game.
- *
- * A "Room" represents one location in the scenery of the game.  It is
- * connected to other rooms via exits.  For each existing exit, the room
- * stores a reference to the neighboring room.
- *
- * @author  Michael Kolling and David J. Barnes
- * @version 2008.03.30
- */
 
 public class Room {
     private String description;
@@ -39,19 +24,16 @@ public class Room {
         }
 
         for (int i = 0; i < enemiesAmount; i++) {
-            String name = Generator.get().name();
-            String nick = name;
-            if (name.contains(" ")) {
-                nick = name.substring(0, name.indexOf(" "));
-            }
-            characters.put(nick, new Enemy(name, inventory -> {
+
+            Enemy enemy = new Enemy(inventory -> {
                 System.out.println("-----Itens Droppados-----");
                 this.items.putAll(inventory);
-
                 inventory.forEach((s, item) -> {
                     System.out.println(item.getName());
                 });
-            }));
+            });
+
+            characters.put(enemy.getKey(), enemy);
         }
     }
 

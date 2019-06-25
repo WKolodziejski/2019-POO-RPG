@@ -8,11 +8,11 @@ public class Boss extends Character {
 
     public Boss(OnDie onDie) {
         super(Generator.get().name(),
-                new Random().nextInt(10) + 1,
-                new Random().nextInt(10) + 1,
-                new Random().nextInt(10) + 1,
-                new Random().nextInt(1000) + 1000,
-                new Random().nextInt(10) + 1,
+                Generator.get().number(10),
+                Generator.get().number(10),
+                Generator.get().number(10),
+                Generator.get().number(100) + 1000,
+                Generator.get().number(10),
                 onDie);
     }
 

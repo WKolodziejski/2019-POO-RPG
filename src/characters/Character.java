@@ -104,7 +104,7 @@ public abstract class Character {
             if(item instanceof CoinBag){
                 return dropCoins();
             } else {
-                inventory.remove(item);
+                inventory.remove(name);
                 curWeight -= item.getWeight();
                 return item;
             }
@@ -154,11 +154,7 @@ public abstract class Character {
             return grabCoins((CoinBag) item);
         } else {
             if (increaseWeightBy(item.getWeight())) {
-                String name = item.getName();
-                if (name.contains(" ")) {
-                    name = name.substring(0, name.indexOf(" "));
-                }
-                inventory.put(name, item);
+                inventory.put(item.getKey(), item);
                 return true;
             } else {
                 return false;
@@ -187,6 +183,14 @@ public abstract class Character {
 
     public void printInventory() {
         inventory.forEach((s, item) -> System.out.println(item.getName()));
+    }
+
+    public String getKey() {
+        if (name.contains(" ")) {
+            return name.substring(0, name.indexOf(" "));
+        } else {
+            return name;
+        }
     }
 
 }

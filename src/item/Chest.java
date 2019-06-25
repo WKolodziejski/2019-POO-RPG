@@ -1,6 +1,7 @@
 package item;
 
 import item.model.Item;
+import utils.Generator;
 import utils.Item_Creator;
 
 import java.util.Collection;
@@ -16,23 +17,24 @@ public class Chest {
     private boolean opened;
 
     public Chest() {
-        this.base = new Random().nextInt(6);
-        this.password = base + new Random().nextInt(4);
+        this.base = Generator.get().number(6);
+        this.password = base + Generator.get().number(4);
 
         System.out.println(password);
 
         this.chances = 2;
         this.inventory = new HashMap<>();
 
-        Item_Creator i = new Item_Creator();
-
-        this.inventory.put("Item", i.getRandom());
+        for (int i = 0; i < Generator.get().number(6); i++) {
+            Item item = Item_Creator.get().getRandom();
+            inventory.put(item.getKey(), item);
+        }
     }
 
     public void open() {
         if (chances > 0) {
             if (!opened) {
-                System.out.println("A senha é um número entre " + base + " e " + (base + 3));
+                System.out.println("A senha é um número entre " + base + " e " + (base + 4));
                 Scanner reader = new Scanner(System.in);
                 int tryal = reader.nextInt();
 
