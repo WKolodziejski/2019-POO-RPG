@@ -28,7 +28,7 @@ public class Item_Creator{
     public Item get(int category, int lvl, String owner){
         switch (category){
             case 0: return createCoinBag(lvl, owner);
-            case 1: return createHeal(lvl, owner);
+            case 1: return createHeal(lvl);
             case 2: return createRing(lvl, owner);
             case 3: return createWeapon(lvl, owner);
             case 4: return createArm_Piece(lvl, owner);
@@ -44,7 +44,7 @@ public class Item_Creator{
         return new CoinBag("Moedas do " + owner, (r.nextInt(15) + 5)*(lvl+1));
     }
 
-    public Item createHeal(int lvl, String owner){
+    public Item createHeal(int lvl){
         return new Heal("Poção " + levels[lvl], 1, (r.nextInt(2) + 1)*(lvl+1));
     }
 
