@@ -13,12 +13,14 @@ public class Item_Creator {
     private Random r;
     private Item_Category[] categories;
     private Bonus.Type[] bonus;
+    private Level[] levels;
     private static Item_Creator item_creator;
 
     private Item_Creator() {
         this.r = new Random();
         this.categories = Item_Category.values();
         this.bonus = Bonus.Type.values();
+        this.levels = Level.values();
     }
 
     public static synchronized Item_Creator get() {
@@ -48,19 +50,11 @@ public class Item_Creator {
     }
 
     private Item createCoinBag(int lvl){
-        int lvlCorrigido = lvl;
-        while(lvlCorrigido>=Level.values().length){
-            lvlCorrigido = (int) Math.ceil(lvlCorrigido/2);
-        }
-        return new CoinBag("Saco de moedas " + Level.values()[lvlCorrigido], (r.nextInt(15) + 5)*(lvl+1));
+        return new CoinBag("Saco de moedas " + levels[(lvl<levels.length ? lvl : levels.length-1)], (r.nextInt(15) + 5)*(lvl+1));
     }
 
     private Item createHeal(int lvl){
-        int lvlCorrigido = lvl;
-        while(lvlCorrigido>=Level.values().length){
-            lvlCorrigido = (int) Math.ceil(lvlCorrigido/2);
-        }
-        return new Heal("Poção " + Level.values()[lvlCorrigido], 1, (r.nextInt(2) + 1)*(lvl+1));
+        return new Heal("Poção " + levels[(lvl<levels.length ? lvl : levels.length-1)], 1, (r.nextInt(2) + 1)*(lvl+1));
     }
 
     private Item createRing(int lvl) {
