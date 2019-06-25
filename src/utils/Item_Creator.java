@@ -48,11 +48,19 @@ public class Item_Creator {
     }
 
     private Item createCoinBag(int lvl){
-        return new CoinBag("Saco de moedas " + Level.values()[lvl], (r.nextInt(15) + 5)*(lvl+1));
+        int lvlCorrigido = lvl;
+        while(lvlCorrigido>=Level.values().length){
+            lvlCorrigido = (int) Math.ceil(lvlCorrigido/2);
+        }
+        return new CoinBag("Saco de moedas " + Level.values()[lvlCorrigido], (r.nextInt(15) + 5)*(lvl+1));
     }
 
     private Item createHeal(int lvl){
-        return new Heal("Poção " + Level.values()[lvl], 1, (r.nextInt(2) + 1)*(lvl+1));
+        int lvlCorrigido = lvl;
+        while(lvlCorrigido>=Level.values().length){
+            lvlCorrigido = (int) Math.ceil(lvlCorrigido/2);
+        }
+        return new Heal("Poção " + Level.values()[lvlCorrigido], 1, (r.nextInt(2) + 1)*(lvl+1));
     }
 
     private Item createRing(int lvl) {
