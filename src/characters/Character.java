@@ -2,7 +2,6 @@ package characters;
 
 import item.CoinBag;
 import item.model.Bonus;
-import item.model.Equipment;
 import item.model.Item;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -10,7 +9,7 @@ import java.util.Scanner;
 public abstract class Character {
     private OnDie onDie;
     protected HashMap<String, Item> inventory;
-    private int actualWeight;
+    private int curWeight;
     private int maxWeight;
     private String name;
     private int energy;
@@ -81,8 +80,8 @@ public abstract class Character {
         return defense + bonus;
     }
 
-    public int getActualWeight() {
-        return actualWeight;
+    public int getCurWeight() {
+        return curWeight;
     }
 
     public int getMaxWeight() {
@@ -106,15 +105,15 @@ public abstract class Character {
                 return dropCoins();
             } else {
                 inventory.remove(item);
-                actualWeight -= item.getWeight();
+                curWeight -= item.getWeight();
                 return item;
             }
         } else return null;
     }
 
     private boolean increaseWeightBy(int weight) {
-        if (actualWeight + weight <= getMaxWeight()) {
-            actualWeight += weight;
+        if (curWeight + weight <= getMaxWeight()) {
+            curWeight += weight;
             return true;
         }
         return false;
@@ -122,7 +121,7 @@ public abstract class Character {
 
     public boolean grabCoins(CoinBag pickedBag){  ///retorna se eu peguei todas as moedas da coinbag;
         CoinBag herosBag = getCoinBag();
-        actualWeight -= herosBag.getWeight();
+        curWeight -= herosBag.getWeight();
 
         int tmp = herosBag.getAmount() + pickedBag.getAmount();
 
@@ -130,7 +129,7 @@ public abstract class Character {
             herosBag.setAmount(tmp);
             return true;
         } else {
-            int maxAmount = (getMaxWeight() - actualWeight) * 1000;
+            int maxAmount = (getMaxWeight() - curWeight) * 1000;
             herosBag.setAmount(maxAmount);
             increaseWeightBy(herosBag.getWeight());
             pickedBag.setAmount(maxAmount - tmp);
@@ -143,7 +142,7 @@ public abstract class Character {
         if(herosBag.getAmount() - coins < 0){
             return false;
         } else {
-            this.actualWeight -= herosBag.getWeight();
+            this.curWeight -= herosBag.getWeight();
             herosBag.setAmount(herosBag.getAmount() - coins);
             increaseWeightBy(herosBag.getWeight());
             return true;

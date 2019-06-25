@@ -1,18 +1,18 @@
-package item;
+package item.model;
 
 import item.model.Bonus;
 import item.model.Equipment;
 
-public class Armor extends Equipment implements Bonus {
+public abstract class Armor extends Equipment implements Bonus {
     private Type bonusType;
     private int bonusAmount;
     private int defense;
 
-    public Armor(String name, int weight, int defense, int bonus) {
+    public Armor(String name, int weight, int defense, int bonus, Type bonusType) {
         super(name, weight);
         this.defense = defense;
         this.bonusAmount = bonus;
-        this.bonusType = Type.WEIGHT;
+        this.bonusType = bonusType;
     }
 
     public int getDefense() {

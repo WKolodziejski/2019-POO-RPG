@@ -1,6 +1,7 @@
 package characters;
 
 import item.*;
+import item.model.Armor;
 import item.model.Equipment;
 import item.model.Item;
 
