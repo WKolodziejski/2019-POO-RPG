@@ -45,7 +45,7 @@ public class Generator {
     }
 
     public int number(int bound) {
-        return random.nextInt(bound) + 1;
+        return random.nextInt(bound);
     }
 
 }
