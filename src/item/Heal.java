@@ -15,6 +15,11 @@ public class Heal extends Item {
         return true;
     }
 
+    @Override
+    public int getPrice() {
+        return healAmount * 100;
+    }
+
     public int getHealAmount() {
         return healAmount;
     }

@@ -5,7 +5,7 @@ public enum Level {
     BAD("pessimo"),
     GOOD("mediano"),
     GREAT("grande"),
-    LEGENDARY("look");
+    LEGENDARY("lendário");
 
     private String level;
 

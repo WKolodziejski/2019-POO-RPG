@@ -56,17 +56,29 @@ public class Chest {
     }
 
     private void printInventory() {
-        StringBuilder returnString = new StringBuilder("Itens: ");
-        Collection<Item> keys = inventory.values();
-        for (Item i : keys) {
-            returnString.append(i.getName()).append(", ");
+        if (!inventory.isEmpty()) {
+            System.out.println("Itens:");
+
+            inventory.forEach((s, item) -> {
+                System.out.println(item.getName());
+            });
+
+        } else {
+            System.out.println("Não há itens");
         }
-        System.out.println(returnString.toString().substring(0, returnString.length() - 2));
     }
 
     public Item take(String name) {
         if (opened) {
-            return inventory.get(name);
+            Item item = inventory.get(name);
+
+            if (item != null) {
+                inventory.remove(name);
+                return item;
+            } else {
+                System.out.println("Esse item não existe");
+                return null;
+            }
         } else {
             System.out.println("O baú está trancado");
             return null;

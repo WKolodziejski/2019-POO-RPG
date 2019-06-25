@@ -19,6 +19,7 @@ public enum CommandWord {
 
     OPEN("open"),
     CLOSE("close"),
+    BUY("buy"),
 
     TAKE("take"),
     PICK("pick"),

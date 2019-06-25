@@ -14,4 +14,9 @@ public class Weapon extends Equipment {
         return damage;
     }
 
+    @Override
+    public int getPrice() {
+        return damage * getDurability();
+    }
+
 }

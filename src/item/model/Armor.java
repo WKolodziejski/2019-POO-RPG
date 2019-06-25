@@ -29,4 +29,9 @@ public abstract class Armor extends Equipment implements Bonus {
         return bonusAmount;
     }
 
+    @Override
+    public int getPrice() {
+        return getDefense() * bonusAmount();
+    }
+
 }

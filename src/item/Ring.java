@@ -23,4 +23,9 @@ public class Ring extends Equipment implements Bonus {
         return bonusAmount;
     }
 
+    @Override
+    public int getPrice() {
+        return bonusAmount * 100;
+    }
+
 }

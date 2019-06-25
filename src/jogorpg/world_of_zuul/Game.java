@@ -2,6 +2,7 @@ package jogorpg.world_of_zuul;
 
 import item.Chest;
 import item.Heal;
+import item.VendingMachine;
 import item.model.Item;
 import mechanics.Fight;
 import characters.Hero;
@@ -90,6 +91,9 @@ public class Game {
         else if (commandWord == CommandWord.ME) {
             me(command);
         }
+        else if (commandWord == CommandWord.BUY) {
+            buy(command);
+        }
         else if (commandWord == CommandWord.QUIT) {
             return quit(command);
         }
@@ -114,9 +118,39 @@ public class Game {
                 } else {
                     System.out.println("Não há baús na sala");
                 }
+            } else if (command.getSecondWord().equals("Vending")) {
+                VendingMachine machine = currentRoom.getMachine();
+
+                if (machine != null) {
+                    machine.printInventory();
+                } else {
+                    System.out.println("Não há máquinas na sala");
+                }
+
             } else {
                 System.out.println("Abrir o que?");
             }
+        }
+    }
+
+    private void buy(Command command) {
+        VendingMachine machine = currentRoom.getMachine();
+
+        if (machine != null) {
+            if (command.hasSecondWord()) {
+                Item item = machine.buy(command.getSecondWord(), hero.getCoinBag());
+
+                if (item != null) {
+                    if(!hero.putItem(item)){
+                        currentRoom.addItem(item);
+                        System.out.println("Item está no chão");
+                    }
+                }
+            } else {
+                System.out.println("Comprar o que?");
+            }
+        } else {
+            System.out.println("Comprar onde?");
         }
     }
 
@@ -151,11 +185,11 @@ public class Game {
             if (command.hasSecondWord()) {
                 Item item = chest.take(command.getSecondWord());
 
-                if (item == null) {
-                    System.out.println("Esse item não existe");
-                } else {
-                    hero.putItem(item);
-                    System.out.println("Item adicionado ao inventário");
+                if (item != null) {
+                    if(!hero.putItem(item)) {
+                        currentRoom.addItem(item);
+                        System.out.println("Item está no chão");
+                    }
                 }
             } else {
                 System.out.println("Pegar o que?");
@@ -186,11 +220,8 @@ public class Game {
         if (item == null) {
             System.out.println("Pegar o que?");
         } else {
-            if(hero.putItem(item)) {
-                System.out.println("Você pegou " + item.getName());
-            } else {
+            if(!hero.putItem(item)) {
                 currentRoom.addItem(item);
-                System.out.println("Sem espaço no inventário!");
             }
         }
     }

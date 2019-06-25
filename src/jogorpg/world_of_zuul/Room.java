@@ -2,6 +2,7 @@ package jogorpg.world_of_zuul;
 
 import java.util.*;
 import item.Chest;
+import item.VendingMachine;
 import item.model.Item;
 import characters.Character;
 import characters.Enemy;
@@ -12,6 +13,7 @@ public class Room {
     private HashMap<String, Character> characters;
     private HashMap<String, Item> items;
     private Chest chest;
+    private VendingMachine machine;
 
     public Room(String description, int enemiesAmount, boolean hasChest) {
         this.description = description;
@@ -21,6 +23,10 @@ public class Room {
 
         if (hasChest) {
             this.chest = new Chest();
+        }
+
+        if (hasChest) {
+            this.machine = new VendingMachine();
         }
 
         for (int i = 0; i < enemiesAmount; i++) {
@@ -49,6 +55,10 @@ public class Room {
         return chest;
     }
 
+    public VendingMachine getMachine() {
+        return machine;
+    }
+
     public HashMap<String, Character> getCharacters() {
         return characters;
     }
@@ -66,7 +76,7 @@ public class Room {
     }
 
     public void addItem(Item item){
-        items.put(item.getName(), item);
+        items.put(item.getKey(), item);
     }
 
     public void describe() {

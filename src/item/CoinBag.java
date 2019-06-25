@@ -30,6 +30,11 @@ public class CoinBag extends Item {
     }
 
     @Override
+    public int getPrice() {
+        return -1;
+    }
+
+    @Override
     public String getKey() {
         return "Moedas";
     }

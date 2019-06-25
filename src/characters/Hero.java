@@ -11,7 +11,7 @@ public class Hero extends Character {
     private Armor armor;
 
     public Hero(OnDie onDie) {
-        super("Cleytinho", 10, 20, 10, 0, 10, onDie);
+        super("Cleytinho", 10, 20, 10, 20000, 0, onDie);
         this.equipped = new Item[2];
 
         putItem(new Heal("Poção", 1, 2));

@@ -167,8 +167,10 @@ public abstract class Character {
         } else {
             if (increaseWeightBy(item.getWeight())) {
                 inventory.put(item.getKey(), item);
+                System.out.println(item.getName() + " adicionado ao inventário");
                 return true;
             } else {
+                System.out.println("Sem espaço no inventário");
                 return false;
             }
         }
@@ -186,10 +188,9 @@ public abstract class Character {
         } else {
             return null;
         }
-
     }
 
-    private CoinBag getCoinBag() {
+    public CoinBag getCoinBag() {
         return (CoinBag) inventory.get("Moedas");
     }
 

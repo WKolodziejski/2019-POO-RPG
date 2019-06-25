@@ -31,4 +31,6 @@ public abstract class Item {
 
     public abstract boolean isConsumable();
 
+    public abstract int getPrice();
+
 }
