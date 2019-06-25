@@ -145,6 +145,7 @@ public class Game {
                     System.out.println("Esse item não existe");
                 } else {
                     hero.putItem(item);
+                    System.out.println("Item adicionado ao inventário");
                 }
             } else {
                 System.out.println("Pegar o que?");

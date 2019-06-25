@@ -31,6 +31,51 @@ public class FileReader {
         return names;
     }
 
+    public static List<String> readMaterials() {
+        List<String> materials = new ArrayList<>();
+
+        try {
+            File file = new File("src/data/items/material");
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNextLine()) {
+                String data = scanner.nextLine();
+                if (!data.isBlank()) {
+                    materials.add(data);
+                }
+            }
+
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return materials;
+    }
+
+    public static List<String> readWeapons() {
+        List<String> weapons = new ArrayList<>();
+
+        try {
+            File file = new File("src/data/items/weapons");
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNextLine()) {
+                String data = scanner.nextLine();
+                if (!data.isBlank()) {
+                    weapons.add(data);
+                }
+            }
+
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return weapons;
+    }
+
+
     public static Room readRooms() {
         List<Room> rooms = new ArrayList<>();
         List<HashMap<Integer, String>> exits = new ArrayList<>();

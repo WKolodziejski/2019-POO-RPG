@@ -5,10 +5,14 @@ import java.util.Random;
 
 public class Generator {
     private List<String> names;
+    private List<String> materials;
+    private List<String> weapons;
     private static Generator generator;
 
     private Generator() {
-        this.names = FileReader.readNames();
+        names = FileReader.readNames();
+        materials = FileReader.readMaterials();
+        weapons = FileReader.readWeapons();
     }
 
     public static synchronized Generator get() {
@@ -18,8 +22,16 @@ public class Generator {
         return generator;
     }
 
-    public String generateName() {
+    public String name() {
         return names.get(new Random().nextInt(names.size()));
+    }
+
+    public String material() {
+        return materials.get(new Random().nextInt(materials.size()));
+    }
+
+    public String weapon() {
+        return weapons.get(new Random().nextInt(weapons.size()));
     }
 
 }

@@ -3,10 +3,10 @@
         em frente à usina
     </description>
     <enemies>
-        3
+       0
     </enemies>
     <chest>
-        false
+        true
     </chest>
     <exits>
         1

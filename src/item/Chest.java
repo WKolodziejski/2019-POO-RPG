@@ -1,6 +1,7 @@
 package item;
 
 import item.model.Item;
+import utils.Item_Creator;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -22,6 +23,10 @@ public class Chest {
 
         this.chances = 2;
         this.inventory = new HashMap<>();
+
+        Item_Creator i = new Item_Creator();
+
+        this.inventory.put("Item", i.getRandom());
     }
 
     public void open() {

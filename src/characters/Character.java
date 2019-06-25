@@ -154,7 +154,11 @@ public abstract class Character {
             return grabCoins((CoinBag) item);
         } else {
             if (increaseWeightBy(item.getWeight())) {
-                inventory.put(item.getName(), item);
+                String name = item.getName();
+                if (name.contains(" ")) {
+                    name = name.substring(0, name.indexOf(" "));
+                }
+                inventory.put(name, item);
                 return true;
             } else {
                 return false;

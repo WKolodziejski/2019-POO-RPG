@@ -39,7 +39,7 @@ public class Room {
         }
 
         for (int i = 0; i < enemiesAmount; i++) {
-            String name = Generator.get().generateName();
+            String name = Generator.get().name();
             String nick = name;
             if (name.contains(" ")) {
                 nick = name.substring(0, name.indexOf(" "));
