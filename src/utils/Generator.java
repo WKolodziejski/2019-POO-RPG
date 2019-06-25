@@ -30,6 +30,14 @@ public class Generator {
         return materials.get(new Random().nextInt(materials.size()));
     }
 
+    public int getMaterialAmount() {
+        return materials.size();
+    }
+
+    public String getMaterialByLevel(int level) {
+        return materials.get(level);
+    }
+
     public String weapon() {
         return weapons.get(new Random().nextInt(weapons.size()));
     }

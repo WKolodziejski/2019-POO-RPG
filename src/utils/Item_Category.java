@@ -1,8 +1,6 @@
 package utils;
 
-public interface ItemList {
-
-    enum Category {
+public enum Item_Category {
         Arm_Piece,
         Chest_Piece,
         Helmet,
@@ -11,6 +9,4 @@ public interface ItemList {
         Heal,
         Ring,
         Weapon;
-    }
-
 }
