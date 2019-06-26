@@ -15,6 +15,24 @@ public abstract class Armor extends Equipment implements Bonus {
         this.bonusType = bonusType;
     }
 
+    public void lowerLevel(){
+        int level = getLevel();
+        int newLevel = level-1;
+        if(newLevel>=0){
+            changeMaterial(newLevel);
+            setBonusByLevel(level, newLevel);
+            setDefenseByLevel(level, newLevel);
+        }
+    }
+
+    public void setBonusByLevel(int oldLevel, int newLevel){
+        bonusAmount = (bonusAmount/(oldLevel+1))*(newLevel+1);
+    }
+
+    private void setDefenseByLevel(int oldLevel, int newLevel){
+        defense = (defense/(oldLevel+1))*(newLevel+1);
+    }
+
     public int getDefense() {
         return defense;
     }

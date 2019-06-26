@@ -19,4 +19,17 @@ public class Weapon extends Equipment {
         return damage * getDurability();
     }
 
+    public void lowerLevel(){
+        int level = getLevel();
+        int newLevel = level-1;
+        if(newLevel>=0){
+            changeMaterial(newLevel);
+            setDamageByLevel(level, newLevel);
+        }
+    }
+
+    private void setDamageByLevel(int oldLevel, int newLevel){
+        damage = (damage/(oldLevel+1))*(newLevel+1);
+    }
+
 }

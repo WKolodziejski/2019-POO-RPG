@@ -10,5 +10,6 @@ public interface Bonus {
 
     Type bonusType();
     int bonusAmount();
+    void setBonusByLevel(int oldLevel, int newLevel);
 
 }

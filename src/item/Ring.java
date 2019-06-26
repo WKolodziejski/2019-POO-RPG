@@ -13,6 +13,19 @@ public class Ring extends Equipment implements Bonus {
         this.bonusAmount = bonusAmount;
     }
 
+    public void lowerLevel(){
+        int level = getLevel();
+        int newLevel = level-1;
+        if(newLevel>=0){
+            changeMaterial(newLevel);
+            setBonusByLevel(level, newLevel);
+        }
+    }
+
+    public void setBonusByLevel(int oldLevel, int newLevel){
+        bonusAmount = (bonusAmount/(oldLevel+1))*(newLevel+1);
+    }
+
     @Override
     public Type bonusType() {
         return bonusType;

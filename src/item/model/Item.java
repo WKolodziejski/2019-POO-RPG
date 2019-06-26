@@ -13,6 +13,10 @@ public abstract class Item {
         return name;
     }
 
+    protected void setName(String name){
+        this.name = name;
+    }
+
     public int getWeight() {
         return weight;
     }
@@ -28,6 +32,7 @@ public abstract class Item {
             return name;
         }
     }
+
 
     public abstract boolean isConsumable();
 

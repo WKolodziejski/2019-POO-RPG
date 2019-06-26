@@ -6,8 +6,6 @@ import item.model.Equipment;
 import item.model.Item;
 
 public class Hero extends Character {
-    private Weapon weapon;
-    private Armor armor;
 
     public Hero(OnDie onDie) {
         super("Cleytinho", 10, 20, 10, 0, 10, onDie);

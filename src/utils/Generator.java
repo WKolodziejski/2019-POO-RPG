@@ -2,6 +2,7 @@ package utils;
 
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Logger;
 
 public class Generator {
     private List<String> names;
@@ -38,6 +39,16 @@ public class Generator {
 
     public String getMaterialByLevel(int level) {
         return materials.get(level);
+    }
+
+    public int getLevelByMaterial(String material){
+        for(int i = 0; i < materials.size(); i++){
+            if(materials.get(i).equals(material)){
+                return i;
+            }
+        }
+        System.out.println("Material não encontrado");
+        return -1;
     }
 
     public String weapon() {
