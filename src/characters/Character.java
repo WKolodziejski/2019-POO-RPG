@@ -182,6 +182,9 @@ public abstract class Character {
         } else {
             if (increaseWeightBy(item.getWeight())) {
                 inventory.put(item.getKey(), item);
+                if(item instanceof Equipment && equipped.get(item.getClass().getSimpleName())==null){
+                    equipItem(item.getName());
+                }
                 System.out.println(item.getName() + " adicionado ao inventário");
                 return true;
             } else {
