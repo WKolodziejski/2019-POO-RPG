@@ -8,7 +8,15 @@ public abstract class Equipment extends Item {
         this.durability = 100;
     }
 
-    public int getDurability() {
+    public void takeAHit(){
+        durability = durability - (durability > 0 ? 1 : 0);
+    }
+
+    public boolean isBroken(){
+        return durability <= 0 ? true : false;
+    }
+
+    public int getcurDurability() {
         return durability;
     }
 

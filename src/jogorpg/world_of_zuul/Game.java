@@ -9,6 +9,8 @@ import characters.Hero;
 import characters.Character;
 import utils.FileReader;
 
+import java.util.Scanner;
+
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -53,6 +55,11 @@ public class Game {
     }
 
     private boolean processCommand(Command command) {
+
+        while(hero.isOverweight()){
+            forceDrop();
+        }
+
         CommandWord commandWord = command.getCommandWord();
 
         if(commandWord == CommandWord.UNKNOWN) {
@@ -99,6 +106,12 @@ public class Game {
         }
 
         return false;
+    }
+
+    private void forceDrop() {
+        System.out.println(hero.getName() + " está carregando mais do que pode. Escolha algo para dropar.");
+        hero.printInventory();
+        hero.removeItem(new Scanner(System.in).nextLine());
     }
 
     private void me(Command command) {
