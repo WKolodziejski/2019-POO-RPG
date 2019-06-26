@@ -238,7 +238,7 @@ public abstract class Character {
                         }
                     }
                 }
-                equipped.put(tbEquipped.getClass().getSimpleName(), (Equipment) tbEquipped);
+                System.out.println(equipped.put(tbEquipped.getClass().getSimpleName(), (Equipment) tbEquipped).getName() + " desequipado") ;
                 System.out.println(tbEquipped.getName() + " equipado com sucesso!");
             } else {
                 System.out.println("Item não equipavel");
