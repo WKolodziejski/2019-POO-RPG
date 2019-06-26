@@ -263,12 +263,13 @@ public abstract class Character {
     public void damageItem(Equipment equip){
         equip.takeAHit();
         if(equip.isBroken()){
-            System.out.println(equip.getName()+ " foi quebrado e foi desequipado");
+            System.out.println(equip.getName()+ " foi quebrado");
             unEquip(equip);
         }
     }
 
      public void unEquip(Equipment equip){
+         System.out.println(equip.getName()+ " foi desequipado");
         equipped.put(equip.getClass(), null);
      }
 
