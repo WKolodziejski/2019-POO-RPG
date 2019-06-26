@@ -24,7 +24,7 @@ public abstract class Character {
     private int energyCap;
     private int attack;
     private int defense;
-    private HashMap<Class, Equipment> equipped;
+    private HashMap<String, Equipment> equipped;
 
     public Character(String name, int energy, int attack, int defense, int coins, int maxWeight, OnDie onDie) {
         this.inventory = new HashMap<>();
@@ -75,7 +75,7 @@ public abstract class Character {
     }
 
     public int getAttack() {
-        int bonus = ((Weapon)equipped.get(Weapon.class)).getDamage();
+        int bonus = ((Weapon)equipped.get(Weapon.class.getSimpleName())).getDamage();
 
         for (Item item : equipped.values()) {
             if (item instanceof Bonus) {
@@ -227,7 +227,7 @@ public abstract class Character {
         if(tbEquipped != null){
             if(tbEquipped instanceof Equipment){
                 if(tbEquipped instanceof Armor){
-                    Armor alreadyIn = (Armor) equipped.get(tbEquipped.getClass());
+                    Armor alreadyIn = (Armor) equipped.get(tbEquipped.getClass().getSimpleName());
                     if (alreadyIn.bonusType() == Bonus.Type.WEIGHT) {
                         if (this.curWeight > (this.getMaxWeight() - alreadyIn.bonusAmount() + (((Armor) tbEquipped).bonusType() == Bonus.Type.WEIGHT ? ((Armor) tbEquipped).bonusAmount() : 0))) {
                             System.out.println("Não foi possível equipar " + tbEquipped.getName() + ", pois desequipando " + alreadyIn.getName() + " seu peso além da sua capacisade");
@@ -235,7 +235,7 @@ public abstract class Character {
                         }
                     }
                 }
-                equipped.put(tbEquipped.getClass(), (Equipment) tbEquipped);
+                equipped.put(tbEquipped.getClass().getSimpleName(), (Equipment) tbEquipped);
                 System.out.println(tbEquipped.getName() + " equipado com sucesso!");
             } else {
                 System.out.println("Item não equipavel");
@@ -257,7 +257,7 @@ public abstract class Character {
     }
 
     public void damageEquippedWeapon(){
-        damageItem(equipped.get(Weapon.class));
+        damageItem(equipped.get(Weapon.class.getSimpleName()));
     }
 
     public void damageItem(Equipment equip){
@@ -270,7 +270,7 @@ public abstract class Character {
 
      public void unEquip(Equipment equip){
          System.out.println(equip.getName()+ " foi desequipado");
-        equipped.put(equip.getClass(), null);
+        equipped.put(equip.getClass().getSimpleName(), null);
      }
 
      public boolean isOverweight(){
@@ -278,6 +278,6 @@ public abstract class Character {
      }
 
      public boolean isEquipped(Equipment equip){
-        return equipped.get(equip.getClass()) != null;
+        return equipped.get(equip.getClass().getSimpleName()) != null;
      }
 }
