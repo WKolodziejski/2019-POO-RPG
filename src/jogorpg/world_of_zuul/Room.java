@@ -33,10 +33,12 @@ public class Room {
 
             Enemy enemy = new Enemy(inventory -> {
                 System.out.println("-----Itens Droppados-----");
-                this.items.putAll(inventory);
-                inventory.forEach((s, item) -> {
-                    System.out.println(item.getName());
-                });
+                for(Item item: inventory){
+                    if(item!=null) {
+                        this.items.put(item.getName(), item);
+                        System.out.println(item.getName());
+                    }
+                }
             });
 
             characters.put(enemy.getKey(), enemy);

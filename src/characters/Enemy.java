@@ -17,11 +17,11 @@ public class Enemy extends Character {
 
         for (int i = 0; i < Generator.get().number(3); i++) {
             Item item = Item_Creator.get().getRandom();
-            inventory.put(item.getKey(), item);
+            this.putItem(item);
         }
     }
 
-    public void checkInventory() {
+    /*/public void checkInventory() {
         inventory.forEach((s, item) -> {
             System.out.println(s);
         });
@@ -32,5 +32,6 @@ public class Enemy extends Character {
             return inventory.get(key);
         } else return null;
     }
+    */
     
 }
