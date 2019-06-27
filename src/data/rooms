@@ -1,64 +1,354 @@
 <room>
+    <name>
+        na entrada do corredor.
+    </name>
     <description>
-        em frente à usina
+        Você deve fazer tal missão e blablabla.
+    </description>
+    <enemies>
+       0
+    </enemies>
+    <exits>
+        1
+        Esquerda
+        2
+        Direita
+        6
+        Frente
+    </exits>
+</room>
+<room>
+    <name>
+        no vestiário.
+    </name>
+    <description>
+        Você vê armários.
+    </description>
+    <enemies>
+       0
+    </enemies>
+    <exits>
+        0
+        Corredor
+    </exits>
+</room>
+<room>
+    <name>
+        na recepção.
+    </name>
+    <description>
+        .
+    </description>
+    <enemies>
+       0
+    </enemies>
+    <exits>
+        0
+        Corredor
+        3
+        Direita
+    </exits>
+</room>
+<room>
+    <name>
+        na cozinha.
+    </name>
+    <description>
+        Você entra em uma sala escura. Parece ser uma cozinha.
+    </description>
+    <enemies>
+       3
+    </enemies>
+    <exits>
+        2
+        Recepção
+        4
+        Direita
+    </exits>
+</room>
+<room>
+    <name>
+        em um pequeno corredor.
+    </name>
+    <description>
+        Você entra em um corredor apertado e escuro.
+    </description>
+    <enemies>
+       0
+    </enemies>
+    <exits>
+        3
+        Cozinha
+        5
+        Direita
+    </exits>
+</room>
+<room>
+    <name>
+        em um almoxarifado.
+    </name>
+    <description>
+        Você entra em uma pequena sala.
     </description>
     <enemies>
        0
     </enemies>
     <chest>
-        true
-    </chest>
     <exits>
-        1
-        Entrada
-    </exits>
-</room>
-<room>
-    <description>
-        no saguão
-    </description>
-    <enemies>
-        0
-    </enemies>
-    <chest>
-        false
-    </chest>
-    <exits>
-        0
-        Rua
-        2
+        4
         Corredor
     </exits>
 </room>
 <room>
+    <name>
+        em um hall.
+    </name>
     <description>
-        no corredor
+        Você entra em uma sala de espera.
     </description>
     <enemies>
-        0
+       0
     </enemies>
-    <chest>
-        false
-    </chest>
+    <vending>
     <exits>
-        1
-        Saguão
-        3
-        Banheiro
+        0
+        Corredor
+        7
+        Esquerda
+        8
+        Frente
     </exits>
 </room>
 <room>
+    <name>
+        em uma sala ddasdkjasldhasjk.
+    </name>
     <description>
-        no banheiro
+        .
     </description>
     <enemies>
-        1
+       90
     </enemies>
-    <chest>
-        false
-    </chest>
     <exits>
-        2
+        6
+        Hall
+        8
+        Direita
+    </exits>
+</room>
+<room>
+    <name>
+        em um corredor.
+    </name>
+    <description>
+        .
+    </description>
+    <enemies>
+       0
+    </enemies>
+    <exits>
+        6
+        Hall
+        7
+        Sala
+        9
+        Frente
+    </exits>
+</room>
+<room>
+    <name>
+        9
+    </name>
+    <description>
+        .
+    </description>
+    <enemies>
+       0
+    </enemies>
+    <exits>
+        8
         Corredor
+        10
+        Direita
+        11
+        Frente
+    </exits>
+</room>
+<room>
+    <name>
+        10.
+    </name>
+    <description>
+        .
+    </description>
+    <enemies>
+       0
+    </enemies>
+    <exits>
+        9
+        9
+        11
+        11
+        12
+        12
+        13
+        13
+        18
+        18
+    </exits>
+</room>
+<room>
+    <name>
+        11.
+    </name>
+    <description>
+        .
+    </description>
+    <enemies>
+       0
+    </enemies>
+    <exits>
+        9
+        9
+        10
+        10
+        14
+        14
+    </exits>
+</room>
+<room>
+    <name>
+        12
+    </name>
+    <description>
+        .
+    </description>
+    <enemies>
+       0
+    </enemies>
+    <exits>
+        10
+        10
+        13
+        13
+    </exits>
+</room>
+<room>
+    <name>
+        13
+    </name>
+    <description>
+        .
+    </description>
+    <enemies>
+       0
+    </enemies>
+    <exits>
+        12
+        12
+        10
+        10
+        18
+        18
+        17
+        17
+    </exits>
+</room>
+<room>
+    <name>
+        14
+    </name>
+    <description>
+        .
+    </description>
+    <enemies>
+       0
+    </enemies>
+    <exits>
+        11
+        11
+        15
+        15
+    </exits>
+</room>
+<room>
+    <name>
+        15
+    </name>
+    <description>
+        .
+    </description>
+    <enemies>
+       0
+    </enemies>
+    <exits>
+        14
+        14
+        16
+        16
+    </exits>
+</room>
+<room>
+    <name>
+        16
+    </name>
+    <description>
+        .
+    </description>
+    <enemies>
+       0
+    </enemies>
+    <exits>
+        15
+        15
+    </exits>
+</room>
+<room>
+    <name>
+        17
+    </name>
+    <description>
+        .
+    </description>
+    <enemies>
+       0
+    </enemies>
+    <exits>
+        13
+        13
+        18
+        18
+    </exits>
+</room>
+<room>
+    <name>
+        18
+    </name>
+    <description>
+        .
+    </description>
+    <enemies>
+       0
+    </enemies>
+    <exits>
+        17
+        17
+        19
+        19
+    </exits>
+</room>
+<room>
+    <name>
+        na sala do reator
+    </name>
+    <description>
+        .
+    </description>
+    <enemies>
+       0
+    </enemies>
+    <exits>
+        18
+        18
     </exits>
 </room>

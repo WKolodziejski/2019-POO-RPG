@@ -17,6 +17,7 @@ import java.util.Scanner;
 public abstract class Character {
     private OnDie onDie;
     protected HashMap<String, Item> inventory;
+    private HashMap<String, Equipment> equipped;
     private int curWeight;
     private int maxWeight;
     private String name;
@@ -24,7 +25,6 @@ public abstract class Character {
     private int energyCap;
     private int attack;
     private int defense;
-    private HashMap<String, Equipment> equipped;
 
     public Character(String name, int energy, int attack, int defense, int coins, int maxWeight, OnDie onDie) {
         this.inventory = new HashMap<>();
@@ -36,7 +36,7 @@ public abstract class Character {
         this.maxWeight = maxWeight;
         this.onDie = onDie;
         this.equipped = new HashMap<>();
-        inventory.put("Moedas", new CoinBag("Moedas do " + name, coins));
+        inventory.put("Moedas", new CoinBag(coins));
     }
 
     public int getEnergy() {
@@ -75,7 +75,7 @@ public abstract class Character {
     }
 
     public int getAttack() {
-        int bonus = ((Weapon)equipped.get(Weapon.class.getSimpleName())).getDamage();
+        int bonus = 0; //((Weapon)equipped.get(Weapon.class.getSimpleName())).getDamage();
 
         for (Item item : equipped.values()) {
             if (item instanceof Bonus) {
@@ -123,10 +123,10 @@ public abstract class Character {
     public Item removeItem(String name) {
         Item item = inventory.get(name);
         if (item != null) {
-            if(item instanceof CoinBag){
+            if (item instanceof CoinBag){
                 return dropCoins();
             } else {
-                if(item instanceof Equipment){
+                if (item instanceof Equipment){
                     if(isEquipped((Equipment) item)){
                         unEquip((Equipment) item);
                     }
@@ -182,7 +182,7 @@ public abstract class Character {
         } else {
             if (increaseWeightBy(item.getWeight())) {
                 inventory.put(item.getKey(), item);
-                if(item instanceof Equipment && equipped.get(item.getClass().getSimpleName())==null){
+                if(item instanceof Equipment && equipped.get(item.getClass().getSimpleName()) == null) {
                     equipItem(item.getName());
                 }
                 System.out.println(item.getName() + " adicionado ao inventário");
@@ -200,9 +200,9 @@ public abstract class Character {
         if (amount > 0) {
             if (!useCoins(amount)) {
                 amount = getCoinBag().getAmount();
-                this.useCoins(amount);
+                useCoins(amount);
             }
-            return new CoinBag("Moedas de " + getName(), amount);
+            return new CoinBag(amount);
         } else {
             return null;
         }
@@ -227,7 +227,7 @@ public abstract class Character {
     public void equipItem(String equip){
         Item tbEquipped = this.inventory.get(equip);
 
-        if(tbEquipped != null){
+        if(tbEquipped != null) {
             if(tbEquipped instanceof Equipment){
                 if(tbEquipped instanceof Armor){
                     Armor alreadyIn = (Armor) equipped.get(tbEquipped.getClass().getSimpleName());
@@ -244,7 +244,7 @@ public abstract class Character {
                 System.out.println("Item não equipavel");
             }
         } else {
-            System.out.println("Item inexistente");
+            //System.out.println("Item inexistente");
         }
     }
 
@@ -273,7 +273,7 @@ public abstract class Character {
 
      public void unEquip(Equipment equip){
          System.out.println(equip.getName()+ " foi desequipado");
-        equipped.put(equip.getClass().getSimpleName(), null);
+         equipped.put(equip.getClass().getSimpleName(), null);
      }
 
      public boolean isOverweight(){
@@ -283,4 +283,5 @@ public abstract class Character {
      public boolean isEquipped(Equipment equip){
         return equipped.get(equip.getClass().getSimpleName()) != null;
      }
+
 }

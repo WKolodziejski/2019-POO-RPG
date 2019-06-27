@@ -12,4 +12,5 @@ public class Hero extends Character {
 
         putItem(new Heal("Poção", 1, 2));
     }
+
 }

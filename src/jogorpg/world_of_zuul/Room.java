@@ -9,14 +9,18 @@ import characters.Enemy;
 
 public class Room {
     private String description;
+    private String name;
     private HashMap<String, Room> exits;
     private HashMap<String, Character> characters;
     private HashMap<String, Item> items;
     private Chest chest;
     private VendingMachine machine;
+    private boolean firstAccess;
 
-    public Room(String description, int enemiesAmount, boolean hasChest) {
+    public Room(String name, String description, int enemiesAmount, boolean hasChest, boolean hasVending) {
+        this.name = name;
         this.description = description;
+        this.firstAccess = true;
         this.exits = new HashMap<>();
         this.characters = new HashMap<>();
         this.items = new HashMap<>();
@@ -25,7 +29,7 @@ public class Room {
             this.chest = new Chest();
         }
 
-        if (hasChest) {
+        if (hasVending) {
             this.machine = new VendingMachine();
         }
 
@@ -80,7 +84,12 @@ public class Room {
     }
 
     public void describe() {
-        System.out.println("Você está " + description + ".");
+        if (firstAccess) {
+            firstAccess = false;
+            System.out.println(description);
+        }
+
+        System.out.println("Você está " + name);
         System.out.println("Você pode ir para " + exits.keySet());
 
         if (!characters.isEmpty()) {

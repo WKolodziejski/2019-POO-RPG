@@ -109,7 +109,7 @@ public class Game {
     }
 
     private void forceDrop() {
-        System.out.println(hero.getName() + " está carregando mais do que pode. Escolha algo para dropar.");
+        System.out.println(hero.getName() + " está carregando mais itens do que pode. Escolha algo para dropar.");
         hero.printInventory();
         hero.removeItem(new Scanner(System.in).nextLine());
     }
@@ -279,7 +279,15 @@ public class Game {
     }
 
     private void look(Command command) {
-        currentRoom.describe();
+        if (command.hasSecondWord()) {
+            if (command.getSecondWord().equals("Around")) {
+                currentRoom.describe();
+            } else {
+                System.out.println("Olhar para onde?");
+            }
+        } else {
+            System.out.println("Olhar para onde?");
+        }
     }
 
     private boolean quit(Command command) {

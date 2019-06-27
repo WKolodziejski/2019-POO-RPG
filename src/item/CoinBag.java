@@ -5,8 +5,8 @@ import item.model.Item;
 public class CoinBag extends Item {
     private int amount;
 
-    public CoinBag(String name, int amount) {
-        super(name, (int) Math.ceil(amount/1000));
+    public CoinBag(int amount) {
+        super("Moedas", (int) Math.ceil(amount/1000));
         this.amount = amount;
     }
 

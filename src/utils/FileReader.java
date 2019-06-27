@@ -88,15 +88,27 @@ public class FileReader {
                 String data = scanner.nextLine().trim();
                 int enemies = 0;
                 boolean chest = false;
+                boolean vending = false;
 
                 if (data.equals("<room>")) {
                     data = scanner.nextLine().trim();
+                    StringBuilder name = new StringBuilder();
                     String description = "";
                     HashMap<Integer, String> e = new HashMap<>();
 
                     while (!data.equals("</room>")) {
 
                         switch (data) {
+                            case "<name>":
+                                data = scanner.nextLine().trim();
+
+                                while (!data.equals("</name>")) {
+                                    name.append(data);
+                                    data = scanner.nextLine().trim();
+                                }
+
+                                break;
+
                             case "<description>":
                                 data = scanner.nextLine().trim();
 
@@ -106,6 +118,7 @@ public class FileReader {
                                 }
 
                                 break;
+
                             case "<enemies>":
                                 data = scanner.nextLine().trim();
 
@@ -115,13 +128,14 @@ public class FileReader {
                                 }
 
                                 break;
-                            case "<chest>":
-                                data = scanner.nextLine().trim();
 
-                                while (!data.equals("</chest>")) {
-                                    chest = Boolean.parseBoolean(data);
-                                    data = scanner.nextLine().trim();
-                                }
+                            case "<chest>":
+                                chest = true;
+
+                                break;
+
+                            case "<vending>":
+                                vending = true;
 
                                 break;
 
@@ -138,7 +152,7 @@ public class FileReader {
 
                         data = scanner.nextLine().trim();
                     }
-                    rooms.add(new Room(description, enemies, chest));
+                    rooms.add(new Room(name.toString(), description, enemies, chest, vending));
                     exits.add(e);
                 }
             }

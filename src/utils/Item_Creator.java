@@ -50,7 +50,7 @@ public class Item_Creator {
     }
 
     private Item createCoinBag(int lvl){
-        return new CoinBag("Saco de moedas " + levels[(lvl<levels.length ? lvl : levels.length-1)], (r.nextInt(15) + 5)*(lvl+1));
+        return new CoinBag((r.nextInt(15) + 5)*(lvl+1));
     }
 
     private Item createHeal(int lvl){

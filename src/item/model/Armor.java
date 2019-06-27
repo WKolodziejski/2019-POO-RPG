@@ -1,8 +1,5 @@
 package item.model;
 
-import item.model.Bonus;
-import item.model.Equipment;
-
 public abstract class Armor extends Equipment implements Bonus {
     private Type bonusType;
     private int bonusAmount;
@@ -17,8 +14,8 @@ public abstract class Armor extends Equipment implements Bonus {
 
     public void lowerLevel(){
         int level = getLevel();
-        int newLevel = level-1;
-        if(newLevel>=0){
+        int newLevel = level - 1;
+        if (newLevel >= 0){
             changeMaterial(newLevel);
             setBonusByLevel(level, newLevel);
             setDefenseByLevel(level, newLevel);
