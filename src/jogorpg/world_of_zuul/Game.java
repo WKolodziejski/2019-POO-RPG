@@ -101,6 +101,15 @@ public class Game {
         else if (commandWord == CommandWord.BUY) {
             buy(command);
         }
+        else if (commandWord == CommandWord.EQUIP) {
+            equip(command);
+        }
+        else if (commandWord == CommandWord.UNEQUIP) {
+            unequip(command);
+        }
+        else if (commandWord == CommandWord.EQUIPPED) {
+            equipped(command);
+        }
         else if (commandWord == CommandWord.QUIT) {
             return quit(command);
         }
@@ -144,6 +153,34 @@ public class Game {
                 System.out.println("Abrir o que?");
             }
         }
+    }
+
+    private void equip(Command command){
+        int index;
+
+        try{
+            index = Integer.parseInt(command.getSecondWord());
+        } catch(NumberFormatException e){
+            System.out.println("Equipar o que?");
+            return;
+        }
+        hero.equipItem(index);
+    }
+
+    private void unequip(Command command){
+        int index;
+
+        try{
+            index = Integer.parseInt(command.getSecondWord());
+        } catch(NumberFormatException e){
+            System.out.println("Equipar o que?");
+            return;
+        }
+        hero.unEquip(index);
+    }
+
+    private void equipped(Command command){
+        hero.printEquipped();
     }
 
     private void buy(Command command) {
