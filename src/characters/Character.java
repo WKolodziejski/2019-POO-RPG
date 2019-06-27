@@ -38,7 +38,7 @@ public abstract class Character {
         this.maxWeight = maxWeight;
         this.onDie = onDie;
         this.equipped = new HashMap<>();
-        putItem(new CoinBag("Moedas do " + name, coins));
+        putItem(new CoinBag(coins));
     }
 
     public int getEnergy() {
@@ -241,7 +241,7 @@ public abstract class Character {
                 amount = getCoinBag().getAmount();
                 this.useCoins(amount);
             }
-            return new CoinBag("Moedas de " + getName(), amount);
+            return new CoinBag(amount);
         } else {
             return null;
         }
