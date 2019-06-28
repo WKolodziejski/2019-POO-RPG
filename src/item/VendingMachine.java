@@ -1,5 +1,6 @@
 package item;
 
+import characters.Hero;
 import item.model.Item;
 import utils.Generator;
 import utils.Item_Creator;
@@ -35,12 +36,11 @@ public class VendingMachine {
         }
     }
 
-    public Item buy(String name, CoinBag coins) {
+    public Item buy(String name, Hero hero) {
         Item item = inventory.get(name);
 
         if (item != null) {
-            if (coins.getAmount() >= item.getPrice()) {
-                coins.setAmount(coins.getAmount() - item.getPrice());
+            if (hero.useCoins(item.getPrice())) {
                 System.out.println(item.getPrice() + " moedas gastas");
                 inventory.remove(name);
                 return item;

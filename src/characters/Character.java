@@ -189,7 +189,7 @@ public abstract class Character {
 
     public boolean useCoins(int coins){
         CoinBag herosBag = getCoinBag();
-        if(herosBag.getAmount() - coins < 0){
+        if(herosBag.getAmount() < coins){
             return false;
         } else {
             this.curWeight -= herosBag.getWeight();

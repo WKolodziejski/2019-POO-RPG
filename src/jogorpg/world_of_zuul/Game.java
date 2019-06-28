@@ -188,7 +188,7 @@ public class Game {
 
         if (machine != null) {
             if (command.hasSecondWord()) {
-                Item item = machine.buy(command.getSecondWord(), hero.getCoinBag());
+                Item item = machine.buy(command.getSecondWord(), hero);
 
                 if (item != null) {
                     if(!hero.putItem(item)){
