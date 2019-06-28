@@ -55,7 +55,7 @@ public abstract class Character {
     public void printInventory() {
         for (int i = 0; i < inventory.size(); i++) {
             if (inventory.get(i) != null ){
-                System.out.println(i + ": "+ inventory.get(i).getName());
+                System.out.println(i + ": " + inventory.get(i).getName());
             }
         }
     }

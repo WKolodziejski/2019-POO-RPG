@@ -85,6 +85,9 @@ public class Game {
         else if (commandWord == CommandWord.BUY) {
             buy(command);
         }
+        else if (commandWord == CommandWord.SELL) {
+            sell(command);
+        }
         else if (commandWord == CommandWord.EQUIP) {
             equip(command);
         }
@@ -185,6 +188,30 @@ public class Game {
             }
         } else {
             System.out.println("Comprar onde?");
+        }
+    }
+
+    private void sell(Command command) {
+        VendingMachine machine = currentRoom.getMachine();
+
+        if (machine != null) {
+            if (command.hasSecondWord()) {
+                Item item = hero.findItem(Integer.parseInt(command.getSecondWord()));
+
+                if (item != null) {
+                    Item sell = machine.sell(item);
+
+                    if (sell != null) {
+                        if (hero.putItem(sell)) {
+                            hero.removeItem(item);
+                        }
+                    }
+                }
+            } else {
+                System.out.println("Vender o que?");
+            }
+        } else {
+            System.out.println("Vender onde?");
         }
     }
 

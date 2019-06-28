@@ -68,7 +68,7 @@ public class CoinBag extends Item {
             return true;
 
         } else {
-            System.out.println("Sem espaço para todas moedas.");
+            System.out.println("Sem espaço para todas moedas");
             return false;
         }
     }

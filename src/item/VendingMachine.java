@@ -59,4 +59,15 @@ public class VendingMachine {
             return null;
         }
     }
+
+    public CoinBag sell(Item item) {
+        if (item instanceof CoinBag) {
+            System.out.println("Tá maluco?");
+            return null;
+        } else {
+            System.out.println("Venedeu " + item.getName() + " por " + item.getPrice() + " moedas");
+            return new CoinBag(item.getPrice());
+        }
+    }
+
 }
