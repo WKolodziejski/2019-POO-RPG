@@ -3,15 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Aluno/Desktop/WK/JogoRPG/src/jogorpg/SimuladorBatalha.java</file>
-            <file>file:/C:/Users/Aluno/Desktop/WK/JogoRPG/src/characters/Heroi.java</file>
-            <file>file:/C:/Users/Aluno/Desktop/WK/JogoRPG/src/jogorpg/world_of_zuul/Room.java</file>
-            <file>file:/C:/Users/Aluno/Desktop/WK/JogoRPG/src/characters/Personagem.java</file>
-            <file>file:/C:/Users/Aluno/Desktop/WK/JogoRPG/src/item/Item.java</file>
-            <file>file:/C:/Users/Aluno/Desktop/WK/JogoRPG/src/characters/Vilao.java</file>
-            <file>file:/C:/Users/Aluno/Desktop/WK/JogoRPG/src/jogorpg/JogoRPG.java</file>
-            <file>file:/C:/Users/Aluno/Desktop/WK/JogoRPG/src/jogorpg/world_of_zuul/Game.java</file>
-            <file>file:/C:/Users/Aluno/Desktop/WK/JogoRPG/src/jogorpg/world_of_zuul/CommandWords.java</file>
+            <file>file:/E:/Shared%20Folder/Desktop/Programação%20Orientada%20a%20Objetos/JogoRPG/src/jogorpg/world_of_zuul/Game.java</file>
+            <file>file:/E:/Shared%20Folder/Desktop/Programação%20Orientada%20a%20Objetos/JogoRPG/src/jogorpg/world_of_zuul/Room.java</file>
+            <file>file:/E:/Shared%20Folder/Desktop/Programação%20Orientada%20a%20Objetos/JogoRPG/src/jogorpg/world_of_zuul/CommandWords.java</file>
+            <file>file:/E:/Shared%20Folder/Desktop/Programação%20Orientada%20a%20Objetos/JogoRPG/src/jogorpg/world_of_zuul/Command.java</file>
+            <file>file:/E:/Shared%20Folder/Desktop/Programação%20Orientada%20a%20Objetos/JogoRPG/src/utils/FileReader.java</file>
+            <file>file:/E:/Shared%20Folder/Desktop/Programação%20Orientada%20a%20Objetos/JogoRPG/src/jogorpg/world_of_zuul/CommandWord.java</file>
         </group>
     </open-files>
 </project-private>
