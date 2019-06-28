@@ -11,7 +11,6 @@ import utils.Generator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 public abstract class Character {
     private OnDie onDie;
@@ -47,7 +46,7 @@ public abstract class Character {
     }
 
     public void printLife() {
-        System.out.println("#Vida de " + name + ": " + (energy < 0 ? 0 : energy));
+        System.out.println("#Vida de " + name + ": " + (energy < 0 ? 0 : energy) + " de " + getEnergyCap());
     }
 
     public Item findItem(int i) {
@@ -106,25 +105,26 @@ public abstract class Character {
     public int getAttack() {
         int bonus = getEquippedWeaponDamage();
 
-        for (Item item : equipped.values()) {
-            if (item instanceof Bonus) {
-                if (((Bonus) item).bonusType() == Bonus.Type.ATTACK) {
-                    bonus += ((Bonus) item).bonusAmount();
-                }
+        for (Equipment equipment : equipped.values()) {
+            if (equipment.bonusType() == Bonus.Type.ATTACK) {
+                bonus += equipment.bonusAmount();
             }
+
         }
 
         return attack + bonus;
     }
 
     public int getLuck(){
-        int bonus = Generator.get().number(20);
+        return Generator.get().number(20) + getSpeed();
+    }
 
-        for (Item item : equipped.values()) {
-            if (item instanceof Bonus) {
-                if (((Bonus) item).bonusType() == Bonus.Type.SPEED) {
-                    bonus += ((Bonus) item).bonusAmount();
-                }
+    public int getSpeed(){
+        int bonus = 0 ;
+
+        for (Equipment equipment : equipped.values()) {
+            if (equipment.bonusType() == Bonus.Type.SPEED) {
+                bonus += equipment.bonusAmount();
             }
         }
         return bonus;
@@ -133,11 +133,9 @@ public abstract class Character {
     private int getEnergyCap(){
         int bonus = 0;
 
-        for (Item item : equipped.values()) {
-            if (item instanceof Bonus) {
-                if (((Bonus) item).bonusType() == Bonus.Type.LIFE) {
-                    bonus += ((Bonus) item).bonusAmount();
-                }
+        for (Equipment equipment : equipped.values()) {
+            if (equipment.bonusType() == Bonus.Type.LIFE) {
+                bonus += equipment.bonusAmount();
             }
         }
         return energyCap + bonus;
@@ -163,16 +161,18 @@ public abstract class Character {
     }
 
     public int getMaxWeight() {
+        return maxWeight + getStrength();
+    }
+
+    public int getStrength() {
         int bonus = 0;
 
-        for (Item item : inventory) {
-            if (item instanceof Bonus) {
-                if (((Bonus) item).bonusType() == Bonus.Type.WEIGHT) {
-                    bonus += ((Bonus) item).bonusAmount();
-                }
+        for (Equipment equipment : equipped.values()) {
+            if (equipment.bonusType() == Bonus.Type.WEIGHT) {
+                bonus += equipment.bonusAmount();
             }
         }
-        return maxWeight + bonus;
+        return bonus;
     }
 
     public void removeItem(Item item) {
@@ -193,11 +193,11 @@ public abstract class Character {
 
     public boolean putItem(Item item) {
         if (item instanceof CoinBag) {
-            return getCoinBag().grabCoins(((CoinBag) item).getAmount(), getCurWeight(), maxWeight);
+            return getCoinBag().grabCoins(((CoinBag) item).getAmount(), getCurWeight(), getMaxWeight());
         } else {
             int newWeight = getCurWeight() + item.getWeight();
 
-            if (newWeight <= maxWeight) {
+            if (newWeight <= getMaxWeight()) {
                 int index = findFirstEmptySlot();
                 inventory.add(index, item);
                 System.out.println(item.getName() + " adicionado ao inventário");
@@ -302,6 +302,13 @@ public abstract class Character {
      private void unEquip(Equipment equip) {
         System.out.println(equip.getName() + " foi desequipado");
         equipped.remove(equip.getClass().getSimpleName());
+        if(equip.bonusType() == Bonus.Type.LIFE) {
+            int energyCap = getEnergyCap();
+            int energy = getEnergy();
+            if (energyCap > energy) {
+                this.energy = energy - (energyCap - energy);
+            }
+        }
      }
 
      public void unEquip(int index) {
