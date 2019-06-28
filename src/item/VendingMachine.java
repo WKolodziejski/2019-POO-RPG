@@ -66,6 +66,7 @@ public class VendingMachine {
             return null;
         } else {
             System.out.println("Venedeu " + item.getName() + " por " + item.getPrice() + " moedas");
+            items.add(item);
             return new CoinBag(item.getPrice());
         }
     }
