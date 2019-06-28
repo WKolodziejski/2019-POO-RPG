@@ -158,7 +158,7 @@ public abstract class Character {
         } else return null;
     }
 
-    private boolean increaseWeightBy(int weight) {
+    protected boolean increaseWeightBy(int weight) {
         if (curWeight + weight <= getMaxWeight()) {
             curWeight += weight;
             return true;

@@ -120,7 +120,7 @@ public class Game {
     private void forceDrop() {
         System.out.println(hero.getName() + " está carregando mais itens do que pode. Escolha algo para dropar.");
         hero.printInventory();
-        hero.removeItem(new Scanner(System.in).nextLine());
+        hero.removeItem(new Scanner(System.in).nextInt());
     }
 
     private void me(Command command) {
@@ -206,7 +206,7 @@ public class Game {
 
     private void use(Command command) {
         if (command.hasSecondWord()) {
-            Item item = hero.removeItem(command.getSecondWord());
+            Item item = hero.removeItem(Integer.parseInt(command.getSecondWord()));
 
             if (item != null) {
                 if (item instanceof Heal) {
@@ -276,8 +276,8 @@ public class Game {
         }
     }
 
-    private void drop(Command command){
-        Item item = hero.removeItem(command.getSecondWord());
+    private void drop(Command command) {
+        Item item = hero.removeItem(Integer.parseInt(command.getSecondWord()));
 
         if (item == null) {
             System.out.println("Dropar o que?");
