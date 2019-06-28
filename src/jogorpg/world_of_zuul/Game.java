@@ -1,9 +1,12 @@
 package jogorpg.world_of_zuul;
 
+import item.RepairPiece;
 import item.furniture.Chest;
 import item.CoinBag;
 import item.Heal;
+import item.furniture.RepairTable;
 import item.furniture.VendingMachine;
+import item.model.Equipment;
 import item.model.Item;
 import mechanics.Fight;
 import characters.Hero;
@@ -88,6 +91,9 @@ public class Game {
         else if (commandWord == CommandWord.SELL) {
             sell(command);
         }
+        else if (commandWord == CommandWord.REPAIR) {
+            repair(command);
+        }
         else if (commandWord == CommandWord.EQUIP) {
             equip(command);
         }
@@ -102,6 +108,39 @@ public class Game {
         }
 
         return false;
+    }
+
+    private void repair(Command command) {
+        RepairTable repairTable = currentRoom.getRepair();
+        if (repairTable != null) {
+            if (command.hasSecondWord()) {
+                int index;
+
+                try{
+                    index = Integer.parseInt(command.getSecondWord());
+                } catch(NumberFormatException e){
+                    System.out.println("Reparar o que?");
+                    return;
+                }
+
+                Item item = hero.findItem(index);
+
+                if (item != null) {
+                    if (item instanceof Equipment) {
+                        repairTable.repairItem((Equipment) item, hero.getPieces());
+                    } else {
+                        System.out.println("Esse item não é reparável");
+                    }
+                } else {
+                    System.out.println("Reparar o que?");
+                }
+
+            } else {
+                System.out.println("Reparar o que?");
+            }
+        } else {
+            System.out.println("Não há mesas de reparo");
+        }
     }
 
     private void forceDrop() {

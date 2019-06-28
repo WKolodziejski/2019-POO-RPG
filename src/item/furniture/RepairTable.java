@@ -11,18 +11,23 @@ public class RepairTable extends Furniture {
 
     }
 
-    public void repairItem(Equipment equipment, List<Item> items) {
+    public void repairItem(Equipment equipment, List<RepairPiece> pieces) {
         RepairPiece repairPiece = null;
-        for (Item item : items) {
-            if (item instanceof RepairPiece) {
-                repairPiece = (RepairPiece) item;
+        for (RepairPiece piece : pieces) {
+            if (piece.getType() == equipment.getLevel()) {
+                repairPiece = piece;
                 break;
             }
         }
+
         if (repairPiece != null) {
-            items.remove(repairPiece);
-            equipment.setDurability(equipment.getLevel() * 10);
-            System.out.println(equipment.getName() + " reparado");
+            if (equipment.getDurability() < equipment.getLevel() * 5) {
+                pieces.remove(repairPiece);
+                equipment.setDurability(equipment.getLevel() * 10);
+                System.out.println(equipment.getName() + " reparado");
+            } else {
+                System.out.println("O item não está tão danificado");
+            }
         } else {
             System.out.println("Você não tem materiais para reparar esse item");
         }

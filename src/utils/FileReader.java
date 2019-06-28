@@ -1,6 +1,9 @@
 package utils;
 
 import item.furniture.Chest;
+import item.furniture.Furniture;
+import item.furniture.RepairTable;
+import item.furniture.VendingMachine;
 import item.model.Item;
 import jogorpg.world_of_zuul.Room;
 import java.io.*;
@@ -91,12 +94,12 @@ public class FileReader {
 
                 if (data.equals("<room>")) {
                     data = scanner.nextLine().trim();
+
                     StringBuilder name = new StringBuilder();
+                    HashMap<Integer, String> exit = new HashMap<>();
+                    HashMap<String, Furniture> furniture = new HashMap<>();
                     String description = "";
-                    HashMap<Integer, String> e = new HashMap<>();
                     int enemies = 0;
-                    boolean vending = false;
-                    Chest chest = null;
 
                     while (!data.equals("</room>")) {
 
@@ -136,7 +139,7 @@ public class FileReader {
                                 Item item = null;
 
                                 while (!data.equals("</chest>")) {
-                                    chest = new Chest(data, Boolean.parseBoolean(scanner.nextLine().trim()));
+                                    Chest chest = new Chest(data, Boolean.parseBoolean(scanner.nextLine().trim()));
                                     data = scanner.nextLine().trim();
 
                                     if (data.equals("<item>")) {
@@ -151,12 +154,19 @@ public class FileReader {
                                         data = scanner.nextLine().trim();
                                     }
 
+                                    furniture.put("Chest", chest);
+
                                 }
 
                                 break;
 
                             case "<vending>":
-                                vending = true;
+                                furniture.put("Vending", new VendingMachine());
+
+                                break;
+
+                            case "<repair>":
+                                furniture.put("Repair", new RepairTable());
 
                                 break;
 
@@ -164,7 +174,7 @@ public class FileReader {
                                 data = scanner.nextLine().trim();
 
                                 while (!data.equals("</exits>")) {
-                                    e.put(Integer.parseInt(data), scanner.nextLine().trim()) ;
+                                    exit.put(Integer.parseInt(data), scanner.nextLine().trim()) ;
                                     data = scanner.nextLine().trim();
                                 }
 
@@ -173,8 +183,8 @@ public class FileReader {
 
                         data = scanner.nextLine().trim();
                     }
-                    rooms.add(new Room(name.toString(), description, enemies, chest, vending));
-                    exits.add(e);
+                    rooms.add(new Room(name.toString(), description, enemies, furniture));
+                    exits.add(exit);
                 }
             }
             scanner.close();

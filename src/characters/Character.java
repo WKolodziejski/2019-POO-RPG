@@ -2,6 +2,7 @@ package characters;
 
 import item.CoinBag;
 import item.Heal;
+import item.RepairPiece;
 import item.Weapon;
 import item.model.Armor;
 import item.model.Bonus;
@@ -11,6 +12,7 @@ import utils.Generator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 public abstract class Character {
@@ -53,6 +55,17 @@ public abstract class Character {
     public Item findItem(int i) {
         if (i < 0 || i >= inventory.size()) return null;
         else return inventory.get(i);
+    }
+
+    public List<RepairPiece> getPieces() {
+        List<RepairPiece> pieces = new ArrayList<>();
+        for (Item item : inventory) {
+            if (item instanceof RepairPiece) {
+                pieces.add((RepairPiece) item);
+                break;
+            }
+        }
+        return pieces;
     }
 
     public void printInventory() {
