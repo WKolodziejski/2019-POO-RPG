@@ -38,8 +38,8 @@ public class Room {
             Enemy enemy = new Enemy(inventory -> {
                 System.out.println("-----Itens Droppados-----");
                 for(Item item: inventory){
-                    if(item!=null) {
-                        this.items.put(item.getName(), item);
+                    if (item != null) {
+                        addItem(item);
                         System.out.println(item.getName());
                     }
                 }
@@ -78,7 +78,7 @@ public class Room {
     }
 
     public Item deleteItem(String item){
-        return this.items.remove(item);
+        return items.remove(item);
     }
 
     public void addItem(Item item){

@@ -19,6 +19,7 @@ import java.util.Scanner;
 public abstract class Character {
     private OnDie onDie;
     protected ArrayList<Item> inventory;
+    private HashMap<String, Equipment> equipped;
     private int curWeight;
     private int maxWeight;
     private String name;
@@ -26,7 +27,6 @@ public abstract class Character {
     private int energyCap;
     private int attack;
     private int defense;
-    private HashMap<String, Equipment> equipped;
 
     public Character(String name, int energy, int attack, int defense, int coins, int maxWeight, OnDie onDie) {
         this.inventory = new ArrayList<>();
@@ -131,9 +131,9 @@ public abstract class Character {
 
     private int getIndexByName(String name){
         Item item;
-        for(int i = 0; i < inventory.size(); i++){
+        for (int i = 0; i < inventory.size(); i++){
             item = inventory.get(i);
-            if(item!=null && item.getKey().equals(name)){
+            if (item != null && item.getKey().equals(name)) {
                 return i;
             }
         }
@@ -196,7 +196,6 @@ public abstract class Character {
         }
     }
 
-
     public boolean putItem(Item item) {
         if(item instanceof CoinBag){
             return grabCoins((CoinBag) item);
@@ -216,26 +215,29 @@ public abstract class Character {
         }
     }
 
-    private int findFirstEmptySlot(){
+    private int findFirstEmptySlot() {
         int i;
-        for(i = 0; i < inventory.size(); i++){
-            if(inventory.get(i)==null){
+        for (i = 0; i < inventory.size(); i++){
+            if (inventory.get(i )== null){
                 return i;
             }
         }
         return i;
     }
 
-    public CoinBag dropCoins(){
+    public CoinBag dropCoins() {
         System.out.println("Quantas moedas deseja dropar?");
         int amount = new Scanner(System.in).nextInt();
         if (amount > 0) {
             if (!useCoins(amount)) {
                 amount = getCoinBag().getAmount();
-                this.useCoins(amount);
+                useCoins(amount);
+                System.out.println("Saldo insuficiente!");
             }
+            System.out.println("Dropou " + amount + " moedas");
             return new CoinBag(amount);
         } else {
+            System.out.println("Tá de brincadera com o Zoio?");
             return null;
         }
     }
