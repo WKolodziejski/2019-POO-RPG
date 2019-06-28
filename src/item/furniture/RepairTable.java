@@ -33,7 +33,7 @@ public class RepairTable extends Furniture {
         }
     }
 
-    public Item disassemblyItem(Equipment equipment) {
+    public RepairPiece disassemblyItem(Equipment equipment) {
         return new RepairPiece(equipment.getLevel());
     }
 

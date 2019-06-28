@@ -94,6 +94,9 @@ public class Game {
         else if (commandWord == CommandWord.REPAIR) {
             repair(command);
         }
+        else if (commandWord == CommandWord.DESTROY) {
+            destroy(command);
+        }
         else if (commandWord == CommandWord.EQUIP) {
             equip(command);
         }
@@ -143,6 +146,45 @@ public class Game {
         }
     }
 
+    private void destroy(Command command) {
+        RepairTable repairTable = currentRoom.getRepair();
+
+        if (repairTable != null) {
+            if (command.hasSecondWord()) {
+                int index;
+
+                try{
+                    index = Integer.parseInt(command.getSecondWord());
+                } catch(NumberFormatException e){
+                    System.out.println("Destruir o que?");
+                    return;
+                }
+
+                Item item = hero.findItem(index);
+
+                if (item != null) {
+                    if (item instanceof Equipment) {
+                        RepairPiece r = repairTable.disassemblyItem((Equipment) item);
+
+                        if (!hero.putItem(r)) {
+                            currentRoom.addItem(r);
+                        }
+
+                    } else {
+                        System.out.println("Esse item não é destrutível");
+                    }
+                } else {
+                    System.out.println("Destruir o que?");
+                }
+
+            } else {
+                System.out.println("Destruir o que?");
+            }
+        } else {
+            System.out.println("Não há mesas para destruir");
+        }
+    }
+
     private void forceDrop() {
         System.out.println(hero.getName() + " está carregando mais itens do que pode. Escolha algo para dropar.");
         hero.printInventory();
@@ -155,7 +197,7 @@ public class Game {
         System.out.println("Seu ataque é de " + hero.getAttack());
         System.out.println("Sua velocidade é de " + hero.getSpeed());
         System.out.println("Sua força é de " + hero.getStrength());
-        System.out.println("Vocês está carregando " + hero.getCurWeight() + " de "  + hero.getMaxWeight() + "kg.");
+        System.out.println("Você está carregando " + hero.getCurWeight() + " de "  + hero.getMaxWeight() + " kg.");
     }
 
     private void open(Command command) {

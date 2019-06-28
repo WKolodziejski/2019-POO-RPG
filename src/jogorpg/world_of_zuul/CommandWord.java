@@ -25,6 +25,7 @@ public enum CommandWord {
     BUY("buy"),
     SELL("sell"),
     REPAIR("repair"),
+    DESTROY("destroy"),
 
     TAKE("take"),
     PICK("pick"),
