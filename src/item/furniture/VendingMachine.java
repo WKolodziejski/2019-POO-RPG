@@ -1,16 +1,14 @@
-package item;
+package item.furniture;
 
 import characters.Hero;
+import item.CoinBag;
 import item.model.Item;
 import utils.Generator;
 import utils.Item_Creator;
-import java.util.ArrayList;
 
-public class VendingMachine {
-    private ArrayList<Item> items;
+public class VendingMachine extends Furniture {
 
     public VendingMachine() {
-        this.items = new ArrayList<>();
 
         for (int i = 0; i < Generator.get().number(10) + 10; i++) {
             Item item = Item_Creator.get().getRandom();
@@ -36,11 +34,6 @@ public class VendingMachine {
         } else {
             System.out.println("Não há itens à venda");
         }
-    }
-
-    private Item findItem(int i) {
-        if (i < 0 || i >= items.size()) return null;
-        else return items.get(i);
     }
 
     public Item buy(int i, Hero hero) {

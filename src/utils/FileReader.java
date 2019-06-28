@@ -1,6 +1,6 @@
 package utils;
 
-import item.Chest;
+import item.furniture.Chest;
 import item.model.Item;
 import jogorpg.world_of_zuul.Room;
 import java.io.*;
