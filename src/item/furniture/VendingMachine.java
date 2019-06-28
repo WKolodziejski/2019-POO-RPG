@@ -27,7 +27,7 @@ public class VendingMachine extends Furniture {
 
             for (int i = 0; i < items.size(); i++) {
                 if (items.get(i) != null) {
-                    System.out.println(i + ": "+ items.get(i).getDetails() + " - " + items.get(i).getPrice() + " moedas");
+                    System.out.println(i + ": " + items.get(i).getPrice() + " moedas - " + items.get(i).getDetails());
                 }
             }
 

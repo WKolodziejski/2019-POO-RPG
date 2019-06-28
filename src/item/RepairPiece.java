@@ -12,13 +12,13 @@ public class RepairPiece extends Item {
     }
 
     @Override
-    public boolean isConsumable() {
-        return false;
+    public int getPrice() {
+        return (type + 1) * 10;
     }
 
     @Override
-    public int getPrice() {
-        return (type + 1) * 10;
+    public String getDetails() {
+        return getName() + " (" + getWeight() + " kg)";
     }
 
     public int getType() {

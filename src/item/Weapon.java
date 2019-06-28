@@ -33,8 +33,7 @@ public class Weapon extends Equipment {
     }
 
     public String getDetails(){
-        return getName() + " - " + (bonusType() != Type.ATTACK ? damage + " de dano" + " - " + "+" + bonusAmount() + " de " + getBonusName(): bonusAmount() + damage + " de dano") + getWeight() + "kg";
+        return getName() + " (" + (bonusType() != Type.ATTACK ? damage + " de dano, +" + bonusAmount() + " de " + getBonusName() + ", ": bonusAmount() + damage + " de dano, ") + getWeight() + " kg)";
     }
-
 
 }

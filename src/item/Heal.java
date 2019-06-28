@@ -11,11 +11,6 @@ public class Heal extends Item {
     }
 
     @Override
-    public boolean isConsumable() {
-        return true;
-    }
-
-    @Override
     public int getPrice() {
         return healAmount * 100;
     }
@@ -25,7 +20,7 @@ public class Heal extends Item {
     }
 
     public String getDetails(){
-        return getName() + " - " + healAmount + " de cura" + " - " + getWeight() + "kg";
+        return getName() + " (" + healAmount + " de cura, " + getWeight() + " kg)";
     }
 
 }

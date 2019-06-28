@@ -25,16 +25,6 @@ public abstract class Item {
         this.weight = weight;
     }
 
-    public String getKey() {
-        if (name.contains(" ")) {
-            return name.substring(0, name.indexOf(" "));
-        } else {
-            return name;
-        }
-    }
-
-    public abstract boolean isConsumable();
-
     public abstract int getPrice();
 
     public abstract String getDetails();
