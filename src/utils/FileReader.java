@@ -1,5 +1,7 @@
 package utils;
 
+import item.Chest;
+import item.model.Item;
 import jogorpg.world_of_zuul.Room;
 import java.io.*;
 import java.util.ArrayList;
@@ -86,15 +88,15 @@ public class FileReader {
 
             while (scanner.hasNextLine()) {
                 String data = scanner.nextLine().trim();
-                int enemies = 0;
-                boolean chest = false;
-                boolean vending = false;
 
                 if (data.equals("<room>")) {
                     data = scanner.nextLine().trim();
                     StringBuilder name = new StringBuilder();
                     String description = "";
                     HashMap<Integer, String> e = new HashMap<>();
+                    int enemies = 0;
+                    boolean vending = false;
+                    Chest chest = null;
 
                     while (!data.equals("</room>")) {
 
@@ -130,7 +132,26 @@ public class FileReader {
                                 break;
 
                             case "<chest>":
-                                chest = true;
+                                data = scanner.nextLine().trim();
+                                Item item = null;
+
+                                while (!data.equals("</chest>")) {
+                                    chest = new Chest(data, Boolean.parseBoolean(scanner.nextLine().trim()));
+                                    data = scanner.nextLine().trim();
+
+                                    if (data.equals("<item>")) {
+                                        data = scanner.nextLine().trim();
+
+                                        while (!data.equals("</item>")) {
+                                            item = Item_Creator.get().getSpec(Item_Category.get(Integer.parseInt(data)), Integer.parseInt(scanner.nextLine().trim()));
+                                            data = scanner.nextLine().trim();
+                                        }
+
+                                        chest.addItem(item);
+                                        data = scanner.nextLine().trim();
+                                    }
+
+                                }
 
                                 break;
 

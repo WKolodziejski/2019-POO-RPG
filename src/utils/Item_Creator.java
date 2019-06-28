@@ -34,7 +34,7 @@ public class Item_Creator {
         return getSpec(categories[r.nextInt(categories.length)], r.nextInt(Generator.get().getMaterialAmount()));
     }
 
-    public Item getSpec(Item_Category category, int lvl){
+    public Item getSpec(Item_Category category, int lvl) {
         switch (category){
             case CoinBag: return createCoinBag(lvl);
             case Heal: return createHeal(lvl);

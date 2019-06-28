@@ -118,16 +118,8 @@ public class Game {
         if (!command.hasSecondWord()) {
             System.out.println("Abrir o que?");
         } else {
-            if (command.getSecondWord().equals("Chest")) {
 
-                Chest chest = currentRoom.getChest();
-
-                if (chest != null) {
-                    chest.open();
-                } else {
-                    System.out.println("Não há baús na sala");
-                }
-            } else if (command.getSecondWord().equals("Vending")) {
+            if (command.getSecondWord().equals("Vending")) {
                 VendingMachine machine = currentRoom.getMachine();
 
                 if (machine != null) {
@@ -135,9 +127,18 @@ public class Game {
                 } else {
                     System.out.println("Não há máquinas na sala");
                 }
-
             } else {
-                System.out.println("Abrir o que?");
+                Chest chest = currentRoom.getChest();
+
+                if (chest != null) {
+                    if (command.getSecondWord().equals(chest.getName())) {
+                        chest.open();
+                    } else {
+                        System.out.println("Abrir o que?");
+                    }
+                } else {
+                    System.out.println("Abrir o que?");
+                }
             }
         }
     }

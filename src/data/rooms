@@ -17,6 +17,13 @@
         Frente
     </exits>
     <chest>
+        Armario
+        true
+        <item>
+            0
+            1
+        </item>
+    </chest>
     <vending>
 </room>
 <room>
@@ -96,6 +103,9 @@
        0
     </enemies>
     <chest>
+        Caixa
+        true
+    </chest>
     <exits>
         4
         Corredor

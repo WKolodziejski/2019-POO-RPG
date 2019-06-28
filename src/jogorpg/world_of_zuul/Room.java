@@ -18,17 +18,14 @@ public class Room {
     private VendingMachine machine;
     private boolean firstAccess;
 
-    public Room(String name, String description, int enemiesAmount, boolean hasChest, boolean hasVending) {
+    public Room(String name, String description, int enemiesAmount, Chest chest, boolean hasVending) {
         this.name = name;
         this.description = description;
+        this.chest = chest;
         this.firstAccess = true;
         this.exits = new HashMap<>();
         this.characters = new HashMap<>();
         this.items = new ArrayList<>();
-
-        if (hasChest) {
-            this.chest = new Chest();
-        }
 
         if (hasVending) {
             this.machine = new VendingMachine();
@@ -110,7 +107,7 @@ public class Room {
         }
 
         if (chest != null) {
-            System.out.println("Você vê um baú");
+            System.out.println("Você vê um " + chest.getName());
         }
 
         if (machine != null) {

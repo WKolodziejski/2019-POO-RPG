@@ -9,4 +9,9 @@ public enum Item_Category {
         Heal,
         Ring,
         Weapon;
+
+        public static Item_Category get(int i) {
+                return values()[i];
+        }
+
 }
