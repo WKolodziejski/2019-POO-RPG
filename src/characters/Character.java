@@ -7,8 +7,11 @@ import item.model.Armor;
 import item.model.Bonus;
 import item.model.Equipment;
 import item.model.Item;
+import utils.Generator;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public abstract class Character {
     private OnDie onDie;
@@ -72,6 +75,7 @@ public abstract class Character {
 
     public void increaseEnergy(Heal item) {
         int amount = item.getHealAmount();
+        int energyCap = getEnergyCap();
 
         if (energy + amount <= energyCap) {
             energy += amount;
@@ -111,6 +115,32 @@ public abstract class Character {
         }
 
         return attack + bonus;
+    }
+
+    public int getLuck(){
+        int bonus = Generator.get().number(20);
+
+        for (Item item : equipped.values()) {
+            if (item instanceof Bonus) {
+                if (((Bonus) item).bonusType() == Bonus.Type.SPEED) {
+                    bonus += ((Bonus) item).bonusAmount();
+                }
+            }
+        }
+        return bonus;
+    }
+
+    private int getEnergyCap(){
+        int bonus = 0;
+
+        for (Item item : equipped.values()) {
+            if (item instanceof Bonus) {
+                if (((Bonus) item).bonusType() == Bonus.Type.LIFE) {
+                    bonus += ((Bonus) item).bonusAmount();
+                }
+            }
+        }
+        return energyCap + bonus;
     }
 
     private int getEquippedWeaponDamage(){

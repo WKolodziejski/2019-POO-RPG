@@ -1,16 +1,11 @@
 package item;
 
-import item.model.Bonus;
 import item.model.Equipment;
 
-public class Ring extends Equipment implements Bonus {
-    private Type bonusType;
-    private int bonusAmount;
+public class Ring extends Equipment {
 
     public Ring(String name, Type bonusType, int bonusAmount) {
-        super(name, 1);
-        this.bonusType = bonusType;
-        this.bonusAmount = bonusAmount;
+        super(name, 1, bonusAmount, bonusType);
     }
 
     public void lowerLevel(){
@@ -22,38 +17,13 @@ public class Ring extends Equipment implements Bonus {
         }
     }
 
-    public void setBonusByLevel(int oldLevel, int newLevel){
-        bonusAmount = (bonusAmount/(oldLevel+1))*(newLevel+1);
-    }
-
-    @Override
-    public Type bonusType() {
-        return bonusType;
-    }
-
-    @Override
-    public int bonusAmount() {
-        return bonusAmount;
-    }
-
     @Override
     public int getPrice() {
-        return bonusAmount * 100;
+        return bonusAmount() * 100;
     }
 
     public String getDetails(){
-        return getName() + " - " + "+" + bonusAmount + " de " + getBonusName() + " - " + getWeight() + "kg";
-    }
-
-    public String getBonusName(){
-        switch (bonusType){
-            case WEIGHT: return "força";
-            case LIFE: return "vida";
-            case DEFENSE: return "defesa";
-            case ATTACK: return "dano";
-            case SPEED: return "velocidade";
-            default: return "desconhecido";
-        }
+        return getName() + " - " + "+" + bonusAmount() + " de " + getBonusName() + " - " + getWeight() + "kg";
     }
 
 }

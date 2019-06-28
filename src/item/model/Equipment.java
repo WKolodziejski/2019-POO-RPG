@@ -3,12 +3,16 @@ package item.model;
 import item.Ring;
 import utils.Generator;
 
-public abstract class Equipment extends Item {
+public abstract class Equipment extends Item implements Bonus{
     private int durability;
+    private Type bonusType;
+    private int bonusAmount;
 
-    public Equipment(String name, int weight) {
+    public Equipment(String name, int weight, int bonus, Type bonusType) {
         super(name, weight);
         this.durability = 100;
+        this.bonusAmount = bonus;
+        this.bonusType = bonusType;
     }
 
     public void takeAHit(){
@@ -48,6 +52,29 @@ public abstract class Equipment extends Item {
     @Override
     public boolean isConsumable() {
         return false;
+    }
+
+    public void setBonusByLevel(int oldLevel, int newLevel){
+        bonusAmount = (bonusAmount/(oldLevel+1))*(newLevel+1);
+    }
+
+    public Type bonusType() {
+        return bonusType;
+    }
+
+    public int bonusAmount() {
+        return bonusAmount;
+    }
+
+    public String getBonusName(){
+        switch (bonusType){
+            case WEIGHT: return "força";
+            case LIFE: return "vida";
+            case DEFENSE: return "defesa";
+            case ATTACK: return "dano";
+            case SPEED: return "velocidade";
+            default: return "desconhecido";
+        }
     }
 
 }

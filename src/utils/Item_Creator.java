@@ -62,7 +62,7 @@ public class Item_Creator {
     }
 
     private Item createWeapon(int lvl){
-        return new Weapon(Generator.get().weapon() + " de " + Generator.get().getMaterialByLevel(lvl), r.nextInt(3) + 1, (r.nextInt(1) + 1)*(lvl+1));
+        return new Weapon(Generator.get().weapon() + " de " + Generator.get().getMaterialByLevel(lvl), r.nextInt(3) + 1, (r.nextInt(1) + 1)*(lvl+1), (r.nextInt(1) + 1)*(lvl+1), bonus[r.nextInt(bonus.length)]);
     }
 
     private Item createArm_Piece(int lvl){

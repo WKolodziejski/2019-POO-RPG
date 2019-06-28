@@ -5,8 +5,8 @@ import item.model.Equipment;
 public class Weapon extends Equipment {
     private int damage;
 
-    public Weapon(String name, int weight, int damage) {
-        super(name, weight);
+    public Weapon(String name, int weight, int damage, int bonus, Type bonusType) {
+        super(name, weight, bonus, bonusType);
         this.damage = damage;
     }
 
@@ -33,7 +33,7 @@ public class Weapon extends Equipment {
     }
 
     public String getDetails(){
-        return getName() + " - " + damage + " de dano - " + getWeight() + "kg";
+        return getName() + " - " + (bonusType() != Type.ATTACK ? damage + " de dano" + " - " + "+" + bonusAmount() + " de " + getBonusName(): bonusAmount() + damage + " de dano") + getWeight() + "kg";
     }
 
 

@@ -7,13 +7,13 @@ public class CoinBag extends Item {
     private int amount;
 
     public CoinBag(int amount) {
-        super("Moedas", (int) Math.ceil(amount / 1000));
+        super("Moedas", 0);
         this.amount = amount;
     }
 
     @Override
     public int getWeight() {
-        return (int) Math.ceil(this.amount/1000);
+        return (int) Math.ceil(((double)amount)/1000.0);
     }
 
     @Override

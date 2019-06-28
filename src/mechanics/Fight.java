@@ -5,8 +5,8 @@ import characters.Character;
 public class Fight {
 
     public static void fight(Character c1, Character c2) {
-        int p1 = Luck.d6();
-        int p2 = Luck.d6();
+        int p1 = c1.getLuck();
+        int p2 = c2.getLuck();
 
         if (p1 > p2) {
             int damage = c1.getAttack() / (1 + c2.getDefense() / 10);
