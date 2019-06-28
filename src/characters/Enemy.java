@@ -18,7 +18,6 @@ public class Enemy extends Character {
         for (int i = 0; i < Generator.get().number(3); i++) {
             Item item = Item_Creator.get().getRandom();
             inventory.add(item);
-            increaseWeightBy(item.getWeight());
         }
     }
 

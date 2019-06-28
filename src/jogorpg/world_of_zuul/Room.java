@@ -12,7 +12,8 @@ public class Room {
     private String name;
     private HashMap<String, Room> exits;
     private HashMap<String, Character> characters;
-    private HashMap<String, Item> items;
+    //private HashMap<String, Item> items;
+    private ArrayList<Item> items;
     private Chest chest;
     private VendingMachine machine;
     private boolean firstAccess;
@@ -23,7 +24,7 @@ public class Room {
         this.firstAccess = true;
         this.exits = new HashMap<>();
         this.characters = new HashMap<>();
-        this.items = new HashMap<>();
+        this.items = new ArrayList<>();
 
         if (hasChest) {
             this.chest = new Chest();
@@ -77,12 +78,18 @@ public class Room {
         return exits.get(direction);
     }
 
-    public Item deleteItem(String item){
-        return items.remove(item);
+    public void removeItem(Item item) {
+        if (item != null)
+            items.remove(item);
     }
 
     public void addItem(Item item){
-        items.put(item.getKey(), item);
+        items.add(item);
+    }
+
+    public Item findItem(int i) {
+        if (i < 0 || i >= items.size()) return null;
+        else return items.get(i);
     }
 
     public void describe() {
@@ -106,12 +113,17 @@ public class Room {
             System.out.println("Você vê um baú");
         }
 
+        if (machine != null) {
+            System.out.println("Você vê uma máquina de vendas");
+        }
+
         if (!items.isEmpty()) {
-            String s = "";
-            for (Item i : items.values()) {
-                s = s.concat(i.getName()).concat(", ");
+            System.out.println("Há itens no chão:");
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i) != null) {
+                    System.out.println(i + ": "+ items.get(i).getName());
+                }
             }
-            System.out.println("Há itens no chão: " + s.substring(0, s.length() - 2));
         }
     }
 

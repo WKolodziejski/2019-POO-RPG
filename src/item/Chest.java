@@ -3,14 +3,11 @@ package item;
 import item.model.Item;
 import utils.Generator;
 import utils.Item_Creator;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Chest {
-    private HashMap<String, Item> inventory;
+    private ArrayList<Item> items;
     private int password;
     private int chances;
     private int base;
@@ -23,11 +20,11 @@ public class Chest {
         System.out.println(password);
 
         this.chances = 2;
-        this.inventory = new HashMap<>();
+        this.items = new ArrayList<>();
 
         for (int i = 0; i < Generator.get().number(6); i++) {
             Item item = Item_Creator.get().getRandom();
-            inventory.put(item.getKey(), item);
+            items.add(item);
         }
     }
 
@@ -55,25 +52,33 @@ public class Chest {
         }
     }
 
-    private void printInventory() {
-        if (!inventory.isEmpty()) {
+    public void printInventory() {
+        if (!items.isEmpty()) {
             System.out.println("Itens:");
 
-            inventory.forEach((s, item) -> {
-                System.out.println(item.getName());
-            });
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i) != null) {
+                    System.out.println(i + ": "+ items.get(i).getName());
+                }
+            }
 
         } else {
             System.out.println("Não há itens");
         }
     }
 
-    public Item take(String name) {
+    private Item findItem(int i) {
+        if (i < 0 || i >= items.size()) return null;
+        else return items.get(i);
+    }
+
+    public Item take(int i) {
         if (opened) {
-            Item item = inventory.get(name);
+            Item item = findItem(i);
 
             if (item != null) {
-                inventory.remove(name);
+                items.remove(item);
+                printInventory();
                 return item;
             } else {
                 System.out.println("Esse item não existe");

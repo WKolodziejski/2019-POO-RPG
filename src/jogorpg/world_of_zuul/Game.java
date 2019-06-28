@@ -1,6 +1,7 @@
 package jogorpg.world_of_zuul;
 
 import item.Chest;
+import item.CoinBag;
 import item.Heal;
 import item.VendingMachine;
 import item.model.Item;
@@ -10,23 +11,6 @@ import characters.Character;
 import utils.FileReader;
 
 import java.util.Scanner;
-
-/**
- *  This class is the main class of the "World of Zuul" application. 
- *  "World of Zuul" is a very simple, text based adventure game.  Users 
- *  can walk around some scenery. That's all. It should really be extended 
- *  to make it more interesting!
- * 
- *  To play this game, create an instance of this class and call the "play"
- *  method.
- * 
- *  This main class creates and initialises all the others: it creates all
- *  rooms, creates the parser and starts the game.  It also evaluates and
- *  executes the commands that the parser returns.
- * 
- * @author  Michael Kolling and David J. Barnes
- * @version 2008.03.30
- */
 
 public class Game {
     private Parser parser;
@@ -56,7 +40,7 @@ public class Game {
 
     private boolean processCommand(Command command) {
 
-        while(hero.isOverweight()){
+        while (hero.isOverweight()) {
             forceDrop();
         }
 
@@ -120,7 +104,7 @@ public class Game {
     private void forceDrop() {
         System.out.println(hero.getName() + " está carregando mais itens do que pode. Escolha algo para dropar.");
         hero.printInventory();
-        hero.removeItem(new Scanner(System.in).nextInt());
+        hero.removeItem(hero.findItem(new Scanner(System.in).nextInt()));
     }
 
     private void me(Command command) {
@@ -188,10 +172,10 @@ public class Game {
 
         if (machine != null) {
             if (command.hasSecondWord()) {
-                Item item = machine.buy(command.getSecondWord(), hero);
+                Item item = machine.buy(Integer.parseInt(command.getSecondWord()), hero);
 
                 if (item != null) {
-                    if(!hero.putItem(item)){
+                    if (!hero.putItem(item)) {
                         currentRoom.addItem(item);
                         System.out.println("Item está no chão");
                     }
@@ -206,19 +190,17 @@ public class Game {
 
     private void use(Command command) {
         if (command.hasSecondWord()) {
-            Item item = hero.removeItem(Integer.parseInt(command.getSecondWord()));
+            Item item = hero.findItem(Integer.parseInt(command.getSecondWord()));
 
             if (item != null) {
                 if (item instanceof Heal) {
                     hero.increaseEnergy((Heal) item);
                 } else {
                     System.out.println("Usar isso como?");
-                    hero.putItem(item);
                 }
             } else {
                 System.out.println("Usar o que?");
             }
-
         } else {
             System.out.println("Usar o que?");
         }
@@ -229,7 +211,7 @@ public class Game {
 
         if (chest != null) {
             if (command.hasSecondWord()) {
-                Item item = chest.take(command.getSecondWord());
+                Item item = chest.take(Integer.parseInt(command.getSecondWord()));
 
                 if (item != null) {
                     if(!hero.putItem(item)) {
@@ -261,25 +243,30 @@ public class Game {
     }
 
     private void pick(Command command){
-        Item item = currentRoom.deleteItem(command.getSecondWord());
+        Item item = currentRoom.findItem(Integer.parseInt(command.getSecondWord()));
 
         if (item == null) {
             System.out.println("Pegar o que?");
         } else {
-            if(!hero.putItem(item)) {
-                currentRoom.addItem(item);
+            if (hero.putItem(item)) {
+                currentRoom.removeItem(item);
             }
         }
     }
 
     private void drop(Command command) {
-        Item item = hero.removeItem(Integer.parseInt(command.getSecondWord()));
+        Item item = hero.findItem(Integer.parseInt(command.getSecondWord()));
 
         if (item == null) {
             System.out.println("Dropar o que?");
         } else {
-            System.out.println("Dropou " + item.getName());
-            currentRoom.addItem(item);
+            if (item instanceof CoinBag) {
+                currentRoom.addItem(new CoinBag(hero.dropCoins()));
+            } else {
+                currentRoom.addItem(item);
+                hero.removeItem(item);
+                System.out.println("Dropou " + item.getName());
+            }
         }
     }
 

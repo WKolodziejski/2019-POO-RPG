@@ -1,27 +1,19 @@
 package characters;
 
-import item.Armor_Parts.Arm_Piece;
-import item.Armor_Parts.Chest_Piece;
-import item.Armor_Parts.Helmet;
-import item.Armor_Parts.Leg_Piece;
 import item.CoinBag;
 import item.Heal;
-import item.Ring;
 import item.Weapon;
 import item.model.Armor;
 import item.model.Bonus;
 import item.model.Equipment;
 import item.model.Item;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public abstract class Character {
     private OnDie onDie;
     protected ArrayList<Item> inventory;
     private HashMap<String, Equipment> equipped;
-    private int curWeight;
     private int maxWeight;
     private String name;
     private int energy;
@@ -41,7 +33,6 @@ public abstract class Character {
         this.equipped = new HashMap<>();
         CoinBag coinBag = new CoinBag(coins);
         inventory.add(coinBag);
-        increaseWeightBy(coinBag.getWeight());
     }
 
     public int getEnergy() {
@@ -52,19 +43,48 @@ public abstract class Character {
         return name;
     }
 
+    public void printLife() {
+        System.out.println("#Vida de " + name + ": " + (energy < 0 ? 0 : energy));
+    }
+
+    public Item findItem(int i) {
+        if (i < 0 || i >= inventory.size()) return null;
+        else return inventory.get(i);
+    }
+
+    public void printInventory() {
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.get(i) != null ){
+                System.out.println(i + ": "+ inventory.get(i).getName());
+            }
+        }
+    }
+
+    public void printEquipped() {
+        int i = 0;
+        for(Equipment equipment : equipped.values()){
+            System.out.println(i + ": "+ equipment.getName());
+            i++;
+        }
+    }
+
     public void increaseEnergy(Heal item) {
         int amount = item.getHealAmount();
 
         if (energy + amount <= energyCap) {
             energy += amount;
+            inventory.remove(item);
             System.out.println("Recuperou " + amount + " pontos de vida");
+            printInventory();
         } else {
             if (energy == energyCap) {
                 System.out.println("Vida já está no máximo");
-                inventory.add(item);
+                //inventory.add(item);
             } else {
                 System.out.println("Recuperou " + (energyCap - energy) + " pontos de vida");
                 energy = energyCap;
+                inventory.remove(item);
+                printInventory();
             }
         }
         printLife();
@@ -75,10 +95,6 @@ public abstract class Character {
         if (energy <= 0) {
             onDie.onDie(inventory);
         }
-    }
-
-    public void printLife() {
-        System.out.println("#Vida de " + name + ": " + (energy < 0 ? 0 : energy));
     }
 
     public int getAttack() {
@@ -114,11 +130,7 @@ public abstract class Character {
         return defense + bonus;
     }
 
-    public int getCurWeight() {
-        return curWeight;
-    }
-
-    public int getMaxWeight() {
+    private int getMaxWeight() {
         int bonus = 0;
 
         for (Item item : inventory) {
@@ -128,85 +140,36 @@ public abstract class Character {
                 }
             }
         }
-
         return maxWeight + bonus;
     }
 
-    private int getIndexByName(String name){
-        Item item;
-        for (int i = 0; i < inventory.size(); i++){
-            item = inventory.get(i);
-            if (item != null && item.getKey().equals(name)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public Item removeItem(int index) {
-        Item item = inventory.get(index);
+    public void removeItem(Item item) {
         if (item != null) {
-            if(item instanceof CoinBag){
-                return dropCoins();
-            } else {
-                if (item instanceof Equipment){
-                    if (isEquipped((Equipment) item)){
-                        unEquip((Equipment) item);
-                    }
+            if (item instanceof Equipment) {
+                if (isEquipped((Equipment) item)) {
+                    unEquip((Equipment) item);
                 }
-                inventory.set(index, null);
-                curWeight -= item.getWeight();
-                return item;
             }
-        } else return null;
-    }
-
-    protected boolean increaseWeightBy(int weight) {
-        if (curWeight + weight <= getMaxWeight()) {
-            curWeight += weight;
-            return true;
-        }
-        return false;
-    }
-
-    public boolean grabCoins(CoinBag pickedBag){  ///retorna se eu peguei todas as moedas da coinbag;
-        CoinBag herosBag = getCoinBag();
-        curWeight -= herosBag.getWeight();
-
-        int tmp = herosBag.getAmount() + pickedBag.getAmount();
-
-        if(increaseWeightBy((int) Math.ceil(tmp/1000))){
-            herosBag.setAmount(tmp);
-            return true;
-        } else {
-            int maxAmount = (getMaxWeight() - curWeight) * 1000;
-            herosBag.setAmount(maxAmount);
-            increaseWeightBy(herosBag.getWeight());
-            pickedBag.setAmount(maxAmount - tmp);
-            return false;
+            inventory.remove(item);
+            printInventory();
         }
     }
 
-    public boolean useCoins(int coins){
-        CoinBag herosBag = getCoinBag();
-        if(herosBag.getAmount() < coins){
-            return false;
-        } else {
-            this.curWeight -= herosBag.getWeight();
-            herosBag.setAmount(herosBag.getAmount() - coins);
-            increaseWeightBy(herosBag.getWeight());
-            return true;
-        }
+    public int dropCoins() {
+        return getCoinBag().dropCoins();
     }
 
     public boolean putItem(Item item) {
-        if(item instanceof CoinBag){
-            return grabCoins((CoinBag) item);
+        if (item instanceof CoinBag) {
+            return getCoinBag().grabCoins(((CoinBag) item).getAmount(), getCurWeight(), maxWeight);
         } else {
-            if (increaseWeightBy(item.getWeight())) {
+            int newWeight = getCurWeight() + item.getWeight();
+
+            if (newWeight <= maxWeight) {
                 int index = findFirstEmptySlot();
                 inventory.add(index, item);
                 System.out.println(item.getName() + " adicionado ao inventário");
+                printInventory();
                 if (item instanceof Equipment && equipped.get(item.getClass().getSimpleName()) == null) {
                     equipItem(index);
                 }
@@ -228,41 +191,17 @@ public abstract class Character {
         return i;
     }
 
-    public CoinBag dropCoins() {
-        System.out.println("Quantas moedas deseja dropar?");
-        int amount = new Scanner(System.in).nextInt();
-        if (amount > 0) {
-            if (!useCoins(amount)) {
-                amount = getCoinBag().getAmount();
-                useCoins(amount);
-                System.out.println("Saldo insuficiente!");
-            }
-            System.out.println("Dropou " + amount + " moedas");
-            return new CoinBag(amount);
-        } else {
-            System.out.println("Tá de brincadera com o Zoio?");
-            return null;
-        }
-    }
-
-    public CoinBag getCoinBag() {
-        return (CoinBag) inventory.get(getIndexByName("Moedas"));
-    }
-
-    public void printInventory() {
-        for(int i = 0; i < inventory.size(); i++){
-            if(inventory.get(i)!=null){
-                System.out.println(i + ": "+ inventory.get(i).getName());
+    private CoinBag getCoinBag() {
+        for (Item item : inventory) {
+            if (item instanceof CoinBag) {
+                return (CoinBag) item;
             }
         }
+        return null;
     }
 
-    public void printEquipped() {
-        int i = 0;
-        for(Equipment equipment : equipped.values()){
-            System.out.println(i + ": "+ equipment.getName());
-            i++;
-        }
+    public boolean useCoins(int amount) {
+        return getCoinBag().useCoins(amount);
     }
 
     public String getKey() {
@@ -276,13 +215,13 @@ public abstract class Character {
     public void equipItem(int index){
         Item tbEquipped = inventory.get(index);
 
-        if(tbEquipped != null){
-            if(tbEquipped instanceof Equipment){
+        if( tbEquipped != null){
+            if (tbEquipped instanceof Equipment){
                 Equipment alreadyIn = equipped.get(tbEquipped.getClass().getSimpleName());
-                if(alreadyIn!=null) {
+                if (alreadyIn != null) {
                     if (tbEquipped instanceof Armor) {
                         if (((Armor)alreadyIn).bonusType() == Bonus.Type.WEIGHT) {
-                            if (this.curWeight > (this.getMaxWeight() - ((Armor)alreadyIn).bonusAmount() + (((Armor) tbEquipped).bonusType() == Bonus.Type.WEIGHT ? ((Armor) tbEquipped).bonusAmount() : 0))) {
+                            if (getCurWeight() > (getMaxWeight() - ((Armor)alreadyIn).bonusAmount() + (((Armor) tbEquipped).bonusType() == Bonus.Type.WEIGHT ? ((Armor) tbEquipped).bonusAmount() : 0))) {
                                 System.out.println("Não foi possível equipar " + tbEquipped.getName() + ", pois desequipando " + alreadyIn.getName() + " seu peso além da sua capacisade");
                                 return;
                             }
@@ -300,12 +239,12 @@ public abstract class Character {
         }
     }
 
-    public void takeDamage(int energyDecrease){
+    public void takeDamage(int energyDecrease) {
         this.decreaseEnergy(energyDecrease);
         this.damageEquipped();
     }
 
-    public void damageEquipped(){
+    private void damageEquipped() {
         for (Equipment equip : equipped.values()) {
             if(equip!=null) {
                 damageItem(equip);
@@ -313,14 +252,14 @@ public abstract class Character {
         }
     }
 
-    public void damageEquippedWeapon(){
+    public void damageEquippedWeapon() {
         Equipment equipment = equipped.get(Weapon.class.getSimpleName());
         if(equipment!=null) {
             damageItem(equipment);
         }
     }
 
-    public void damageItem(Equipment equip){
+    private void damageItem(Equipment equip) {
         equip.takeAHit();
         if(equip.isBroken()){
             System.out.println(equip.getName() + " foi quebrado");
@@ -328,12 +267,12 @@ public abstract class Character {
         }
     }
 
-     public void unEquip(Equipment equip){
+     private void unEquip(Equipment equip) {
         System.out.println(equip.getName() + " foi desequipado");
         equipped.remove(equip.getClass().getSimpleName());
      }
 
-     public void unEquip(int index){
+     public void unEquip(int index) {
         if(index < equipped.values().size()){
             int i = 0;
             for(Equipment equipment : equipped.values()) {
@@ -347,11 +286,20 @@ public abstract class Character {
         }
     }
 
-     public boolean isOverweight(){
-        return curWeight > getMaxWeight();
+    private int getCurWeight() {
+        int weight = 0;
+        for (Item item : inventory) {
+            weight += item.getWeight();
+        }
+        return weight;
+    }
+
+     public boolean isOverweight() {
+        return getCurWeight() > getMaxWeight();
      }
 
-     public boolean isEquipped(Equipment equip){
+     private boolean isEquipped(Equipment equip) {
         return equipped.get(equip.getClass().getSimpleName()) != null;
      }
+
 }

@@ -4,13 +4,13 @@ import characters.Hero;
 import item.model.Item;
 import utils.Generator;
 import utils.Item_Creator;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class VendingMachine {
-    private HashMap<String, Item> inventory;
+    private ArrayList<Item> items;
 
     public VendingMachine() {
-        this.inventory = new HashMap<>();
+        this.items = new ArrayList<>();
 
         for (int i = 0; i < Generator.get().number(10) + 10; i++) {
             Item item = Item_Creator.get().getRandom();
@@ -19,33 +19,39 @@ public class VendingMachine {
                 item = Item_Creator.get().getRandom();
             }
 
-            inventory.put(item.getKey(), item);
+            items.add(item);
         }
     }
 
     public void printInventory() {
-        if (!inventory.isEmpty()) {
+        if (!items.isEmpty()) {
             System.out.println("Itens à venda:");
 
-            inventory.forEach((s, item) -> {
-                System.out.println(item.getName() + ": " + item.getPrice() + " moedas");
-            });
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i) != null) {
+                    System.out.println(i + ": "+ items.get(i).getName() + " - " + items.get(i).getPrice() + " moedas");
+                }
+            }
 
         } else {
             System.out.println("Não há itens à venda");
         }
     }
 
-    public Item buy(String name, Hero hero) {
-        Item item = inventory.get(name);
+    private Item findItem(int i) {
+        if (i < 0 || i >= items.size()) return null;
+        else return items.get(i);
+    }
+
+    public Item buy(int i, Hero hero) {
+        Item item = findItem(i);
 
         if (item != null) {
             if (hero.useCoins(item.getPrice())) {
-                System.out.println(item.getPrice() + " moedas gastas");
-                inventory.remove(name);
+                items.remove(i);
+                printInventory();
                 return item;
             } else {
-                System.out.println("Você não tem moedas suficientes");
                 return null;
             }
         } else {
@@ -53,5 +59,4 @@ public class VendingMachine {
             return null;
         }
     }
-
 }
