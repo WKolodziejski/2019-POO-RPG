@@ -31,10 +31,10 @@ public class Room {
 
             Enemy enemy = new Enemy(inventory -> {
                 System.out.println("-----Itens Droppados-----");
-                for(Item item: inventory){
+                for (Item item: inventory){
                     if (item != null) {
                         addItem(item);
-                        System.out.println(item.getName());
+                        System.out.println(items.size() - 1 + ": " + item.getName());
                     }
                 }
             });
@@ -80,7 +80,7 @@ public class Room {
             items.remove(item);
     }
 
-    public void addItem(Item item){
+    public void addItem(Item item) {
         items.add(item);
     }
 

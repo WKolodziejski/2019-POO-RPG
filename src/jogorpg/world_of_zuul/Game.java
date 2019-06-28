@@ -19,6 +19,7 @@ public class Game {
     private Parser parser;
     private Room currentRoom;
     private Hero hero;
+    private Room lastRoom;
 
     public Game() {
         currentRoom = FileReader.readRooms();
@@ -426,12 +427,13 @@ public class Game {
         if (nextRoom == null) {
             System.out.println("Ir onde?");
         } else {
-
-            currentRoom.getCharacters().forEach((s, character) -> {
-                hero.decreaseEnergy(character.getAttack() / (1 + hero.getDefense() / 10));
-                hero.printLife();
-            });
-
+            if (nextRoom != lastRoom) {
+                currentRoom.getCharacters().forEach((s, character) -> {
+                    hero.decreaseEnergy(character.getAttack() / (1 + hero.getDefense() / 10));
+                    hero.printLife();
+                });
+            }
+            lastRoom = currentRoom;
             currentRoom = nextRoom;
             currentRoom.describe();
 

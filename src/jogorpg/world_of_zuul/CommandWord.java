@@ -21,7 +21,6 @@ public enum CommandWord {
     EQUIPPED("equipped"),
 
     OPEN("open"),
-    CLOSE("close"),
     BUY("buy"),
     SELL("sell"),
     REPAIR("repair"),
