@@ -93,4 +93,8 @@ public class CoinBag extends Item {
         return amount;
     }
 
+    public String getDetails(){
+        return getName() + " - " + getWeight() + "kg";
+    }
+
 }

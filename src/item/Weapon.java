@@ -32,4 +32,9 @@ public class Weapon extends Equipment {
         damage = (damage/(oldLevel+1))*(newLevel+1);
     }
 
+    public String getDetails(){
+        return getName() + " - " + damage + " de dano - " + getWeight() + "kg";
+    }
+
+
 }

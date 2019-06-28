@@ -68,9 +68,7 @@ public class Chest {
             System.out.println("Itens:");
 
             for (int i = 0; i < items.size(); i++) {
-                if (items.get(i) != null) {
-                    System.out.println(i + ": "+ items.get(i).getName());
-                }
+                System.out.println(i + ": "+ items.get(i).getDetails());
             }
 
         } else {

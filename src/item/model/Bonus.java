@@ -3,13 +3,15 @@ package item.model;
 public interface Bonus {
 
     enum Type {
-        ATTACK,
+        ATTACK(),
         DEFENSE,
-        WEIGHT;
+        WEIGHT,
+        LIFE,
+        SPEED;
     }
 
     Type bonusType();
     int bonusAmount();
     void setBonusByLevel(int oldLevel, int newLevel);
-
+    String getBonusName();
 }

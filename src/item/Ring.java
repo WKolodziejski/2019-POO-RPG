@@ -41,4 +41,19 @@ public class Ring extends Equipment implements Bonus {
         return bonusAmount * 100;
     }
 
+    public String getDetails(){
+        return getName() + " - " + "+" + bonusAmount + " de " + getBonusName() + " - " + getWeight() + "kg";
+    }
+
+    public String getBonusName(){
+        switch (bonusType){
+            case WEIGHT: return "força";
+            case LIFE: return "vida";
+            case DEFENSE: return "defesa";
+            case ATTACK: return "dano";
+            case SPEED: return "velocidade";
+            default: return "desconhecido";
+        }
+    }
+
 }

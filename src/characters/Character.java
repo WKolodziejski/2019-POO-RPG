@@ -54,9 +54,7 @@ public abstract class Character {
 
     public void printInventory() {
         for (int i = 0; i < inventory.size(); i++) {
-            if (inventory.get(i) != null ){
-                System.out.println(i + ": " + inventory.get(i).getName());
-            }
+            System.out.println(i + ": " + inventory.get(i).getDetails());
         }
     }
 
@@ -64,7 +62,7 @@ public abstract class Character {
         int i = 0;
         if(equipped.size()!=0){
             for(Equipment equipment : equipped.values()){
-                System.out.println(i + ": "+ equipment.getName());
+                System.out.println(i + ": "+ equipment.getDetails());
                 i++;
             }
         } else {
@@ -288,6 +286,7 @@ public abstract class Character {
                 }
             }
         }
+        System.out.println("Item não encontrado");
     }
 
     public int getCurWeight() {

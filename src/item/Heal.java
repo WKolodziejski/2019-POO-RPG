@@ -24,4 +24,8 @@ public class Heal extends Item {
         return healAmount;
     }
 
+    public String getDetails(){
+        return getName() + " - " + healAmount + " de cura" + " - " + getWeight() + "kg";
+    }
+
 }

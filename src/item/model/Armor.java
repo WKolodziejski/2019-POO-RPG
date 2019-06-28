@@ -49,4 +49,19 @@ public abstract class Armor extends Equipment implements Bonus {
         return getDefense() * bonusAmount();
     }
 
+    public String getDetails(){
+        return getName() + " - " + (bonusType != Type.DEFENSE ? defense + " de defesa" + " - " + "+" + bonusAmount + " de " + getBonusName(): bonusAmount + defense + " de defesa") + " - " + getWeight() + "kg";
+    }
+
+    public String getBonusName(){
+        switch (bonusType){
+            case WEIGHT: return "força";
+            case LIFE: return "vida";
+            case DEFENSE: return "defesa";
+            case ATTACK: return "dano";
+            case SPEED: return "velocidade";
+            default: return "desconhecido";
+        }
+    }
+
 }
