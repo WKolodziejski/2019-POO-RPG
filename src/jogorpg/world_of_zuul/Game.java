@@ -153,6 +153,8 @@ public class Game {
         hero.printLife();
         System.out.println("Sua defesa é de " + hero.getDefense());
         System.out.println("Seu ataque é de " + hero.getAttack());
+        System.out.println("Sua velocidade é de " + hero.getSpeed());
+        System.out.println("Sua força é de " + hero.getStrength());
         System.out.println("Vocês está carregando " + hero.getCurWeight() + " de "  + hero.getMaxWeight() + "kg.");
     }
 
