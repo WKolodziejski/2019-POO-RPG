@@ -1,8 +1,9 @@
 package jogorpg.world_of_zuul;
 
 import java.util.*;
-import item.Chest;
-import item.VendingMachine;
+import item.furniture.Chest;
+import item.furniture.Furniture;
+import item.furniture.VendingMachine;
 import item.model.Item;
 import characters.Character;
 import characters.Enemy;
@@ -12,23 +13,26 @@ public class Room {
     private String name;
     private HashMap<String, Room> exits;
     private HashMap<String, Character> characters;
+    private HashMap<String, Furniture> furniture;
     //private HashMap<String, Item> items;
     private ArrayList<Item> items;
-    private Chest chest;
-    private VendingMachine machine;
+    //private Chest chest;
+    //private VendingMachine machine;
     private boolean firstAccess;
 
     public Room(String name, String description, int enemiesAmount, Chest chest, boolean hasVending) {
         this.name = name;
         this.description = description;
-        this.chest = chest;
         this.firstAccess = true;
         this.exits = new HashMap<>();
         this.characters = new HashMap<>();
+        this.furniture = new HashMap<>();
         this.items = new ArrayList<>();
 
+        this.furniture.put("Chest", chest);
+
         if (hasVending) {
-            this.machine = new VendingMachine();
+            furniture.put("Vending", new VendingMachine());
         }
 
         for (int i = 0; i < enemiesAmount; i++) {
@@ -56,11 +60,11 @@ public class Room {
     }
 
     public Chest getChest() {
-        return chest;
+        return (Chest) furniture.get("Chest");
     }
 
     public VendingMachine getMachine() {
-        return machine;
+        return (VendingMachine) furniture.get("Vending");
     }
 
     public HashMap<String, Character> getCharacters() {
@@ -106,9 +110,13 @@ public class Room {
             System.out.println("Há inimigos na sala: " + e.substring(0, e.length() - 2));
         }
 
+        Chest chest = (Chest) furniture.get("Chest");
+
         if (chest != null) {
             System.out.println("Você vê um " + chest.getName());
         }
+
+        VendingMachine machine = (VendingMachine) furniture.get("Vending");
 
         if (machine != null) {
             System.out.println("Você vê uma máquina de vendas");

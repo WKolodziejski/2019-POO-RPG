@@ -8,7 +8,8 @@ public enum Item_Category {
         CoinBag,
         Heal,
         Ring,
-        Weapon;
+        Weapon,
+        Repair_Piece;
 
         public static Item_Category get(int i) {
                 return values()[i];

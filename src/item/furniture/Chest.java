@@ -1,13 +1,12 @@
-package item;
+package item.furniture;
 
 import item.model.Item;
 import utils.Generator;
 import utils.Item_Creator;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Chest {
-    private ArrayList<Item> items;
+public class Chest extends Furniture {
+
     private String name;
     private int password;
     private int chances;
@@ -23,7 +22,6 @@ public class Chest {
         System.out.println(password);
 
         this.chances = 2;
-        this.items = new ArrayList<>();
 
         for (int i = 0; i < Generator.get().number(6); i++) {
             Item item = Item_Creator.get().getRandom();
@@ -74,11 +72,6 @@ public class Chest {
         } else {
             System.out.println("Não há itens");
         }
-    }
-
-    private Item findItem(int i) {
-        if (i < 0 || i >= items.size()) return null;
-        else return items.get(i);
     }
 
     public Item take(int i) {

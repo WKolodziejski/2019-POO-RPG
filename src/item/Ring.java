@@ -23,7 +23,7 @@ public class Ring extends Equipment {
     }
 
     public String getDetails(){
-        return getName() + " - " + "+" + bonusAmount() + " de " + getBonusName() + " - " + getWeight() + "kg";
+        return getName() + " (" + "+" + bonusAmount() + " de " + getBonusName() + ", " + getWeight() + " kg)";
     }
 
 }

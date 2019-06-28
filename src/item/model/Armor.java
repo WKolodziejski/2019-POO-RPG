@@ -32,7 +32,7 @@ public abstract class Armor extends Equipment {
     }
 
     public String getDetails(){
-        return getName() + " - " + (bonusType() != Type.DEFENSE ? defense + " de defesa" + " - " + "+" + bonusAmount() + " de " + getBonusName(): bonusAmount() + defense + " de defesa") + " - " + getWeight() + "kg";
+        return getName() + " (" + (bonusType() != Type.DEFENSE ? defense + " de defesa" + ", " + "+" + bonusAmount() + " de " + getBonusName(): bonusAmount() + defense + " de defesa") + ", " + getWeight() + " kg)";
     }
 
 }

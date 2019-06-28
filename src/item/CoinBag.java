@@ -22,18 +22,8 @@ public class CoinBag extends Item {
     }
 
     @Override
-    public boolean isConsumable() {
-        return false;
-    }
-
-    @Override
     public int getPrice() {
         return -1;
-    }
-
-    @Override
-    public String getKey() {
-        return "Moedas";
     }
 
     public int dropCoins() {
@@ -94,7 +84,7 @@ public class CoinBag extends Item {
     }
 
     public String getDetails(){
-        return getName() + " - " + getWeight() + "kg";
+        return getName() + " (" + getWeight() + " kg)";
     }
 
 }

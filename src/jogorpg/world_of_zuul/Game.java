@@ -1,9 +1,9 @@
 package jogorpg.world_of_zuul;
 
-import item.Chest;
+import item.furniture.Chest;
 import item.CoinBag;
 import item.Heal;
-import item.VendingMachine;
+import item.furniture.VendingMachine;
 import item.model.Item;
 import mechanics.Fight;
 import characters.Hero;

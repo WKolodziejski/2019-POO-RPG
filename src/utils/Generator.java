@@ -41,9 +41,9 @@ public class Generator {
         return materials.get(level);
     }
 
-    public int getLevelByMaterial(String material){
-        for(int i = 0; i < materials.size(); i++){
-            if(materials.get(i).equals(material)){
+    public int getLevelByMaterial(String material) {
+        for (int i = 0; i < materials.size(); i++) {
+            if (materials.get(i).equals(material)) {
                 return i;
             }
         }

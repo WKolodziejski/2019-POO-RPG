@@ -10,7 +10,7 @@ public abstract class Equipment extends Item implements Bonus{
 
     public Equipment(String name, int weight, int bonus, Type bonusType) {
         super(name, weight);
-        this.durability = 100;
+        this.durability = getLevel() * 10;
         this.bonusAmount = bonus;
         this.bonusType = bonusType;
     }
@@ -33,11 +33,11 @@ public abstract class Equipment extends Item implements Bonus{
 
     public abstract void lowerLevel();
 
-    protected int getLevel(){
-        return Generator.get().getLevelByMaterial(this.getMaterial());
+    public int getLevel() {
+        return Generator.get().getLevelByMaterial(getMaterial());
     }
 
-    public String getMaterial(){
+    public String getMaterial() {
         return getName().substring(getName().lastIndexOf(" ") + 1);
     }
 
@@ -47,11 +47,6 @@ public abstract class Equipment extends Item implements Bonus{
         StringBuilder b = new StringBuilder();
         b.replace(inicio, inicio + material.length(), Generator.get().getMaterialByLevel(level));
         setName(b.toString());
-    }
-
-    @Override
-    public boolean isConsumable() {
-        return false;
     }
 
     public void setBonusByLevel(int oldLevel, int newLevel){

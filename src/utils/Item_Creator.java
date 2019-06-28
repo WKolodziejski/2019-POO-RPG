@@ -44,9 +44,14 @@ public class Item_Creator {
             case Chest_Piece: return createChest_Piece(lvl);
             case Helmet: return createHelmet(lvl);
             case Leg_Piece: return createLeg_Piece(lvl);
+            case Repair_Piece: return createRepaiPiece(lvl);
             default: return null;
         }
 
+    }
+
+    private Item createRepaiPiece(int lvl) {
+        return new RepairPiece(lvl);
     }
 
     private Item createCoinBag(int lvl){
