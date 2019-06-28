@@ -5,6 +5,7 @@ import item.Armor_Parts.Chest_Piece;
 import item.Armor_Parts.Helmet;
 import item.Armor_Parts.Leg_Piece;
 import item.CoinBag;
+import item.Heal;
 import item.Ring;
 import item.Weapon;
 import item.model.Armor;
@@ -51,20 +52,22 @@ public abstract class Character {
         return name;
     }
 
-    public boolean increaseEnergy(int amount) {
+    public void increaseEnergy(Heal item) {
+        int amount = item.getHealAmount();
+
         if (energy + amount <= energyCap) {
             energy += amount;
             System.out.println("Recuperou " + amount + " pontos de vida");
         } else {
             if (energy == energyCap) {
                 System.out.println("Vida já está no máximo");
-                return false;
+                inventory.add(item);
             } else {
                 System.out.println("Recuperou " + (energyCap - energy) + " pontos de vida");
                 energy = energyCap;
             }
         }
-        return true;
+        printLife();
     }
 
     public void decreaseEnergy(int amount) {

@@ -210,11 +210,7 @@ public class Game {
 
             if (item != null) {
                 if (item instanceof Heal) {
-                    if (hero.increaseEnergy(((Heal) item).getHealAmount())) {
-                        hero.printLife();
-                    } else {
-                        hero.putItem(item);
-                    }
+                    hero.increaseEnergy((Heal) item);
                 } else {
                     System.out.println("Usar isso como?");
                     hero.putItem(item);
