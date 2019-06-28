@@ -112,6 +112,9 @@ public class Game {
 
     private void me(Command command) {
         hero.printLife();
+        System.out.println("Sua defesa é de " + hero.getDefense());
+        System.out.println("Seu ataque é de " + hero.getAttack());
+        System.out.println("Vocês está carregando " + hero.getCurWeight() + " kg. E pode carregar " + hero.getMaxWeight() + " kg.");
     }
 
     private void open(Command command) {
@@ -237,17 +240,19 @@ public class Game {
         Chest chest = currentRoom.getChest();
 
         if (chest != null) {
-            if (command.hasSecondWord()) {
-                Item item = chest.take(Integer.parseInt(command.getSecondWord()));
-
-                if (item != null) {
-                    if(!hero.putItem(item)) {
-                        currentRoom.addItem(item);
-                        System.out.println("Item está no chão");
-                    }
-                }
-            } else {
+            Item item;
+            try {
+                item = chest.take(Integer.parseInt(command.getSecondWord()));
+            } catch (NumberFormatException e){
                 System.out.println("Pegar o que?");
+                return;
+            }
+
+            if (item != null) {
+                if(!hero.putItem(item)) {
+                    currentRoom.addItem(item);
+                    System.out.println("Item está no chão");
+                }
             }
         } else {
             System.out.println("Pegar onde?");

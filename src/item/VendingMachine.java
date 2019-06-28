@@ -65,7 +65,7 @@ public class VendingMachine {
             System.out.println("Tá maluco?");
             return null;
         } else {
-            System.out.println("Venedeu " + item.getName() + " por " + item.getPrice() + " moedas");
+            System.out.println("Vendeu " + item.getName() + " por " + item.getPrice() + " moedas");
             items.add(item);
             return new CoinBag(item.getPrice());
         }

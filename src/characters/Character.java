@@ -62,9 +62,13 @@ public abstract class Character {
 
     public void printEquipped() {
         int i = 0;
-        for(Equipment equipment : equipped.values()){
-            System.out.println(i + ": "+ equipment.getName());
-            i++;
+        if(equipped.size()!=0){
+            for(Equipment equipment : equipped.values()){
+                System.out.println(i + ": "+ equipment.getName());
+                i++;
+            }
+        } else {
+            System.out.println("Nada equipado");
         }
     }
 
@@ -130,7 +134,7 @@ public abstract class Character {
         return defense + bonus;
     }
 
-    private int getMaxWeight() {
+    public int getMaxWeight() {
         int bonus = 0;
 
         for (Item item : inventory) {
@@ -169,10 +173,10 @@ public abstract class Character {
                 int index = findFirstEmptySlot();
                 inventory.add(index, item);
                 System.out.println(item.getName() + " adicionado ao inventário");
-                printInventory();
                 if (item instanceof Equipment && equipped.get(item.getClass().getSimpleName()) == null) {
                     equipItem(index);
                 }
+                printInventory();
                 return true;
             } else {
                 System.out.println("Sem espaço no inventário");
@@ -286,7 +290,7 @@ public abstract class Character {
         }
     }
 
-    private int getCurWeight() {
+    public int getCurWeight() {
         int weight = 0;
         for (Item item : inventory) {
             weight += item.getWeight();
