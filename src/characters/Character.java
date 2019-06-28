@@ -38,7 +38,9 @@ public abstract class Character {
         this.maxWeight = maxWeight;
         this.onDie = onDie;
         this.equipped = new HashMap<>();
-        inventory.add(new CoinBag("Moedas de " + name, coins));
+        CoinBag coinBag = new CoinBag(coins);
+        inventory.add(coinBag);
+        increaseWeightBy(coinBag.getWeight());
     }
 
     public int getEnergy() {
@@ -127,20 +129,11 @@ public abstract class Character {
         return maxWeight + bonus;
     }
 
-    public Item removeItem(String name){
-        int index = getIndexByName(name);
-        if(index==-1){
-            return null;
-        } else {
-            return removeItem(index);
-        }
-    }
-
     private int getIndexByName(String name){
         Item item;
         for(int i = 0; i < inventory.size(); i++){
             item = inventory.get(i);
-            if(item!=null && item.getName().equals(name)){
+            if(item!=null && item.getKey().equals(name)){
                 return i;
             }
         }
@@ -211,10 +204,10 @@ public abstract class Character {
             if (increaseWeightBy(item.getWeight())) {
                 int index = findFirstEmptySlot();
                 inventory.add(index, item);
+                System.out.println(item.getName() + " adicionado ao inventário");
                 if (item instanceof Equipment && equipped.get(item.getClass().getSimpleName()) == null) {
                     equipItem(index);
                 }
-                System.out.println(item.getName() + " adicionado ao inventário");
                 return true;
             } else {
                 System.out.println("Sem espaço no inventário");
@@ -241,14 +234,14 @@ public abstract class Character {
                 amount = getCoinBag().getAmount();
                 this.useCoins(amount);
             }
-            return new CoinBag("Moedas de " + getName(), amount);
+            return new CoinBag(amount);
         } else {
             return null;
         }
     }
 
     public CoinBag getCoinBag() {
-        return (CoinBag) inventory.get(getIndexByName("Moedas de " + getName()));
+        return (CoinBag) inventory.get(getIndexByName("Moedas"));
     }
 
     public void printInventory() {
