@@ -273,17 +273,17 @@ public abstract class Character {
 
         if(tbEquipped != null){
             if(tbEquipped instanceof Equipment){
-                Armor alreadyIn = (Armor) equipped.get(tbEquipped.getClass().getSimpleName());
+                Equipment alreadyIn = equipped.get(tbEquipped.getClass().getSimpleName());
                 if(alreadyIn!=null) {
                     if (tbEquipped instanceof Armor) {
-                        if (alreadyIn.bonusType() == Bonus.Type.WEIGHT) {
-                            if (this.curWeight > (this.getMaxWeight() - alreadyIn.bonusAmount() + (((Armor) tbEquipped).bonusType() == Bonus.Type.WEIGHT ? ((Armor) tbEquipped).bonusAmount() : 0))) {
+                        if (((Armor)alreadyIn).bonusType() == Bonus.Type.WEIGHT) {
+                            if (this.curWeight > (this.getMaxWeight() - ((Armor)alreadyIn).bonusAmount() + (((Armor) tbEquipped).bonusType() == Bonus.Type.WEIGHT ? ((Armor) tbEquipped).bonusAmount() : 0))) {
                                 System.out.println("Não foi possível equipar " + tbEquipped.getName() + ", pois desequipando " + alreadyIn.getName() + " seu peso além da sua capacisade");
                                 return;
                             }
                         }
                     }
-                    System.out.println(alreadyIn.getName() + " desequipado") ;
+                    unEquip(alreadyIn);
                 }
                 equipped.put(tbEquipped.getClass().getSimpleName(), (Equipment) tbEquipped);
                 System.out.println(tbEquipped.getName() + " equipado com sucesso!");
@@ -324,7 +324,7 @@ public abstract class Character {
     }
 
      public void unEquip(Equipment equip){
-        System.out.println(equip.getName()+ " foi desequipado");
+        System.out.println(equip.getName() + " foi desequipado");
         equipped.remove(equip.getClass().getSimpleName());
      }
 
