@@ -282,7 +282,7 @@ public class Game {
         if (item == null) {
             System.out.println("Dropar o que?");
         } else {
-            System.out.println("Dropou ?" + item.getName());
+            System.out.println("Dropou " + item.getName());
             currentRoom.addItem(item);
         }
     }

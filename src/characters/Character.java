@@ -146,12 +146,12 @@ public abstract class Character {
             if(item instanceof CoinBag){
                 return dropCoins();
             } else {
-                if(item instanceof Equipment){
-                    if(isEquipped((Equipment) item)){
+                if (item instanceof Equipment){
+                    if (isEquipped((Equipment) item)){
                         unEquip((Equipment) item);
                     }
                 }
-                inventory.add(index, null);
+                inventory.set(index, null);
                 curWeight -= item.getWeight();
                 return item;
             }
