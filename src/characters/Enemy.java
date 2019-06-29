@@ -50,11 +50,11 @@ public class Enemy extends Character {
         if (item instanceof CoinBag){
             return (getCoinBag().grabCoins(((CoinBag) item), 0, getMaxWeight()));
         } else {
-                inventory.add(item);
-                if(item instanceof Equipment && !isEquipped((Equipment) item)) {
-                    equip((Equipment) item);
-                }
-                return true;
+            inventory.add(item);
+            if(item instanceof Equipment && !isEquipped((Equipment) item)) {
+                equip((Equipment) item);
+            }
+            return true;
         }
     }
 
