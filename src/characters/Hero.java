@@ -29,19 +29,6 @@ public class Hero extends Character {
         }
     }
 
-    public void printEquipped() {
-        Console.print(Console.BLACK_UNDERLINED, "------ITENS EQUIPADOS------");
-        int i = 0;
-        if (equipped.size()!=0) {
-            for (Equipment equipment : equipped.values()) {
-                Console.print(Console.BLUE_BRIGHT, i + ": " + equipment.getDetails());
-                i++;
-            }
-        } else {
-            Console.print(Console.BLACK_BOLD, "Nada equipado");
-        }
-    }
-
     public void increaseEnergy(Heal item) {
         int amount = item.getHealAmount();
 
