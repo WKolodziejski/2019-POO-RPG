@@ -288,19 +288,24 @@ public class Game {
             Item item;
 
             try{
-                item = machine.buy(Integer.parseInt(command.getSecondWord()), hero);
+                item = hero.findItem(Integer.parseInt(command.getSecondWord()));
             } catch(NumberFormatException e){
                 System.out.println("Vender o que?");
                 return;
             }
 
             if (item != null) {
+                hero.removeItem(item);
+
                 Item sell = machine.sell(item);
 
                 if (sell != null) {
-                    if (hero.putItem(sell)) {
-                        hero.removeItem(item);
+                    if (!hero.putItem(sell)) {
+                        currentRoom.addItem(sell);
                     }
+                } else {
+                    System.out.println("Por que tu ta me vendendo tuas moedas? Não faz sentido- disse uma voz do alem");
+                    hero.putItem(item);
                 }
             }
         } else {

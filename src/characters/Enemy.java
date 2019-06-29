@@ -48,7 +48,7 @@ public class Enemy extends Character {
 
     public boolean putItem(Item item) {
         if (item instanceof CoinBag){
-            return (getCoinBag().grabCoins(((CoinBag) item).getAmount(), 0, getMaxWeight()));
+            return (getCoinBag().grabCoins(((CoinBag) item), 0, getMaxWeight()));
         } else {
                 inventory.add(item);
                 if(item instanceof Equipment && !isEquipped((Equipment) item)) {

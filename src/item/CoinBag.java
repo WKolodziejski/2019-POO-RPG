@@ -1,6 +1,7 @@
 package item;
 
 import item.model.Item;
+
 import java.util.Scanner;
 
 public class CoinBag extends Item {
@@ -48,14 +49,17 @@ public class CoinBag extends Item {
         }
     }
 
-    public boolean grabCoins(int amount, int actualWeight, int maxWeight) {
-        int newAmount = this.amount + amount;
-        int newWeight = (int) Math.ceil(newAmount / 1000);
+    public boolean grabCoins(CoinBag coinBag, int charCurWeight, int maxWeight) {
+        int newAmount = this.amount + coinBag.getAmount();
+        int newWeight = (int) Math.ceil(((double)newAmount)/1000.0);
 
-        if ((actualWeight - getWeight() + newWeight) <= maxWeight) {
-            this.amount += amount;
+        if ((charCurWeight - getWeight() + newWeight) <= maxWeight) {
+            this.amount = newAmount;
             return true;
         } else {
+            newAmount = (maxWeight - charCurWeight) * 1000;
+            coinBag.useCoins(newAmount - this.amount);
+            this.amount = newAmount;
             return false;
         }
     }

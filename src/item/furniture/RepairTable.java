@@ -2,7 +2,7 @@ package item.furniture;
 
 import item.RepairPiece;
 import item.model.Equipment;
-import item.model.Item;
+
 import java.util.List;
 
 public class RepairTable extends Furniture {
@@ -23,6 +23,7 @@ public class RepairTable extends Furniture {
         if (repairPiece != null) {
             if (equipment.getDurability() < equipment.getLevel() * 5) {
                 pieces.remove(repairPiece);
+                equipment.lowerLevel();
                 equipment.setDurability(equipment.getLevel() * 10);
                 System.out.println(equipment.getName() + " reparado");
             } else {

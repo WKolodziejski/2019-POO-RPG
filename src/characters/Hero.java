@@ -111,8 +111,8 @@ public class Hero extends Character {
     }
 
     public boolean putItem(Item item) {
-        if (item instanceof CoinBag) {
-            if(getCoinBag().grabCoins(((CoinBag) item).getAmount(), getCurWeight(), getMaxWeight())){
+        if (item instanceof CoinBag && getCoinBag()!=null) {
+            if(getCoinBag().grabCoins(((CoinBag) item), getCurWeight(), getMaxWeight())){
                 System.out.println("Pegou " + ((CoinBag) item).getAmount() + " moedas");
                 return true;
             } else {

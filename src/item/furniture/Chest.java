@@ -3,6 +3,7 @@ package item.furniture;
 import item.model.Item;
 import utils.Generator;
 import utils.Item_Creator;
+
 import java.util.Scanner;
 
 public class Chest extends Furniture {
