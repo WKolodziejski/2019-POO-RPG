@@ -54,11 +54,8 @@ public class CoinBag extends Item {
 
         if ((actualWeight - getWeight() + newWeight) <= maxWeight) {
             this.amount += amount;
-            System.out.println("Pegou " + amount + " moedas");
             return true;
-
         } else {
-            System.out.println("Sem espaço para todas moedas");
             return false;
         }
     }

@@ -197,8 +197,7 @@ public class Game {
         System.out.println("Sua defesa é de " + hero.getDefense());
         System.out.println("Seu ataque é de " + hero.getAttack());
         System.out.println("Sua velocidade é de " + hero.getSpeed());
-        System.out.println("Sua força é de " + hero.getStrength());
-        System.out.println("Você está carregando " + hero.getCurWeight() + " de "  + hero.getMaxWeight() + " kg.");
+        System.out.println("Você está carregando " + hero.getCurWeight() + " de "  + hero.getMaxWeight() + "kg.");
     }
 
     private void open(Command command) {
@@ -248,10 +247,10 @@ public class Game {
         try{
             index = Integer.parseInt(command.getSecondWord());
         } catch(NumberFormatException e){
-            System.out.println("Desquipar o que?");
+            System.out.println("Desequipar o que?");
             return;
         }
-        hero.unEquip(index);
+        hero.unequipItem(index);
     }
 
     private void equipped(Command command){
