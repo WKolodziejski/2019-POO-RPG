@@ -28,7 +28,7 @@ public abstract class Armor extends Equipment {
 
     @Override
     public int getPrice() {
-        return (int) (Math.ceil((((double) getDefense() * (double) bonusAmount()))/2.0) * (double) getDurability());
+        return (int) (Math.ceil((((double) getDefense() * (double) bonusAmount()))/2.0) * ((double) getDurability())/((double)getLevel()));
     }
 
     public String getDetails(){

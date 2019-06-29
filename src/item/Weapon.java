@@ -16,7 +16,7 @@ public class Weapon extends Equipment {
 
     @Override
     public int getPrice() {
-        return (int) (Math.ceil((((double) damage * (double) bonusAmount()))/2.0) * (double) getDurability());
+        return (int) (Math.ceil((((double) damage * (double) bonusAmount()))/2.0) * ((double) getDurability())/((double)getLevel()));
 
     }
 
