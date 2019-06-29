@@ -71,7 +71,7 @@ public abstract class Character {
 
     protected int getEquippedWeaponDamage(){
         Weapon weapon = (Weapon)equipped.get(Weapon.class.getSimpleName());
-        return weapon!= null ? weapon.getDamage() : 0;
+        return weapon != null ? weapon.getDamage() : 0;
     }
 
     public int getDefense() {

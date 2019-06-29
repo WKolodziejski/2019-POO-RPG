@@ -1,13 +1,11 @@
 <room>
     <name>
-        na entrada do corredor.
+        no corredor da entrada da usina.
     </name>
     <description>
-        Você deve fazer tal missão e blablabla.
+        Após um apocalipse mundial, você foi o selecionado pelos sobreviventes para cumprir sua última missão, na tentativa de salvar o planeta.
+        Você está na frente de uma usina nuclear abandonada. Seu objetivo é chegar ao núcleo do reator e causar uma grande explosão, a fim de matar a maior quantidade dos inimigos.
     </description>
-    <enemies>
-       0
-    </enemies>
     <exits>
         1
         Esquerda
@@ -16,27 +14,22 @@
         6
         Frente
     </exits>
-    <chest>
-        Armario
-        true
-        <item>
-            7
-            3
-        </item>
-    </chest>
-    <vending>
-    <repair>
 </room>
 <room>
     <name>
         no vestiário.
     </name>
     <description>
-        Você vê armários.
+        Essa é a sala que os trabalhadores da usina utilizavam para vestirem-se.
     </description>
-    <enemies>
-       0
-    </enemies>
+    <chest>
+            Armario
+            true
+            <item>
+                7
+                3
+            </item>
+        </chest>
     <exits>
         0
         Corredor
@@ -47,11 +40,9 @@
         na recepção.
     </name>
     <description>
-        .
+        Tudo está no mesmo lugar desde a última vez que trabalhadores vieram a este lugar.
+        A não ser pela sujeira e vegetação tomando conta.
     </description>
-    <enemies>
-       0
-    </enemies>
     <exits>
         0
         Corredor
@@ -61,10 +52,11 @@
 </room>
 <room>
     <name>
-        na cozinha.
+        no refeitório.
     </name>
     <description>
-        Você entra em uma sala escura. Parece ser uma cozinha.
+        A sala está escura, mas parece ser bem ampla e cheia de mesas.
+        Você escuta barulhos.
     </description>
     <enemies>
        3
@@ -83,12 +75,9 @@
     <description>
         Você entra em um corredor apertado e escuro.
     </description>
-    <enemies>
-       0
-    </enemies>
     <exits>
         3
-        Cozinha
+        Refeitório
         5
         Direita
     </exits>
@@ -98,14 +87,11 @@
         em um almoxarifado.
     </name>
     <description>
-        Você entra em uma pequena sala.
+        Você entra em uma pequena sala escura.
     </description>
-    <enemies>
-       0
-    </enemies>
     <chest>
         Caixa
-        true
+        false
     </chest>
     <exits>
         4

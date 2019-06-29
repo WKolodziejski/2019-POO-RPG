@@ -98,7 +98,7 @@ public class FileReader {
                     StringBuilder name = new StringBuilder();
                     HashMap<Integer, String> exit = new HashMap<>();
                     HashMap<String, Furniture> furniture = new HashMap<>();
-                    String description = "";
+                    StringBuilder description = new StringBuilder();
                     int enemies = 0;
 
                     while (!data.equals("</room>")) {
@@ -118,7 +118,7 @@ public class FileReader {
                                 data = scanner.nextLine().trim();
 
                                 while (!data.equals("</description>")) {
-                                    description = data;
+                                    description.append(data).append("\n");
                                     data = scanner.nextLine().trim();
                                 }
 
@@ -183,7 +183,7 @@ public class FileReader {
 
                         data = scanner.nextLine().trim();
                     }
-                    rooms.add(new Room(name.toString(), description, enemies, furniture));
+                    rooms.add(new Room(name.toString(), description.toString(), enemies, furniture));
                     exits.add(exit);
                 }
             }

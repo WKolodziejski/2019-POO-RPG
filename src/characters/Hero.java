@@ -12,8 +12,6 @@ public class Hero extends Character {
 
     public Hero(OnDie onDie) {
         super("Cleytinho", 10, 10, 10, 5,1000, 10, onDie);
-
-        inventory.add(new Heal("Poção", 1, 2));
     }
     
     public int getCurWeight() {
@@ -34,9 +32,9 @@ public class Hero extends Character {
     public void printEquipped() {
         Console.print(Console.BLACK_UNDERLINED, "------ITENS EQUIPADOS------");
         int i = 0;
-        if(equipped.size()!=0){
-            for(Equipment equipment : equipped.values()){
-                Console.print(Console.BLACK, i + ": "+ equipment.getDetails());
+        if (equipped.size()!=0) {
+            for (Equipment equipment : equipped.values()) {
+                Console.print(Console.BLUE_BRIGHT, i + ": " + equipment.getDetails());
                 i++;
             }
         } else {

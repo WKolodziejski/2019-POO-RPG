@@ -32,6 +32,7 @@ public class Game {
 
     public void play() {
         Console.print(Console.BLACK, "Salve aí mermão!");
+        currentRoom.describe();
 
         boolean finished = false;
 
@@ -197,7 +198,7 @@ public class Game {
         Console.print(Console.BLACK, "Sua defesa é de " + hero.getDefense());
         Console.print(Console.BLACK, "Seu ataque é de " + hero.getAttack());
         Console.print(Console.BLACK, "Sua velocidade é de " + hero.getSpeed());
-        Console.print(Console.BLACK, "Você está carregando " + hero.getCurWeight() + " de "  + hero.getMaxWeight() + "kg.");
+        Console.print(Console.BLACK, "Você está carregando " + hero.getCurWeight() + " de "  + hero.getMaxWeight() + " kg.");
     }
 
     private void open(Command command) {

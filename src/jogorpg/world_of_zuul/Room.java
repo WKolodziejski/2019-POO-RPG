@@ -36,7 +36,7 @@ public class Room {
                 for (Item item: inventory){
                     if (item != null) {
                         addItem(item);
-                        Console.print(Console.BLUE_BRIGHT, items.size() - 1 + ": " + item.getName());
+                        Console.print(Console.BLUE_BRIGHT, items.size() - 1 + ": " + item.getDetails());
                     }
                 }
             });
