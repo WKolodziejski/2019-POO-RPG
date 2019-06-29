@@ -8,6 +8,7 @@ import item.furniture.VendingMachine;
 import item.model.Item;
 import characters.Character;
 import characters.Enemy;
+import utils.Console;
 
 public class Room {
     private String description;
@@ -30,7 +31,8 @@ public class Room {
         for (int i = 0; i < enemiesAmount; i++) {
 
             Enemy enemy = new Enemy(inventory -> {
-                System.out.println("------ITENS DROPADOS------");
+                //System.out.println("------ITENS DROPADOS------");
+                Console.print(Console.BLACK_BACKGROUND, "ITENS DROPADOS");
                 for (Item item: inventory){
                     if (item != null) {
                         addItem(item);
@@ -119,10 +121,10 @@ public class Room {
         }
 
         if (!items.isEmpty()) {
-            System.out.println("Há itens no chão:");
+            Console.print(Console.RED, "Há itens no chão:");
             for (int i = 0; i < items.size(); i++) {
                 if (items.get(i) != null) {
-                    System.out.println(i + ": "+ items.get(i).getName());
+                    Console.print(Console.BLUE_BRIGHT, i + ": "+ items.get(i).getDetails());
                 }
             }
         }

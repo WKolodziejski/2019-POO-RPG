@@ -3,6 +3,7 @@ package characters;
 import item.*;
 import item.model.Equipment;
 import item.model.Item;
+import utils.Console;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,14 +30,14 @@ public class Hero extends Character {
     }
 
     public void printInventory() {
-        System.out.println("------INVENTÁRIO------");
+        Console.print(Console.BLACK_BOLD, "------INVENTÁRIO------");
         for (int i = 0; i < inventory.size(); i++) {
             System.out.println(i + ": " + inventory.get(i).getDetails());
         }
     }
 
     public void printEquipped() {
-        System.out.println("------ITENS EQUIPADOS------");
+        Console.print(Console.BLACK_BOLD, "------ITENS EQUIPADOS------");
         int i = 0;
         if(equipped.size()!=0){
             for(Equipment equipment : equipped.values()){
