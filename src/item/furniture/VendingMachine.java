@@ -22,6 +22,7 @@ public class VendingMachine extends Furniture {
     }
 
     public void printInventory() {
+        System.out.println("------VENDING MACHINE------");
         if (!items.isEmpty()) {
             System.out.println("Itens à venda:");
 

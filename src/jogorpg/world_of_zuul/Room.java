@@ -30,7 +30,7 @@ public class Room {
         for (int i = 0; i < enemiesAmount; i++) {
 
             Enemy enemy = new Enemy(inventory -> {
-                System.out.println("-----Itens Droppados-----");
+                System.out.println("------ITENS DROPADOS------");
                 for (Item item: inventory){
                     if (item != null) {
                         addItem(item);

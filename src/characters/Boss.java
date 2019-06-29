@@ -2,8 +2,6 @@ package characters;
 
 import utils.Generator;
 
-import java.util.Random;
-
 public class Boss extends Enemy {
 
     public Boss(OnDie onDie) {

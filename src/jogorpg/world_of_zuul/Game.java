@@ -166,18 +166,17 @@ public class Game {
                 if (item != null) {
                     if (item instanceof Equipment) {
                         RepairPiece r = repairTable.disassemblyItem((Equipment) item);
+                        hero.removeItem(item);
 
                         if (!hero.putItem(r)) {
                             currentRoom.addItem(r);
                         }
-
                     } else {
                         System.out.println("Esse item não é destrutível");
                     }
                 } else {
                     System.out.println("Destruir o que?");
                 }
-
             } else {
                 System.out.println("Destruir o que?");
             }

@@ -63,6 +63,7 @@ public class Chest extends Furniture {
     }
 
     public void printInventory() {
+        System.out.println("------" + name.toUpperCase() + "------");
         if (!items.isEmpty()) {
             System.out.println("Itens:");
 

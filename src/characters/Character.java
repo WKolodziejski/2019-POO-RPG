@@ -1,14 +1,11 @@
 package characters;
 
 import item.CoinBag;
-import item.Heal;
-import item.RepairPiece;
 import item.Weapon;
 import item.model.Bonus;
 import item.model.Equipment;
 import item.model.Item;
 import utils.Generator;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 

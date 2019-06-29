@@ -29,12 +29,14 @@ public class Hero extends Character {
     }
 
     public void printInventory() {
+        System.out.println("------INVENTÁRIO------");
         for (int i = 0; i < inventory.size(); i++) {
             System.out.println(i + ": " + inventory.get(i).getDetails());
         }
     }
 
     public void printEquipped() {
+        System.out.println("------ITENS EQUIPADOS------");
         int i = 0;
         if(equipped.size()!=0){
             for(Equipment equipment : equipped.values()){
