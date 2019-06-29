@@ -171,7 +171,9 @@ public class Hero extends Character {
             Console.print(Console.BLACK, equip.getName() + " já equipado");
         } else {
             processBonus(equip.bonusType(), equip.bonusAmount());
-            unEquip(unequip);
+            if (unequip != null) {
+                unEquip(unequip);
+            }
             equipped.put(equip.getClass().getSimpleName(), equip);
             Console.print(Console.BLACK, equip.getName() + " equipado com sucesso!");
         }
