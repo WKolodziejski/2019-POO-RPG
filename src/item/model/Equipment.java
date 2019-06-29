@@ -43,7 +43,7 @@ public abstract class Equipment extends Item implements Bonus {
     protected void changeMaterial(int level){
         String material = getMaterial();
         int inicio = getName().indexOf(material);
-        StringBuilder b = new StringBuilder();
+        StringBuilder b = new StringBuilder(getName());
         b.replace(inicio, inicio + material.length(), Generator.get().getMaterialByLevel(level));
         setName(b.toString());
     }
