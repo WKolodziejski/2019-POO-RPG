@@ -67,11 +67,11 @@ public abstract class Character {
         return speed;
     }
 
-    public int getEnergyCap(){
+    protected int getEnergyCap(){
         return energyCap;
     }
 
-    private int getEquippedWeaponDamage(){
+    protected int getEquippedWeaponDamage(){
         Weapon weapon = (Weapon)equipped.get(Weapon.class.getSimpleName());
         return weapon!= null ? weapon.getDamage() : 0;
     }
@@ -96,7 +96,7 @@ public abstract class Character {
         System.out.println("#Vida de " + name + ": " + (energy < 0 ? 0 : energy));
     }
 
-    public void decreaseEnergy(int amount) {
+    private void decreaseEnergy(int amount) {
         energy -= amount;
         if (energy <= 0) {
             onDie.onDie(inventory);

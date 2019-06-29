@@ -428,7 +428,7 @@ public class Game {
         } else {
             if (nextRoom != lastRoom) {
                 currentRoom.getCharacters().forEach((s, character) -> {
-                    hero.decreaseEnergy(character.getAttack() / (1 + hero.getDefense() / 10));
+                    hero.takeDamage(character.getAttack() / (1 + hero.getDefense() / 10));
                     hero.printLife();
                 });
             }
