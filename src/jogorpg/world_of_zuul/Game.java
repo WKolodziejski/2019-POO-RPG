@@ -1,5 +1,6 @@
 package jogorpg.world_of_zuul;
 
+import characters.Enemy;
 import item.RepairPiece;
 import item.furniture.Chest;
 import item.CoinBag;
@@ -458,7 +459,14 @@ public class Game {
             if (command.getSecondWord().equals("Around")) {
                 currentRoom.describe();
             } else {
-                Console.print(Console.RED, "Olhar para onde?");
+
+                Character enemy = currentRoom.getEnemy(command.getSecondWord());
+
+                if (enemy != null) {
+                    Console.print(Console.PURPLE_BOLD, enemy.getName());
+                } else {
+                    Console.print(Console.RED, "Olhar para onde?");
+                }
             }
         } else {
             Console.print(Console.RED, "Olhar para onde?");
