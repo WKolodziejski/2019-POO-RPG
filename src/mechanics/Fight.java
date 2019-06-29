@@ -21,8 +21,10 @@ public class Fight {
             c2.damageEquippedWeapon();
         }
 
-        c1.printLife();
-        c2.printLife();
+        if (c1.getEnergy() > 0 && c2.getEnergy() > 0) {
+            c1.printLife();
+            c2.printLife();
+        }
     }
 
 }
