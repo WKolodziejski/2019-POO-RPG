@@ -11,7 +11,7 @@ public class Ring extends Equipment {
     public void lowerLevel(){
         int level = getLevel();
         int newLevel = level-1;
-        if(newLevel>=0){
+        if(newLevel>=1){
             changeMaterial(newLevel);
             setBonusByLevel(level, newLevel);
         }
@@ -19,7 +19,7 @@ public class Ring extends Equipment {
 
     @Override
     public int getPrice() {
-        return bonusAmount() * 100;
+        return bonusAmount() * 50;
     }
 
     public String getDetails(){

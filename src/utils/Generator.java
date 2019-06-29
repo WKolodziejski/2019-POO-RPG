@@ -33,7 +33,7 @@ public class Generator {
     }
 
     public int getMaterialAmount() {
-        return materials.size();
+        return materials.size()-1;
     }
 
     public String getMaterialByLevel(int level) {

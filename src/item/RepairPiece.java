@@ -7,8 +7,8 @@ public class RepairPiece extends Item {
     private int type;
 
     public RepairPiece(int type) {
-        super("Pedaço de " + Generator.get().getMaterialByLevel(type), type);
-        this.type = type;
+        super("Pedaço de " + Generator.get().getMaterialByLevel(type), type+1);
+        this.type = type+1;
     }
 
     @Override

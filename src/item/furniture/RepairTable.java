@@ -25,7 +25,7 @@ public class RepairTable extends Furniture {
             if (equipment.getDurability() < equipment.getLevel() * 5) {
                 pieces.remove(repairPiece);
                 equipment.lowerLevel();
-                equipment.setDurability(equipment.getLevel() * 10);
+                equipment.setDurability((equipment.getLevel()+1) * 10);
                 Console.print(Console.BLACK, equipment.getName() + " reparado");
             } else {
                 Console.print(Console.BLACK, "O item não está tão danificado");

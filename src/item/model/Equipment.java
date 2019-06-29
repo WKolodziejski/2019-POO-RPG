@@ -49,7 +49,7 @@ public abstract class Equipment extends Item implements Bonus{
     }
 
     public void setBonusByLevel(int oldLevel, int newLevel){
-        bonusAmount = (bonusAmount/(oldLevel+1))*(newLevel+1);
+        bonusAmount = (int)(((double)bonusAmount/((double)oldLevel))*((double)newLevel));
     }
 
     public Type bonusType() {

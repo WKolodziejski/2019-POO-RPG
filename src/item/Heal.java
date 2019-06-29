@@ -12,7 +12,7 @@ public class Heal extends Item {
 
     @Override
     public int getPrice() {
-        return healAmount * 100;
+        return healAmount * 50;
     }
 
     public int getHealAmount() {

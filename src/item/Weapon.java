@@ -16,20 +16,21 @@ public class Weapon extends Equipment {
 
     @Override
     public int getPrice() {
-        return damage * getDurability();
+        return (int) (Math.ceil((((double) damage * (double) bonusAmount()))/2.0) * (double) getDurability());
+
     }
 
     public void lowerLevel(){
         int level = getLevel();
         int newLevel = level-1;
-        if(newLevel>=0){
+        if(newLevel>=1){
             changeMaterial(newLevel);
             setDamageByLevel(level, newLevel);
         }
     }
 
     private void setDamageByLevel(int oldLevel, int newLevel){
-        damage = (damage/(oldLevel+1))*(newLevel+1);
+        damage = (int) (((double)damage/(double)(oldLevel))*((double)newLevel));
     }
 
     public String getDetails(){

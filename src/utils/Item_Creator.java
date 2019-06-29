@@ -35,6 +35,7 @@ public class Item_Creator {
     }
 
     public Item getSpec(Item_Category category, int lvl) {
+        lvl++;
         switch (category){
             case CoinBag: return createCoinBag(lvl);
             case Heal: return createHeal(lvl);
@@ -55,35 +56,35 @@ public class Item_Creator {
     }
 
     private Item createCoinBag(int lvl){
-        return new CoinBag((r.nextInt(15) + 5)*(lvl+1));
+        return new CoinBag((r.nextInt(15) + 5)*(lvl));
     }
 
     private Item createHeal(int lvl){
-        return new Heal("Poção " + levels[(lvl<levels.length ? lvl : levels.length-1)], 1, (r.nextInt(2) + 1)*(lvl+1));
+        return new Heal("Poção " + levels[(lvl<levels.length ? lvl : levels.length-1)], 1, (r.nextInt(2) + 1)*(lvl));
     }
 
     private Item createRing(int lvl) {
-        return new Ring("Anel de " + Generator.get().getMaterialByLevel(lvl), bonus[r.nextInt(bonus.length)], (r.nextInt(2) + 1)*(lvl+1));
+        return new Ring("Anel de " + Generator.get().getMaterialByLevel(lvl), bonus[r.nextInt(bonus.length)], (r.nextInt(2) + 1)*(lvl));
     }
 
     private Item createWeapon(int lvl){
-        return new Weapon(Generator.get().weapon() + " de " + Generator.get().getMaterialByLevel(lvl), r.nextInt(3) + 1, (r.nextInt(1) + 1)*(lvl+1), (r.nextInt(1) + 1)*(lvl+1), bonus[r.nextInt(bonus.length)]);
+        return new Weapon(Generator.get().weapon() + " de " + Generator.get().getMaterialByLevel(lvl), r.nextInt(3) + 1, (r.nextInt(1) + 1)*(lvl), (r.nextInt(1) + 1)*(lvl), bonus[r.nextInt(bonus.length)]);
     }
 
     private Item createArm_Piece(int lvl){
-        return new Arm_Piece("Manoplas de " + Generator.get().getMaterialByLevel(lvl), r.nextInt(2) + 1, (r.nextInt(1) + 1)*(lvl+1), (r.nextInt(1) + 1)*(lvl+1), bonus[r.nextInt(bonus.length)]);
+        return new Arm_Piece("Manoplas de " + Generator.get().getMaterialByLevel(lvl), r.nextInt(2) + 1, (r.nextInt(1) + 1)*(lvl), (r.nextInt(1) + 1)*(lvl), bonus[r.nextInt(bonus.length)]);
     }
 
     private Item createChest_Piece(int lvl){
-        return new Chest_Piece("Peitoral de " + Generator.get().getMaterialByLevel(lvl), r.nextInt(4) + 1, (r.nextInt(2) + 1)*(lvl+1), (r.nextInt(2) + 1)*(lvl+1), bonus[r.nextInt(bonus.length)]);
+        return new Chest_Piece("Peitoral de " + Generator.get().getMaterialByLevel(lvl), r.nextInt(4) + 1, (r.nextInt(2) + 1)*(lvl), (r.nextInt(2) + 1)*(lvl), bonus[r.nextInt(bonus.length)]);
     }
 
     private Item createHelmet(int lvl){
-        return new Helmet("Capacete de " + Generator.get().getMaterialByLevel(lvl), r.nextInt(2) + 1, (r.nextInt(1) + 1)*(lvl+1), (r.nextInt(1) + 1)*(lvl+1), bonus[r.nextInt(bonus.length)]);
+        return new Helmet("Capacete de " + Generator.get().getMaterialByLevel(lvl), r.nextInt(2) + 1, (r.nextInt(1) + 1)*(lvl), (r.nextInt(1) + 1)*(lvl), bonus[r.nextInt(bonus.length)]);
     }
 
     private Item createLeg_Piece(int lvl){
-        return new Leg_Piece("Pernal de " + Generator.get().getMaterialByLevel(lvl), r.nextInt(3) + 1, (r.nextInt(1) + 1)*(lvl+1), (r.nextInt(1) + 1)*(lvl+1), bonus[r.nextInt(bonus.length)]);
+        return new Leg_Piece("Pernal de " + Generator.get().getMaterialByLevel(lvl), r.nextInt(3) + 1, (r.nextInt(1) + 1)*(lvl), (r.nextInt(1) + 1)*(lvl), bonus[r.nextInt(bonus.length)]);
     }
 
 }

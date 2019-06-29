@@ -11,7 +11,7 @@ public abstract class Armor extends Equipment {
     public void lowerLevel(){
         int level = getLevel();
         int newLevel = level - 1;
-        if (newLevel >= 0){
+        if (newLevel >= 1){
             changeMaterial(newLevel);
             setBonusByLevel(level, newLevel);
             setDefenseByLevel(level, newLevel);
@@ -19,7 +19,7 @@ public abstract class Armor extends Equipment {
     }
 
     private void setDefenseByLevel(int oldLevel, int newLevel){
-        defense = (defense/(oldLevel+1))*(newLevel+1);
+        defense = (int) (((double)defense/((double)oldLevel))*((double)newLevel));
     }
 
     public int getDefense() {
@@ -28,7 +28,7 @@ public abstract class Armor extends Equipment {
 
     @Override
     public int getPrice() {
-        return getDefense() * bonusAmount();
+        return (int) (Math.ceil((((double) getDefense() * (double) bonusAmount()))/2.0) * (double) getDurability());
     }
 
     public String getDetails(){
