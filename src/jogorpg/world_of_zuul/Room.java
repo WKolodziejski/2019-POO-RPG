@@ -68,7 +68,7 @@ public class Room {
     }
 
     public Character removeEnemy(Character p) {
-        return characters.remove(p.getName());
+        return characters.remove(p.getKey());
     }
 
     public Room getExit(String direction) {
