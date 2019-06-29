@@ -29,9 +29,7 @@ public class Room {
         this.items = new ArrayList<>();
 
         for (int i = 0; i < enemiesAmount; i++) {
-
             Enemy enemy = new Enemy(inventory -> {
-                //Console.print(Console.BLACK, "------ITENS DROPADOS------");
                 Console.print(Console.BLACK_UNDERLINED, "------ITENS DROPADOS------");
                 for (Item item: inventory){
                     if (item != null) {
@@ -40,7 +38,6 @@ public class Room {
                     }
                 }
             });
-
             characters.put(enemy.getKey(), enemy);
         }
     }

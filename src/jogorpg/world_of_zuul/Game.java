@@ -134,6 +134,9 @@ public class Game {
                 if (item != null) {
                     if (item instanceof Equipment) {
                         repairTable.repairItem((Equipment) item, hero.getPieces());
+
+                        takeEnemyDamage();
+
                     } else {
                         Console.print(Console.RED, "Esse item não é reparável");
                     }
@@ -173,6 +176,9 @@ public class Game {
                         if (!hero.putItem(r)) {
                             currentRoom.addItem(r);
                         }
+
+                        takeEnemyDamage();
+
                     } else {
                         Console.print(Console.RED, "Esse item não é destrutível");
                     }
@@ -210,6 +216,7 @@ public class Game {
                 VendingMachine machine = currentRoom.getMachine();
 
                 if (machine != null) {
+                    takeEnemyDamage();
                     machine.printInventory();
                 } else {
                     Console.print(Console.RED, "Não há máquinas na sala");
@@ -219,6 +226,7 @@ public class Game {
 
                 if (chest != null) {
                     if (command.getSecondWord().equals(chest.getName())) {
+                        takeEnemyDamage();
                         chest.open();
                     } else {
                         Console.print(Console.RED, "Abrir o que?");
@@ -276,6 +284,7 @@ public class Game {
                     currentRoom.addItem(item);
                     Console.print(Console.PURPLE_BOLD, "Item está no chão");
                 }
+                takeEnemyDamage();
             }
         } else {
             Console.print(Console.RED, "Comprar onde?");
@@ -305,6 +314,7 @@ public class Game {
                     if (!hero.putItem(sell)) {
                         currentRoom.addItem(sell);
                     }
+                    takeEnemyDamage();
                 }
             }
         } else {
@@ -351,6 +361,9 @@ public class Game {
                     Console.print(Console.PURPLE_BOLD, "Item está no chão");
                 }
             }
+
+            takeEnemyDamage();
+
         } else {
             Console.print(Console.RED, "Pegar onde?");
         }
@@ -431,10 +444,7 @@ public class Game {
             Console.print(Console.RED, "Ir onde?");
         } else {
             if (nextRoom != lastRoom) {
-                currentRoom.getCharacters().forEach((s, character) -> {
-                    hero.takeDamage(character.getAttack() / (1 + hero.getDefense() / 10));
-                    hero.printLife();
-                });
+                takeEnemyDamage();
             }
             lastRoom = currentRoom;
             currentRoom = nextRoom;
@@ -463,6 +473,13 @@ public class Game {
         else {
             return true;
         }
+    }
+
+    private void takeEnemyDamage() {
+        currentRoom.getCharacters().forEach((s, character) -> {
+            hero.takeDamage(character.getAttack() / (1 + hero.getDefense() / 10));
+            hero.printLife();
+        });
     }
 
 }

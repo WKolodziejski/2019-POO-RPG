@@ -5,6 +5,7 @@ import item.Weapon;
 import item.model.Bonus;
 import item.model.Equipment;
 import item.model.Item;
+import mechanics.Luck;
 import utils.Console;
 import utils.Generator;
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public abstract class Character {
     }
 
     public int getLuck(){
-        return Generator.get().number(20) + getSpeed();
+        return Luck.d20() + getSpeed();
     }
 
     public int getSpeed(){
