@@ -32,7 +32,7 @@ public class Room {
 
             Enemy enemy = new Enemy(inventory -> {
                 //Console.print(Console.BLACK, "------ITENS DROPADOS------");
-                Console.print(Console.BLACK_UNDERLINED, "------ITENS EQUIPADOS------");
+                Console.print(Console.BLACK_UNDERLINED, "------ITENS DROPADOS------");
                 for (Item item: inventory){
                     if (item != null) {
                         addItem(item);
