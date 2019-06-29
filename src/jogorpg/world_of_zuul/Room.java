@@ -14,7 +14,7 @@ public class Room {
     private String description;
     private String name;
     private HashMap<String, Room> exits;
-    private HashMap<String, Character> characters;
+    private HashMap<String, Enemy> characters;
     private HashMap<String, Furniture> furniture;
     private ArrayList<Item> items;
     private boolean firstAccess;
@@ -46,7 +46,7 @@ public class Room {
         exits.put(direction, neighbor);
     }
 
-    public Character getEnemy(String nome) {
+    public Enemy getEnemy(String nome) {
         return characters.get(nome);
     }
 
@@ -62,11 +62,11 @@ public class Room {
         return (RepairTable) furniture.get("Repair");
     }
 
-    public HashMap<String, Character> getCharacters() {
+    public HashMap<String, Enemy> getCharacters() {
         return characters;
     }
 
-    public Character removeEnemy(Character p) {
+    public Enemy removeEnemy(Enemy p) {
         return characters.remove(p.getKey());
     }
 

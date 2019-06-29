@@ -375,7 +375,7 @@ public class Game {
     }
 
     private void attack(Command command) {
-        Character character = currentRoom.getEnemy(command.getSecondWord());
+        Enemy character = currentRoom.getEnemy(command.getSecondWord());
         if (character != null) {
             Fight.fight(hero, character);
             if (character.getEnergy() <= 0) {
@@ -460,10 +460,10 @@ public class Game {
                 currentRoom.describe();
             } else {
 
-                Character enemy = currentRoom.getEnemy(command.getSecondWord());
+                Enemy enemy = currentRoom.getEnemy(command.getSecondWord());
 
                 if (enemy != null) {
-                    Console.print(Console.PURPLE_BOLD, enemy.getName());
+                    enemy.printEquipped();
                 } else {
                     Console.print(Console.RED, "Olhar para onde?");
                 }
