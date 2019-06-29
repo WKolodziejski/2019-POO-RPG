@@ -32,11 +32,11 @@ public class Room {
 
             Enemy enemy = new Enemy(inventory -> {
                 //Console.print(Console.BLACK, "------ITENS DROPADOS------");
-                Console.print(Console.BLACK_BACKGROUND, "ITENS DROPADOS");
+                Console.print(Console.BLACK_UNDERLINED, "------ITENS EQUIPADOS------");
                 for (Item item: inventory){
                     if (item != null) {
                         addItem(item);
-                        Console.print(Console.BLACK, items.size() - 1 + ": " + item.getName());
+                        Console.print(Console.BLUE_BRIGHT, items.size() - 1 + ": " + item.getName());
                     }
                 }
             });
@@ -121,7 +121,7 @@ public class Room {
         }
 
         if (!items.isEmpty()) {
-            Console.print(Console.RED, "Há itens no chão:");
+            Console.print(Console.BLACK, "Há itens no chão:");
             for (int i = 0; i < items.size(); i++) {
                 if (items.get(i) != null) {
                     Console.print(Console.BLUE_BRIGHT, i + ": "+ items.get(i).getDetails());

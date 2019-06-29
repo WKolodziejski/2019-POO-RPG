@@ -11,7 +11,7 @@ import java.util.List;
 public class Hero extends Character {
 
     public Hero(OnDie onDie) {
-        super("Cleytinho", 10, 20, 10, 5,1000, 10, onDie);
+        super("Cleytinho", 10, 10, 10, 5,1000, 10, onDie);
 
         inventory.add(new Heal("Poção", 1, 2));
     }
@@ -24,20 +24,15 @@ public class Hero extends Character {
         return weight;
     }
 
-    @Override
-    public void printLife() {
-        Console.print(Console.BLACK, "#Vida de " + getName() + ": " + (getEnergy() < 0 ? 0 : getEnergy()) + " de " + getEnergyCap());
-    }
-
     public void printInventory() {
         Console.print(Console.BLACK_UNDERLINED, "------INVENTÁRIO------");
         for (int i = 0; i < inventory.size(); i++) {
-            Console.print(Console.BLACK, i + ": " + inventory.get(i).getDetails());
+            Console.print(Console.BLUE_BRIGHT, i + ": " + inventory.get(i).getDetails());
         }
     }
 
     public void printEquipped() {
-        Console.print(Console.BLACK, "------ITENS EQUIPADOS------");
+        Console.print(Console.BLACK_UNDERLINED, "------ITENS EQUIPADOS------");
         int i = 0;
         if(equipped.size()!=0){
             for(Equipment equipment : equipped.values()){
@@ -45,7 +40,7 @@ public class Hero extends Character {
                 i++;
             }
         } else {
-            Console.print(Console.BLACK, "Nada equipado");
+            Console.print(Console.BLACK_BOLD, "Nada equipado");
         }
     }
 
@@ -55,14 +50,14 @@ public class Hero extends Character {
         if (energy + amount <= energyCap) {
             energy += amount;
             inventory.remove(item);
-            Console.print(Console.BLACK, "Recuperou " + amount + " pontos de vida");
+            Console.print(Console.CYAN_BOLD, "Recuperou " + amount + " pontos de vida");
             printInventory();
         } else {
             if (energy ==  energyCap) {
-                Console.print(Console.BLACK, "Vida já está no máximo");
+                Console.print(Console.YELLOW_BOLD_BRIGHT, "Vida já está no máximo");
                 //inventory.add(item);
             } else {
-                Console.print(Console.BLACK, "Recuperou " + (energyCap - energy) + " pontos de vida");
+                Console.print(Console.CYAN_BOLD, "Recuperou " + (energyCap - energy) + " pontos de vida");
                 energy = energyCap;
                 inventory.remove(item);
                 printInventory();
@@ -102,13 +97,13 @@ public class Hero extends Character {
                 }
             }
         }
-        Console.print(Console.BLACK, "Item não encontrado");
+        Console.print(Console.RED, "Item não encontrado");
     }
 
     protected void damageItem(Equipment equip) {
         equip.takeAHit();
         if(equip.isBroken()){
-            Console.print(Console.BLACK, equip.getName() + " foi quebrado");
+            Console.print(Console.YELLOW_BOLD_BRIGHT, equip.getName() + " foi quebrado");
             unEquip(equip);
         }
     }
@@ -116,24 +111,24 @@ public class Hero extends Character {
     public boolean putItem(Item item) {
         if (item instanceof CoinBag && getCoinBag()!=null) {
             if(getCoinBag().grabCoins(((CoinBag) item), getCurWeight(), getMaxWeight())){
-                Console.print(Console.BLACK, "Pegou " + ((CoinBag) item).getAmount() + " moedas");
+                Console.print(Console.CYAN_BOLD, "Pegou " + ((CoinBag) item).getAmount() + " moedas");
                 return true;
             } else {
-                Console.print(Console.BLACK, "Sem espaço para todas moedas");
+                Console.print(Console.PURPLE_BOLD, "Sem espaço para todas moedas");
                 return false;
             }
         } else {
 
             if (getCurWeight() + item.getWeight() <= getMaxWeight()) {
                 inventory.add(item);
-                Console.print(Console.BLACK, item.getName() + " adicionado ao inventário");
+                Console.print(Console.CYAN_BOLD, item.getName() + " adicionado ao inventário");
                 if (item instanceof Equipment && !isEquipped((Equipment) item)) {
                     equip((Equipment) item);
                 }
                 printInventory();
                 return true;
             } else {
-                Console.print(Console.BLACK, "Sem espaço no inventário");
+                Console.print(Console.PURPLE_BOLD, "Sem espaço no inventário");
                 return false;
             }
         }
@@ -158,32 +153,32 @@ public class Hero extends Character {
             if (tbEquipped instanceof Equipment){
                 equip((Equipment) tbEquipped);
             } else {
-                Console.print(Console.BLACK, "Item não equipavel");
+                Console.print(Console.PURPLE_BOLD, "Item não equipavel");
             }
         } else {
-            Console.print(Console.BLACK, "Item inexistente");
+            Console.print(Console.RED, "Item inexistente");
         }
     }
 
     protected void equip(Equipment equip){
         Equipment unequip = equipped.get(equip.getClass().getSimpleName());
         if(unequip == equip){
-            Console.print(Console.BLACK, equip.getName() + " já equipado");
+            Console.print(Console.PURPLE_BOLD, equip.getName() + " já equipado");
         } else {
             equipped.put(equip.getClass().getSimpleName(), equip);
             processBonus(equip.bonusType(), equip.bonusAmount());
             if (unequip != null) {
                 processBonus(unequip.bonusType(), -unequip.bonusAmount());
-                Console.print(Console.BLACK, unequip.getName() + " foi desequipado");
+                Console.print(Console.CYAN_BOLD, unequip.getName() + " foi desequipado");
             }
-            Console.print(Console.BLACK, equip.getName() + " equipado com sucesso!");
+            Console.print(Console.CYAN_BOLD, equip.getName() + " foi equipado");
         }
     }
 
     protected void unEquip(Equipment equip) {
         equip = equipped.remove(equip.getClass().getSimpleName());
         if(equip!=null){
-            Console.print(Console.BLACK, equip.getName() + " foi desequipado");
+            Console.print(Console.CYAN_BOLD, equip.getName() + " foi desequipado");
             processBonus(equip.bonusType(), -equip.bonusAmount());
             if (energyCap > energy) {
                 this.energy = energy - (energyCap - energy);

@@ -26,7 +26,7 @@ public class Game {
         currentRoom = FileReader.readRooms();
         parser = new Parser();
         hero = new Hero(inventory -> {
-            Console.print(Console.BLACK, "Você morreu!");
+            Console.print(Console.RED_BACKGROUND_BRIGHT, "Você morreu!");
         });
     }
 
@@ -52,7 +52,7 @@ public class Game {
         CommandWord commandWord = command.getCommandWord();
 
         if(commandWord == CommandWord.UNKNOWN) {
-            Console.print(Console.BLACK, "Eoq?");
+            Console.print(Console.RED, "Eoq?");
         }
         else if (commandWord == CommandWord.HELP) {
             printHelp();
@@ -124,7 +124,7 @@ public class Game {
                 try{
                     index = Integer.parseInt(command.getSecondWord());
                 } catch(NumberFormatException e){
-                    Console.print(Console.BLACK, "Reparar o que?");
+                    Console.print(Console.RED, "Reparar o que?");
                     return;
                 }
 
@@ -134,17 +134,17 @@ public class Game {
                     if (item instanceof Equipment) {
                         repairTable.repairItem((Equipment) item, hero.getPieces());
                     } else {
-                        Console.print(Console.BLACK, "Esse item não é reparável");
+                        Console.print(Console.RED, "Esse item não é reparável");
                     }
                 } else {
-                    Console.print(Console.BLACK, "Reparar o que?");
+                    Console.print(Console.RED, "Reparar o que?");
                 }
 
             } else {
-                Console.print(Console.BLACK, "Reparar o que?");
+                Console.print(Console.RED, "Reparar o que?");
             }
         } else {
-            Console.print(Console.BLACK, "Não há mesas de reparo");
+            Console.print(Console.RED, "Não há mesas de reparo");
         }
     }
 
@@ -158,7 +158,7 @@ public class Game {
                 try{
                     index = Integer.parseInt(command.getSecondWord());
                 } catch(NumberFormatException e){
-                    Console.print(Console.BLACK, "Destruir o que?");
+                    Console.print(Console.RED, "Destruir o que?");
                     return;
                 }
 
@@ -173,21 +173,21 @@ public class Game {
                             currentRoom.addItem(r);
                         }
                     } else {
-                        Console.print(Console.BLACK, "Esse item não é destrutível");
+                        Console.print(Console.RED, "Esse item não é destrutível");
                     }
                 } else {
-                    Console.print(Console.BLACK, "Destruir o que?");
+                    Console.print(Console.RED, "Destruir o que?");
                 }
             } else {
-                Console.print(Console.BLACK, "Destruir o que?");
+                Console.print(Console.RED, "Destruir o que?");
             }
         } else {
-            Console.print(Console.BLACK, "Não há mesas para destruir");
+            Console.print(Console.RED, "Não há mesas para destruir");
         }
     }
 
     private void forceDrop() {
-        Console.print(Console.BLACK, hero.getName() + " está carregando mais itens do que pode. Escolha algo para dropar.");
+        Console.print(Console.PURPLE_BOLD, hero.getName() + " está carregando mais itens do que pode. Escolha algo para dropar.");
         hero.printInventory();
         hero.removeItem(hero.findItem(new Scanner(System.in).nextInt()));
     }
@@ -202,7 +202,7 @@ public class Game {
 
     private void open(Command command) {
         if (!command.hasSecondWord()) {
-            Console.print(Console.BLACK, "Abrir o que?");
+            Console.print(Console.RED, "Abrir o que?");
         } else {
 
             if (command.getSecondWord().equals("Vending")) {
@@ -211,7 +211,7 @@ public class Game {
                 if (machine != null) {
                     machine.printInventory();
                 } else {
-                    Console.print(Console.BLACK, "Não há máquinas na sala");
+                    Console.print(Console.RED, "Não há máquinas na sala");
                 }
             } else {
                 Chest chest = currentRoom.getChest();
@@ -220,10 +220,10 @@ public class Game {
                     if (command.getSecondWord().equals(chest.getName())) {
                         chest.open();
                     } else {
-                        Console.print(Console.BLACK, "Abrir o que?");
+                        Console.print(Console.RED, "Abrir o que?");
                     }
                 } else {
-                    Console.print(Console.BLACK, "Abrir o que?");
+                    Console.print(Console.RED, "Abrir o que?");
                 }
             }
         }
@@ -235,7 +235,7 @@ public class Game {
         try{
             index = Integer.parseInt(command.getSecondWord());
         } catch(NumberFormatException e){
-            Console.print(Console.BLACK, "Equipar o que?");
+            Console.print(Console.RED, "Equipar o que?");
             return;
         }
         hero.equipItem(index);
@@ -247,7 +247,7 @@ public class Game {
         try{
             index = Integer.parseInt(command.getSecondWord());
         } catch(NumberFormatException e){
-            Console.print(Console.BLACK, "Desequipar o que?");
+            Console.print(Console.RED, "Desequipar o que?");
             return;
         }
         hero.unequipItem(index);
@@ -266,18 +266,18 @@ public class Game {
             try{
                 item = machine.buy(Integer.parseInt(command.getSecondWord()), hero);
             } catch(NumberFormatException e){
-                Console.print(Console.BLACK, "Comprar o que?");
+                Console.print(Console.RED, "Comprar o que?");
                 return;
             }
 
             if (item != null) {
                 if (!hero.putItem(item)) {
                     currentRoom.addItem(item);
-                    Console.print(Console.BLACK, "Item está no chão");
+                    Console.print(Console.PURPLE_BOLD, "Item está no chão");
                 }
             }
         } else {
-            Console.print(Console.BLACK, "Comprar onde?");
+            Console.print(Console.RED, "Comprar onde?");
         }
     }
 
@@ -290,26 +290,24 @@ public class Game {
             try{
                 item = hero.findItem(Integer.parseInt(command.getSecondWord()));
             } catch(NumberFormatException e){
-                Console.print(Console.BLACK, "Vender o que?");
+                Console.print(Console.RED, "Vender o que?");
                 return;
             }
 
             if (item != null) {
-                hero.removeItem(item);
 
                 Item sell = machine.sell(item);
 
                 if (sell != null) {
+                    hero.removeItem(item);
+
                     if (!hero.putItem(sell)) {
                         currentRoom.addItem(sell);
                     }
-                } else {
-                    Console.print(Console.BLACK, "Por que tu ta me vendendo tuas moedas? Não faz sentido- disse uma voz do alem");
-                    hero.putItem(item);
                 }
             }
         } else {
-            Console.print(Console.BLACK, "Vender onde?");
+            Console.print(Console.RED, "Vender onde?");
         }
     }
 
@@ -319,7 +317,7 @@ public class Game {
         try{
             item = hero.findItem(Integer.parseInt(command.getSecondWord()));
         } catch(NumberFormatException e){
-            Console.print(Console.BLACK, "Usar o que?");
+            Console.print(Console.RED, "Usar o que?");
             return;
         }
 
@@ -327,10 +325,10 @@ public class Game {
             if (item instanceof Heal) {
                 hero.increaseEnergy((Heal) item);
             } else {
-                Console.print(Console.BLACK, "Usar isso como?");
+                Console.print(Console.RED, "Usar isso como?");
             }
         } else {
-            Console.print(Console.BLACK, "Usar o que?");
+            Console.print(Console.RED, "Usar o que?");
         }
     }
 
@@ -342,18 +340,18 @@ public class Game {
             try {
                 item = chest.take(Integer.parseInt(command.getSecondWord()));
             } catch (NumberFormatException e){
-                Console.print(Console.BLACK, "Pegar o que?");
+                Console.print(Console.RED, "Pegar o que?");
                 return;
             }
 
             if (item != null) {
                 if(!hero.putItem(item)) {
                     currentRoom.addItem(item);
-                    Console.print(Console.BLACK, "Item está no chão");
+                    Console.print(Console.PURPLE_BOLD, "Item está no chão");
                 }
             }
         } else {
-            Console.print(Console.BLACK, "Pegar onde?");
+            Console.print(Console.RED, "Pegar onde?");
         }
     }
 
@@ -369,7 +367,7 @@ public class Game {
                 currentRoom.removeEnemy(character);
             }
         } else
-            Console.print(Console.BLACK, "Atacar quem?");
+            Console.print(Console.RED, "Atacar quem?");
     }
 
     private void pick(Command command){
@@ -378,12 +376,12 @@ public class Game {
         try {
             item = currentRoom.findItem(Integer.parseInt(command.getSecondWord()));
         } catch (NumberFormatException e){
-            Console.print(Console.BLACK, "Pegar o que?");
+            Console.print(Console.RED, "Pegar o que?");
             return;
         }
 
         if (item == null) {
-            Console.print(Console.BLACK, "Pegar o que?");
+            Console.print(Console.RED, "Pegar o que?");
         } else {
             if (hero.putItem(item)) {
                 currentRoom.removeItem(item);
@@ -397,19 +395,19 @@ public class Game {
         try {
             item = hero.findItem(Integer.parseInt(command.getSecondWord()));
         } catch (NumberFormatException e){
-            Console.print(Console.BLACK, "Dropar o que?");
+            Console.print(Console.RED, "Dropar o que?");
             return;
         }
 
         if (item == null) {
-            Console.print(Console.BLACK, "Dropar o que?");
+            Console.print(Console.RED, "Dropar o que?");
         } else {
             if (item instanceof CoinBag) {
                 currentRoom.addItem(new CoinBag(hero.dropCoins()));
             } else {
                 currentRoom.addItem(item);
                 hero.removeItem(item);
-                Console.print(Console.BLACK, "Dropou " + item.getName());
+                Console.print(Console.CYAN_BOLD, "Dropou " + item.getName());
             }
         }
     }
@@ -420,7 +418,7 @@ public class Game {
 
     private void goRoom(Command command) {
         if(!command.hasSecondWord()) {
-            Console.print(Console.BLACK, "Ir onde?");
+            Console.print(Console.RED, "Ir onde?");
             return;
         }
 
@@ -429,7 +427,7 @@ public class Game {
         Room nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {
-            Console.print(Console.BLACK, "Ir onde?");
+            Console.print(Console.RED, "Ir onde?");
         } else {
             if (nextRoom != lastRoom) {
                 currentRoom.getCharacters().forEach((s, character) -> {
@@ -449,16 +447,16 @@ public class Game {
             if (command.getSecondWord().equals("Around")) {
                 currentRoom.describe();
             } else {
-                Console.print(Console.BLACK, "Olhar para onde?");
+                Console.print(Console.RED, "Olhar para onde?");
             }
         } else {
-            Console.print(Console.BLACK, "Olhar para onde?");
+            Console.print(Console.RED, "Olhar para onde?");
         }
     }
 
     private boolean quit(Command command) {
         if(command.hasSecondWord()) {
-            Console.print(Console.BLACK, "Sair de onde?");
+            Console.print(Console.RED, "Sair de onde?");
             return false;
         }
         else {

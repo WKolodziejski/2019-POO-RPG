@@ -42,38 +42,37 @@ public class Chest extends Furniture {
     public void open() {
         if (chances > 0) {
             if (!opened) {
-                Console.print(Console.BLACK, "A senha é um número entre " + base + " e " + (base + 3));
+                Console.print(Console.PURPLE_BOLD, "A senha é um número entre " + base + " e " + (base + 3));
                 Scanner reader = new Scanner(System.in);
                 int tryal = reader.nextInt();
 
                 if (tryal == password) {
                     opened = true;
-                    Console.print(Console.BLACK, "Você abriu " + name);
+                    Console.print(Console.CYAN_BOLD, "Você abriu " + name);
                     printInventory();
                 } else {
                     chances--;
-                    Console.print(Console.BLACK, "Você não conseguiu abrir " + name);
+                    Console.print(Console.PURPLE_BOLD, "Você não conseguiu abrir " + name);
                     open();
                 }
             } else {
                 printInventory();
             }
         } else {
-            Console.print(Console.BLACK, "Você quebrou a fechadura e agora não é mais possível abrir " + name);
+            Console.print(Console.PURPLE_BOLD, "Você quebrou a fechadura e agora não é mais possível abrir " + name);
         }
     }
 
     public void printInventory() {
-        Console.print(Console.BLACK, "------" + name.toUpperCase() + "------");
-        if (!items.isEmpty()) {
-            Console.print(Console.BLACK, "Itens:");
+        Console.print(Console.BLACK_UNDERLINED, "------" + name.toUpperCase() + "------");
 
+        if (!items.isEmpty()) {
             for (int i = 0; i < items.size(); i++) {
-                Console.print(Console.BLACK, i + ": "+ items.get(i).getDetails());
+                Console.print(Console.BLUE_BRIGHT, i + ": "+ items.get(i).getDetails());
             }
 
         } else {
-            Console.print(Console.BLACK, "Não há itens");
+            Console.print(Console.BLACK_BOLD, "Não há itens");
         }
     }
 
@@ -86,11 +85,11 @@ public class Chest extends Furniture {
                 printInventory();
                 return item;
             } else {
-                Console.print(Console.BLACK, "Esse item não existe");
+                Console.print(Console.RED, "Esse item não existe");
                 return null;
             }
         } else {
-            Console.print(Console.BLACK, name + " está trancado");
+            Console.print(Console.PURPLE_BOLD, name + " está trancado");
             return null;
         }
     }

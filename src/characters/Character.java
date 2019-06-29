@@ -91,7 +91,7 @@ public abstract class Character {
     }
 
     public void printLife() {
-        Console.print(Console.BLACK, "#Vida de " + name + ": " + (energy < 0 ? 0 : energy));
+        Console.print(Console.GREEN_BOLD, "#Vida de " + getName() + ": " + (getEnergy() < 0 ? 0 : getEnergy()) + " de " + getEnergyCap());
     }
 
     private void decreaseEnergy(int amount) {

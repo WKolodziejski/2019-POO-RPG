@@ -40,12 +40,12 @@ public class CoinBag extends Item {
 
             this.amount -= amount;
 
-            Console.print(Console.BLACK, "Dropou " + amount + " moedas");
+            Console.print(Console.CYAN_BOLD, "Dropou " + amount + " moedas");
 
             return amount;
 
         } else {
-            Console.print(Console.BLACK, "Tá de brincadera com o Zoio?");
+            Console.print(Console.RED, "Tá de brincadera com o Zoio?");
             return 0;
         }
     }
@@ -68,15 +68,15 @@ public class CoinBag extends Item {
     public boolean useCoins(int amount) {
         if (amount > 0) {
             if (amount > this.amount) {
-                Console.print(Console.BLACK, "Saldo insuficiente");
+                Console.print(Console.RED, "Saldo insuficiente");
                 return false;
             } else {
                 this.amount -= amount;
-                Console.print(Console.BLACK, "Gastou " + amount + " moedas");
+                Console.print(Console.CYAN_BOLD, "Gastou " + amount + " moedas");
                 return true;
             }
         } else {
-            Console.print(Console.BLACK, "Tá de brincadera com o Zoio?");
+            Console.print(Console.RED, "Tá de brincadera com o Zoio?");
             return false;
         }
     }

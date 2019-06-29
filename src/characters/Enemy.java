@@ -10,12 +10,12 @@ public class Enemy extends Character {
 
     public Enemy(OnDie onDie) {
         super(Generator.get().name(),
-                Generator.get().number(10),
-                Generator.get().number(10),
-                Generator.get().number(10),
-                0,
-                Generator.get().number(100),
-                Generator.get().number(10),
+                Generator.get().number(10) + 1,
+                Generator.get().number(10) + 1,
+                Generator.get().number(10) + 1,
+                Generator.get().number(10) + 1,
+                Generator.get().number(100) + 1,
+                Generator.get().number(10) + 1,
                 onDie);
 
         for (int i = 0; i < Generator.get().number(3); i++) {
