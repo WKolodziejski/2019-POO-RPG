@@ -2,6 +2,7 @@ package item.furniture;
 
 import characters.Hero;
 import item.CoinBag;
+import item.Heal;
 import item.model.Item;
 import utils.Console;
 import utils.Generator;
