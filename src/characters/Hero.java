@@ -106,6 +106,7 @@ public class Hero extends Character {
         }
     }
 
+    @Override
     public boolean putItem(Item item) {
         if (item instanceof CoinBag && getCoinBag()!=null) {
             if(getCoinBag().grabCoins(((CoinBag) item), getCurWeight(), getMaxWeight())){

@@ -26,7 +26,6 @@ public class Enemy extends Character {
 
     protected Enemy(String name, int energy, int attack, int defense, int speed, int coins, int maxWeight, OnDie onDie){
         super(name, energy, attack, defense, speed, coins, maxWeight, onDie);
-
     }
 
     protected void unEquip(Equipment equip) {
@@ -46,6 +45,7 @@ public class Enemy extends Character {
         }
     }
 
+    @Override
     public boolean putItem(Item item) {
         if (item instanceof CoinBag){
             return (getCoinBag().grabCoins(((CoinBag) item), 0, getMaxWeight()));
