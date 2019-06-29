@@ -1,6 +1,7 @@
 package item;
 
 import item.model.Item;
+import utils.Console;
 
 import java.util.Scanner;
 
@@ -28,7 +29,7 @@ public class CoinBag extends Item {
     }
 
     public int dropCoins() {
-        System.out.println("Quantas moedas deseja dropar?");
+        Console.print(Console.BLACK, "Quantas moedas deseja dropar?");
 
         int amount = new Scanner(System.in).nextInt();
 
@@ -39,12 +40,12 @@ public class CoinBag extends Item {
 
             this.amount -= amount;
 
-            System.out.println("Dropou " + amount + " moedas");
+            Console.print(Console.BLACK, "Dropou " + amount + " moedas");
 
             return amount;
 
         } else {
-            System.out.println("Tá de brincadera com o Zoio?");
+            Console.print(Console.BLACK, "Tá de brincadera com o Zoio?");
             return 0;
         }
     }
@@ -67,15 +68,15 @@ public class CoinBag extends Item {
     public boolean useCoins(int amount) {
         if (amount > 0) {
             if (amount > this.amount) {
-                System.out.println("Saldo insuficiente");
+                Console.print(Console.BLACK, "Saldo insuficiente");
                 return false;
             } else {
                 this.amount -= amount;
-                System.out.println("Gastou " + amount + " moedas");
+                Console.print(Console.BLACK, "Gastou " + amount + " moedas");
                 return true;
             }
         } else {
-            System.out.println("Tá de brincadera com o Zoio?");
+            Console.print(Console.BLACK, "Tá de brincadera com o Zoio?");
             return false;
         }
     }

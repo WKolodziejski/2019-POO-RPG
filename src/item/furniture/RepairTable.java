@@ -2,6 +2,7 @@ package item.furniture;
 
 import item.RepairPiece;
 import item.model.Equipment;
+import utils.Console;
 
 import java.util.List;
 
@@ -25,12 +26,12 @@ public class RepairTable extends Furniture {
                 pieces.remove(repairPiece);
                 equipment.lowerLevel();
                 equipment.setDurability(equipment.getLevel() * 10);
-                System.out.println(equipment.getName() + " reparado");
+                Console.print(Console.BLACK, equipment.getName() + " reparado");
             } else {
-                System.out.println("O item não está tão danificado");
+                Console.print(Console.BLACK, "O item não está tão danificado");
             }
         } else {
-            System.out.println("Você não tem materiais para reparar esse item");
+            Console.print(Console.BLACK, "Você não tem materiais para reparar esse item");
         }
     }
 

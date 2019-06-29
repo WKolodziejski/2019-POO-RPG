@@ -1,6 +1,7 @@
 package item.furniture;
 
 import item.model.Item;
+import utils.Console;
 import utils.Generator;
 import utils.Item_Creator;
 
@@ -20,7 +21,7 @@ public class Chest extends Furniture {
         this.base = Generator.get().number(6);
         this.password = base + Generator.get().number(4);
 
-        System.out.println(password);
+        Console.print(Console.BLACK, String.valueOf(password));
 
         this.chances = 2;
 
@@ -41,38 +42,38 @@ public class Chest extends Furniture {
     public void open() {
         if (chances > 0) {
             if (!opened) {
-                System.out.println("A senha é um número entre " + base + " e " + (base + 3));
+                Console.print(Console.BLACK, "A senha é um número entre " + base + " e " + (base + 3));
                 Scanner reader = new Scanner(System.in);
                 int tryal = reader.nextInt();
 
                 if (tryal == password) {
                     opened = true;
-                    System.out.println("Você abriu " + name);
+                    Console.print(Console.BLACK, "Você abriu " + name);
                     printInventory();
                 } else {
                     chances--;
-                    System.out.println("Você não conseguiu abrir " + name);
+                    Console.print(Console.BLACK, "Você não conseguiu abrir " + name);
                     open();
                 }
             } else {
                 printInventory();
             }
         } else {
-            System.out.println("Você quebrou a fechadura e agora não é mais possível abrir " + name);
+            Console.print(Console.BLACK, "Você quebrou a fechadura e agora não é mais possível abrir " + name);
         }
     }
 
     public void printInventory() {
-        System.out.println("------" + name.toUpperCase() + "------");
+        Console.print(Console.BLACK, "------" + name.toUpperCase() + "------");
         if (!items.isEmpty()) {
-            System.out.println("Itens:");
+            Console.print(Console.BLACK, "Itens:");
 
             for (int i = 0; i < items.size(); i++) {
-                System.out.println(i + ": "+ items.get(i).getDetails());
+                Console.print(Console.BLACK, i + ": "+ items.get(i).getDetails());
             }
 
         } else {
-            System.out.println("Não há itens");
+            Console.print(Console.BLACK, "Não há itens");
         }
     }
 
@@ -85,11 +86,11 @@ public class Chest extends Furniture {
                 printInventory();
                 return item;
             } else {
-                System.out.println("Esse item não existe");
+                Console.print(Console.BLACK, "Esse item não existe");
                 return null;
             }
         } else {
-            System.out.println(name + " está trancado");
+            Console.print(Console.BLACK, name + " está trancado");
             return null;
         }
     }

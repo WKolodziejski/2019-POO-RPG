@@ -1,5 +1,7 @@
 package jogorpg.world_of_zuul;
 
+import utils.Console;
+
 import java.util.HashMap;
 
 /**
@@ -36,7 +38,7 @@ public class CommandWords {
     }
 
     public void showAll() {
-        System.out.println(validCommands.keySet());
+        Console.print(Console.BLACK, String.valueOf(validCommands.keySet()));
     }
 
 }

@@ -1,6 +1,7 @@
 package mechanics;
 
 import characters.Character;
+import utils.Console;
 
 public class Fight {
 
@@ -10,12 +11,12 @@ public class Fight {
 
         if (p1 > p2) {
             int damage = c1.getAttack() / (1 + c2.getDefense() / 10);
-            System.out.println(c2.getName() + " sofreu " + damage + " de dano");
+            Console.print(Console.RED, c2.getName() + " sofreu " + damage + " de dano");
             c1.damageEquippedWeapon();
             c2.takeDamage(damage);
         } else {
             int damage = c2.getAttack() / (1 + c1.getDefense() / 10);
-            System.out.println(c1.getName() + " sofreu " + damage + " de dano");
+            Console.print(Console.RED, c1.getName() + " sofreu " + damage + " de dano");
             c1.takeDamage(damage);
             c2.damageEquippedWeapon();
         }

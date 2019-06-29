@@ -2,7 +2,6 @@ package utils;
 
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Logger;
 
 public class Generator {
     private List<String> names;
@@ -47,7 +46,7 @@ public class Generator {
                 return i;
             }
         }
-        System.out.println("Material não encontrado");
+        Console.print(Console.BLACK, "Material não encontrado");
         return -1;
     }
 

@@ -26,26 +26,26 @@ public class Hero extends Character {
 
     @Override
     public void printLife() {
-        System.out.println("#Vida de " + getName() + ": " + (getEnergy() < 0 ? 0 : getEnergy()) + " de " + getEnergyCap());
+        Console.print(Console.BLACK, "#Vida de " + getName() + ": " + (getEnergy() < 0 ? 0 : getEnergy()) + " de " + getEnergyCap());
     }
 
     public void printInventory() {
-        Console.print(Console.BLACK_BOLD, "------INVENTÁRIO------");
+        Console.print(Console.BLACK_UNDERLINED, "------INVENTÁRIO------");
         for (int i = 0; i < inventory.size(); i++) {
-            System.out.println(i + ": " + inventory.get(i).getDetails());
+            Console.print(Console.BLACK, i + ": " + inventory.get(i).getDetails());
         }
     }
 
     public void printEquipped() {
-        Console.print(Console.BLACK_BOLD, "------ITENS EQUIPADOS------");
+        Console.print(Console.BLACK, "------ITENS EQUIPADOS------");
         int i = 0;
         if(equipped.size()!=0){
             for(Equipment equipment : equipped.values()){
-                System.out.println(i + ": "+ equipment.getDetails());
+                Console.print(Console.BLACK, i + ": "+ equipment.getDetails());
                 i++;
             }
         } else {
-            System.out.println("Nada equipado");
+            Console.print(Console.BLACK, "Nada equipado");
         }
     }
 
@@ -55,14 +55,14 @@ public class Hero extends Character {
         if (energy + amount <= energyCap) {
             energy += amount;
             inventory.remove(item);
-            System.out.println("Recuperou " + amount + " pontos de vida");
+            Console.print(Console.BLACK, "Recuperou " + amount + " pontos de vida");
             printInventory();
         } else {
             if (energy ==  energyCap) {
-                System.out.println("Vida já está no máximo");
+                Console.print(Console.BLACK, "Vida já está no máximo");
                 //inventory.add(item);
             } else {
-                System.out.println("Recuperou " + (energyCap - energy) + " pontos de vida");
+                Console.print(Console.BLACK, "Recuperou " + (energyCap - energy) + " pontos de vida");
                 energy = energyCap;
                 inventory.remove(item);
                 printInventory();
@@ -102,13 +102,13 @@ public class Hero extends Character {
                 }
             }
         }
-        System.out.println("Item não encontrado");
+        Console.print(Console.BLACK, "Item não encontrado");
     }
 
     protected void damageItem(Equipment equip) {
         equip.takeAHit();
         if(equip.isBroken()){
-            System.out.println(equip.getName() + " foi quebrado");
+            Console.print(Console.BLACK, equip.getName() + " foi quebrado");
             unEquip(equip);
         }
     }
@@ -116,24 +116,24 @@ public class Hero extends Character {
     public boolean putItem(Item item) {
         if (item instanceof CoinBag && getCoinBag()!=null) {
             if(getCoinBag().grabCoins(((CoinBag) item), getCurWeight(), getMaxWeight())){
-                System.out.println("Pegou " + ((CoinBag) item).getAmount() + " moedas");
+                Console.print(Console.BLACK, "Pegou " + ((CoinBag) item).getAmount() + " moedas");
                 return true;
             } else {
-                System.out.println("Sem espaço para todas moedas");
+                Console.print(Console.BLACK, "Sem espaço para todas moedas");
                 return false;
             }
         } else {
 
             if (getCurWeight() + item.getWeight() <= getMaxWeight()) {
                 inventory.add(item);
-                System.out.println(item.getName() + " adicionado ao inventário");
+                Console.print(Console.BLACK, item.getName() + " adicionado ao inventário");
                 if (item instanceof Equipment && !isEquipped((Equipment) item)) {
                     equip((Equipment) item);
                 }
                 printInventory();
                 return true;
             } else {
-                System.out.println("Sem espaço no inventário");
+                Console.print(Console.BLACK, "Sem espaço no inventário");
                 return false;
             }
         }
@@ -158,32 +158,32 @@ public class Hero extends Character {
             if (tbEquipped instanceof Equipment){
                 equip((Equipment) tbEquipped);
             } else {
-                System.out.println("Item não equipavel");
+                Console.print(Console.BLACK, "Item não equipavel");
             }
         } else {
-            System.out.println("Item inexistente");
+            Console.print(Console.BLACK, "Item inexistente");
         }
     }
 
     protected void equip(Equipment equip){
         Equipment unequip = equipped.get(equip.getClass().getSimpleName());
         if(unequip == equip){
-            System.out.println(equip.getName() + " já equipado");
+            Console.print(Console.BLACK, equip.getName() + " já equipado");
         } else {
             equipped.put(equip.getClass().getSimpleName(), equip);
             processBonus(equip.bonusType(), equip.bonusAmount());
             if (unequip != null) {
                 processBonus(unequip.bonusType(), -unequip.bonusAmount());
-                System.out.println(unequip.getName() + " foi desequipado");
+                Console.print(Console.BLACK, unequip.getName() + " foi desequipado");
             }
-            System.out.println(equip.getName() + " equipado com sucesso!");
+            Console.print(Console.BLACK, equip.getName() + " equipado com sucesso!");
         }
     }
 
     protected void unEquip(Equipment equip) {
         equip = equipped.remove(equip.getClass().getSimpleName());
         if(equip!=null){
-            System.out.println(equip.getName() + " foi desequipado");
+            Console.print(Console.BLACK, equip.getName() + " foi desequipado");
             processBonus(equip.bonusType(), -equip.bonusAmount());
             if (energyCap > energy) {
                 this.energy = energy - (energyCap - energy);

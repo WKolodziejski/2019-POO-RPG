@@ -31,12 +31,12 @@ public class Room {
         for (int i = 0; i < enemiesAmount; i++) {
 
             Enemy enemy = new Enemy(inventory -> {
-                //System.out.println("------ITENS DROPADOS------");
+                //Console.print(Console.BLACK, "------ITENS DROPADOS------");
                 Console.print(Console.BLACK_BACKGROUND, "ITENS DROPADOS");
                 for (Item item: inventory){
                     if (item != null) {
                         addItem(item);
-                        System.out.println(items.size() - 1 + ": " + item.getName());
+                        Console.print(Console.BLACK, items.size() - 1 + ": " + item.getName());
                     }
                 }
             });
@@ -94,30 +94,30 @@ public class Room {
     public void describe() {
         if (firstAccess) {
             firstAccess = false;
-            System.out.println(description);
+            Console.print(Console.BLACK, description);
         }
 
-        System.out.println("Você está " + name);
-        System.out.println("Você pode ir para " + exits.keySet());
+        Console.print(Console.BLACK, "Você está " + name);
+        Console.print(Console.BLACK, "Você pode ir para " + exits.keySet());
 
         if (!characters.isEmpty()) {
             String e = "";
             for (Character c : characters.values()) {
                 e = e.concat(c.getName()).concat(", ");
             }
-            System.out.println("Há inimigos na sala: " + e.substring(0, e.length() - 2));
+            Console.print(Console.BLACK, "Há inimigos na sala: " + e.substring(0, e.length() - 2));
         }
 
         Chest chest = (Chest) furniture.get("Chest");
 
         if (chest != null) {
-            System.out.println("Você vê um " + chest.getName());
+            Console.print(Console.BLACK, "Você vê um " + chest.getName());
         }
 
         VendingMachine machine = (VendingMachine) furniture.get("Vending");
 
         if (machine != null) {
-            System.out.println("Você vê uma máquina de vendas");
+            Console.print(Console.BLACK, "Você vê uma máquina de vendas");
         }
 
         if (!items.isEmpty()) {

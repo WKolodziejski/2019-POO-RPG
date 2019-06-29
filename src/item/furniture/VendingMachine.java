@@ -3,6 +3,7 @@ package item.furniture;
 import characters.Hero;
 import item.CoinBag;
 import item.model.Item;
+import utils.Console;
 import utils.Generator;
 import utils.Item_Creator;
 
@@ -22,18 +23,18 @@ public class VendingMachine extends Furniture {
     }
 
     public void printInventory() {
-        System.out.println("------VENDING MACHINE------");
+        Console.print(Console.BLACK, "------VENDING MACHINE------");
         if (!items.isEmpty()) {
-            System.out.println("Itens à venda:");
+            Console.print(Console.BLACK, "Itens à venda:");
 
             for (int i = 0; i < items.size(); i++) {
                 if (items.get(i) != null) {
-                    System.out.println(i + ": " + items.get(i).getPrice() + " moedas - " + items.get(i).getDetails());
+                    Console.print(Console.BLACK, i + ": " + items.get(i).getPrice() + " moedas - " + items.get(i).getDetails());
                 }
             }
 
         } else {
-            System.out.println("Não há itens à venda");
+            Console.print(Console.BLACK, "Não há itens à venda");
         }
     }
 
@@ -49,17 +50,17 @@ public class VendingMachine extends Furniture {
                 return null;
             }
         } else {
-            System.out.println("Qual item?");
+            Console.print(Console.BLACK, "Qual item?");
             return null;
         }
     }
 
     public CoinBag sell(Item item) {
         if (item instanceof CoinBag) {
-            System.out.println("Tá maluco?");
+            Console.print(Console.BLACK, "Tá maluco?");
             return null;
         } else {
-            System.out.println("Vendeu " + item.getName() + " por " + item.getPrice() + " moedas");
+            Console.print(Console.BLACK, "Vendeu " + item.getName() + " por " + item.getPrice() + " moedas");
             items.add(item);
             return new CoinBag(item.getPrice());
         }

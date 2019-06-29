@@ -5,6 +5,7 @@ import item.Weapon;
 import item.model.Bonus;
 import item.model.Equipment;
 import item.model.Item;
+import utils.Console;
 import utils.Generator;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,7 +91,7 @@ public abstract class Character {
     }
 
     public void printLife() {
-        System.out.println("#Vida de " + name + ": " + (energy < 0 ? 0 : energy));
+        Console.print(Console.BLACK, "#Vida de " + name + ": " + (energy < 0 ? 0 : energy));
     }
 
     private void decreaseEnergy(int amount) {
