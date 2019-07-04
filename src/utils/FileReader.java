@@ -100,6 +100,7 @@ public class FileReader {
                     HashMap<String, Furniture> furniture = new HashMap<>();
                     StringBuilder description = new StringBuilder();
                     int enemies = 0;
+                    boolean boss = false;
 
                     while (!data.equals("</room>")) {
 
@@ -136,26 +137,23 @@ public class FileReader {
 
                             case "<chest>":
                                 data = scanner.nextLine().trim();
-                                Item item = null;
 
                                 while (!data.equals("</chest>")) {
                                     Chest chest = new Chest(data, Boolean.parseBoolean(scanner.nextLine().trim()));
                                     data = scanner.nextLine().trim();
 
-                                    if (data.equals("<item>")) {
+                                    while (data.equals("<item>")) {
                                         data = scanner.nextLine().trim();
 
                                         while (!data.equals("</item>")) {
-                                            item = Item_Creator.get().getSpec(Item_Category.get(Integer.parseInt(data)), Integer.parseInt(scanner.nextLine().trim()));
+                                            chest.addItem(Item_Creator.get().getSpec(Item_Category.get(Integer.parseInt(data)), Integer.parseInt(scanner.nextLine().trim())));
                                             data = scanner.nextLine().trim();
                                         }
 
-                                        chest.addItem(item);
                                         data = scanner.nextLine().trim();
                                     }
 
                                     furniture.put("Chest", chest);
-
                                 }
 
                                 break;
@@ -167,6 +165,11 @@ public class FileReader {
 
                             case "<repair>":
                                 furniture.put("Repair", new RepairTable());
+
+                                break;
+
+                            case "<boss>":
+                                boss = true;
 
                                 break;
 
@@ -183,7 +186,7 @@ public class FileReader {
 
                         data = scanner.nextLine().trim();
                     }
-                    rooms.add(new Room(name.toString(), description.toString(), enemies, furniture));
+                    rooms.add(new Room(name.toString(), description.toString(), enemies, boss, furniture));
                     exits.add(exit);
                 }
             }

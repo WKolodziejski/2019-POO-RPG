@@ -28,6 +28,7 @@ public class Enemy extends Character {
         super(name, energy, attack, defense, speed, coins, maxWeight, onDie);
     }
 
+    @Override
     protected void unEquip(Equipment equip) {
         equip = equipped.remove(equip.getClass().getSimpleName());
         if(equip!=null){
@@ -38,6 +39,7 @@ public class Enemy extends Character {
         }
     }
 
+    @Override
     protected void damageItem(Equipment equip) {
         equip.takeAHit();
         if(equip.isBroken()){
@@ -58,6 +60,7 @@ public class Enemy extends Character {
         }
     }
 
+    @Override
     protected void equip(Equipment equip){
         unEquip(equip);
         equipped.put(equip.getClass().getSimpleName(), equip);

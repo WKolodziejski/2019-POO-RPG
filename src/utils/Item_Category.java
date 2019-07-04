@@ -1,15 +1,15 @@
 package utils;
 
 public enum Item_Category {
-        Arm_Piece,
-        Chest_Piece,
-        Helmet,
-        Leg_Piece,
-        CoinBag,
-        Heal,
-        Ring,
-        Weapon,
-        Repair_Piece;
+        ARM,
+        CHEST,
+        HELMET,
+        LEG,
+        COIN,
+        HEAL,
+        RING,
+        WEAPON,
+        REPAIR;
 
         public static Item_Category get(int i) {
                 return values()[i];

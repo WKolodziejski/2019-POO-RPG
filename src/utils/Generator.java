@@ -46,7 +46,10 @@ public class Generator {
                 return i;
             }
         }
-        Console.print(Console.BLACK, "Material não encontrado");
+        if (material.equals("Kubikiribōchō")) {
+            return 10;
+        }
+        Console.print(Console.RED, material + " não encontrado");
         return -1;
     }
 

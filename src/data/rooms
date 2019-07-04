@@ -23,12 +23,16 @@
         Essa é a sala que os trabalhadores da usina utilizavam para vestirem-se.
     </description>
     <chest>
-            Armario
-            true
-            <item>
-                7
-                3
-            </item>
+        Armario
+        true
+        <item>
+            7
+            3
+        </item>
+        <item>
+            5
+            4
+        </item>
         </chest>
     <exits>
         0
@@ -56,7 +60,7 @@
     </name>
     <description>
         A sala está escura, mas parece ser bem ampla e cheia de mesas.
-        Você escuta barulhos.
+        Que barulhos são esses?
     </description>
     <enemies>
        3
@@ -73,7 +77,7 @@
         em um pequeno corredor.
     </name>
     <description>
-        Você entra em um corredor apertado e escuro.
+        Que lugar apertado...
     </description>
     <exits>
         3
@@ -87,11 +91,15 @@
         em um almoxarifado.
     </name>
     <description>
-        Você entra em uma pequena sala escura.
+        Onde estou me metendo? Essa salas é minúscula.
     </description>
     <chest>
-        Caixa
+        Dispensa
         false
+        <item>
+            5
+            9
+        </item>
     </chest>
     <exits>
         4
@@ -103,10 +111,10 @@
         em um hall.
     </name>
     <description>
-        Você entra em uma sala de espera.
+        Há sofás velhos, vazos de plantas vazios e quadros desbotados...
     </description>
     <enemies>
-       0
+       4
     </enemies>
     <vending>
     <exits>
@@ -120,13 +128,13 @@
 </room>
 <room>
     <name>
-        em uma sala ddasdkjasldhasjk.
+        na sala do chefe.
     </name>
     <description>
-        .
+        Que lugar enorme! Com certeza essa era a sala do chefe, ou pelo menos de quem comandava esse lugar.
     </description>
     <enemies>
-       90
+       3
     </enemies>
     <exits>
         6
@@ -140,7 +148,7 @@
         em um corredor.
     </name>
     <description>
-        .
+        Há vários avisos na parede. Acho que aqui é o acesso ao interior da usina.
     </description>
     <enemies>
        0
@@ -149,205 +157,234 @@
         6
         Hall
         7
-        Sala
+        Chefe
         9
         Frente
     </exits>
 </room>
 <room>
     <name>
-        9
+        na sala de supervisão.
     </name>
     <description>
-        .
+        Há uma enorme parede de vridro à minha direita. Atrás dela parece haver vários controles.
     </description>
     <enemies>
-       0
+       2
     </enemies>
     <exits>
         8
         Corredor
         10
-        Direita
+        Controle
         11
         Frente
     </exits>
 </room>
 <room>
     <name>
-        10.
+        na sala de controle.
     </name>
     <description>
-        .
+        Vejo milhares de painéis e botões. Certamente apenas pessoas especializadas deveriam vir aqui.
     </description>
     <enemies>
        0
     </enemies>
     <exits>
         9
-        9
+        Supervisão
         11
-        11
+        Esquerda
         12
-        12
+        Porta
         13
-        13
+        Frente
         18
-        18
+        Direita
     </exits>
 </room>
 <room>
     <name>
-        11.
+        em um longo corredor.
     </name>
     <description>
-        .
+        Está tão escuro que mal consigo ver o fim desse lugar.
     </description>
     <enemies>
-       0
+       1
     </enemies>
     <exits>
         9
-        9
+        Supervisão
         10
-        10
+        Controle
         14
-        14
+        Frente
     </exits>
 </room>
 <room>
     <name>
-        12
+        em um corredor muito pequeno.
     </name>
     <description>
-        .
+        Qual a moral desse lugar? É tão apertado e só tem outra porta...
+    </description>
+    <enemies>
+       1
+    </enemies>
+    <chest>
+        Caixa
+        false
+    </chest>
+    <exits>
+        10
+        Controle
+        13
+        Porta
+    </exits>
+</room>
+<room>
+    <name>
+        em um banheiro.
+    </name>
+    <description>
+        Faz sentido ter isso aqui...
     </description>
     <enemies>
        0
     </enemies>
     <exits>
-        10
-        10
-        13
-        13
-    </exits>
-</room>
-<room>
-    <name>
-        13
-    </name>
-    <description>
-        .
-    </description>
-    <enemies>
-       0
-    </enemies>
-    <exits>
         12
-        12
+        Corredor
         10
-        10
+        Controle
         18
-        18
+        Direita
         17
-        17
+        Porta
     </exits>
 </room>
 <room>
     <name>
-        14
+        sala de equipamentos.
     </name>
     <description>
-        .
+        Quantos EPIs... Certamente andar desprotegido aqui pode matar.
     </description>
     <enemies>
-       0
+       5
     </enemies>
+    <chest>
+        Armario
+        true
+        <item>
+           0
+           9
+        </item>
+        <item>
+           1
+           9
+        </item>
+        <item>
+           2
+           9
+        </item>
+        <item>
+           3
+           9
+        </item>
+    </chest>
     <exits>
         11
-        11
+        Corredor
         15
-        15
+        Porta
     </exits>
 </room>
 <room>
     <name>
-        15
+        em um corredor.
     </name>
     <description>
-        .
+        Outro corredor... Quantos mais terão?
     </description>
     <enemies>
-       0
+       1
     </enemies>
     <exits>
         14
-        14
+        Equipamentos
         16
-        16
+        Porta
     </exits>
 </room>
 <room>
     <name>
-        16
+        na sala de resíduos nucleares.
     </name>
     <description>
-        .
+        Oh, Deus! O que é isso? Tanques e mais tanques radioativos!
     </description>
-    <enemies>
-       0
-    </enemies>
     <exits>
         15
-        15
+        Corredor
     </exits>
 </room>
 <room>
     <name>
-        17
+        sala de monitoramento.
     </name>
     <description>
-        .
+        Mais painéis e botões!
     </description>
     <enemies>
-       0
+       1
     </enemies>
     <exits>
         13
-        13
+        Banheiro
         18
-        18
+        Corredor
     </exits>
 </room>
 <room>
     <name>
-        18
+        em um corredor cheio de avisos.
     </name>
     <description>
-        .
+        Quantos avisos! O que será que há depois daquela porta?
     </description>
     <enemies>
        0
     </enemies>
     <exits>
+        10
+        Controle
+        13
+        Banheiro
         17
-        17
+        Monitoramento
         19
-        19
+        Porta
     </exits>
 </room>
 <room>
     <name>
-        na sala do reator
+        na sala do reator.
     </name>
     <description>
-        .
+        Certamente este é o lugar!
+        É aqui que tudo deverá acont-
+
+       Não pode ser!
+       É ele mesmo?
+       Sim, é ele!
+       Zabuza Momochi, o demônio do gás oculto!
     </description>
-    <enemies>
-       0
-    </enemies>
+    <boss>
     <exits>
         18
-        18
+        Corredor
     </exits>
 </room>

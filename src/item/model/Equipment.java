@@ -1,5 +1,6 @@
 package item.model;
 
+import utils.Console;
 import utils.Generator;
 
 public abstract class Equipment extends Item implements Bonus {

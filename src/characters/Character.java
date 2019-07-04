@@ -22,6 +22,7 @@ public abstract class Character {
     private int attack;
     private int defense;
     private int speed;
+    private boolean hasDied;
 
     public Character(String name, int energy, int attack, int defense, int speed, int coins, int maxWeight, OnDie onDie) {
         this.inventory = new ArrayList<>();
@@ -34,8 +35,9 @@ public abstract class Character {
         this.maxWeight = maxWeight;
         this.onDie = onDie;
         this.equipped = new HashMap<>();
-        CoinBag coinBag = new CoinBag(coins);
-        inventory.add(coinBag);
+        this.hasDied = false;
+
+        inventory.add(new CoinBag(coins));
     }
 
     abstract public boolean putItem(Item item);
@@ -92,13 +94,16 @@ public abstract class Character {
     }
 
     public void printLife() {
-        Console.print(Console.GREEN_BOLD, "#Vida de " + getName() + ": " + (getEnergy() < 0 ? 0 : getEnergy()) + " de " + getEnergyCap());
+        if (getEnergy() > 0) {
+            Console.print(Console.GREEN_BOLD, "#Vida de " + getName() + ": " + (getEnergy() < 0 ? 0 : getEnergy()) + " de " + getEnergyCap());
+        }
     }
 
     private void decreaseEnergy(int amount) {
         energy -= amount;
-        if (energy <= 0) {
-            onDie.onDie(inventory);
+        if (energy <= 0 && !hasDied) {
+            hasDied = true;
+            onDie.onDie(inventory, this);
         }
     }
 

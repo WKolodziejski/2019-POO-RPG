@@ -1,6 +1,7 @@
 package jogorpg.world_of_zuul;
 
 import characters.Enemy;
+import characters.OnDie;
 import item.RepairPiece;
 import item.furniture.Chest;
 import item.CoinBag;
@@ -15,6 +16,7 @@ import characters.Character;
 import utils.Console;
 import utils.FileReader;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
@@ -26,13 +28,13 @@ public class Game {
     public Game() {
         currentRoom = FileReader.readRooms();
         parser = new Parser();
-        hero = new Hero(inventory -> {
+        hero = new Hero((inventory, character) -> {
             Console.print(Console.RED_BACKGROUND_BRIGHT, "Você morreu!");
         });
     }
 
     public void play() {
-        Console.print(Console.BLACK, "Salve aí mermão!");
+        Console.print(Console.BLACK_BOLD, "Salve aí mermão!");
         currentRoom.describe();
 
         boolean finished = false;
@@ -42,7 +44,7 @@ public class Game {
             finished = processCommand(command);
         }
 
-        Console.print(Console.BLACK, "Valeu mermão!");
+        Console.print(Console.BLACK_BOLD, "Valeu mermão!");
     }
 
     private boolean processCommand(Command command) {
@@ -217,8 +219,8 @@ public class Game {
                 VendingMachine machine = currentRoom.getMachine();
 
                 if (machine != null) {
-                    takeEnemyDamage();
                     machine.printInventory();
+                    takeEnemyDamage();
                 } else {
                     Console.print(Console.RED, "Não há máquinas na sala");
                 }
@@ -227,8 +229,8 @@ public class Game {
 
                 if (chest != null) {
                     if (command.getSecondWord().equals(chest.getName())) {
-                        takeEnemyDamage();
                         chest.open();
+                        takeEnemyDamage();
                     } else {
                         Console.print(Console.RED, "Abrir o que?");
                     }
@@ -283,7 +285,6 @@ public class Game {
             if (item != null) {
                 if (!hero.putItem(item)) {
                     currentRoom.addItem(item);
-                    Console.print(Console.PURPLE_BOLD, "Item está no chão");
                 }
                 takeEnemyDamage();
             }
@@ -359,7 +360,6 @@ public class Game {
             if (item != null) {
                 if(!hero.putItem(item)) {
                     currentRoom.addItem(item);
-                    Console.print(Console.PURPLE_BOLD, "Item está no chão");
                 }
             }
 
@@ -447,11 +447,13 @@ public class Game {
             if (nextRoom != lastRoom) {
                 takeEnemyDamage();
             }
-            lastRoom = currentRoom;
-            currentRoom = nextRoom;
-            currentRoom.describe();
-
+            if (hero.getEnergy() > 0) {
+                lastRoom = currentRoom;
+                currentRoom = nextRoom;
+                currentRoom.describe();
+            }
         }
+
     }
 
     private void look(Command command) {

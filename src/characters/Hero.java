@@ -11,7 +11,7 @@ import java.util.List;
 public class Hero extends Character {
 
     public Hero(OnDie onDie) {
-        super("Cleytinho", 10, 10, 10, 5,1000, 10, onDie);
+        super("Cleytinho", 10, 1, 0, 5,0, 10, onDie);
     }
     
     public int getCurWeight() {
@@ -38,9 +38,8 @@ public class Hero extends Character {
             Console.print(Console.CYAN_BOLD, "Recuperou " + amount + " pontos de vida");
             printInventory();
         } else {
-            if (energy ==  energyCap) {
+            if (energy == energyCap) {
                 Console.print(Console.YELLOW_BOLD_BRIGHT, "Vida já está no máximo");
-                //inventory.add(item);
             } else {
                 Console.print(Console.CYAN_BOLD, "Recuperou " + (energyCap - energy) + " pontos de vida");
                 energy = energyCap;
@@ -51,8 +50,8 @@ public class Hero extends Character {
         printLife();
     }
 
-    public List<RepairPiece> getPieces() {
-        List<RepairPiece> pieces = new ArrayList<>();
+    public ArrayList<RepairPiece> getPieces() {
+        ArrayList<RepairPiece> pieces = new ArrayList<>();
         for (Item item : inventory) {
             if (item instanceof RepairPiece) {
                 pieces.add((RepairPiece) item);
@@ -85,6 +84,7 @@ public class Hero extends Character {
         Console.print(Console.RED, "Item não encontrado");
     }
 
+    @Override
     protected void damageItem(Equipment equip) {
         equip.takeAHit();
         if(equip.isBroken()){
@@ -146,6 +146,7 @@ public class Hero extends Character {
         }
     }
 
+    @Override
     protected void equip(Equipment equip){
         Equipment unequip = equipped.get(equip.getClass().getSimpleName());
         if(unequip == equip){
@@ -160,6 +161,7 @@ public class Hero extends Character {
         }
     }
 
+    @Override
     protected void unEquip(Equipment equip) {
         equip = equipped.remove(equip.getClass().getSimpleName());
         if(equip!=null){

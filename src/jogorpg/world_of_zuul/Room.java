@@ -1,6 +1,8 @@
 package jogorpg.world_of_zuul;
 
 import java.util.*;
+
+import characters.Boss;
 import item.furniture.Chest;
 import item.furniture.Furniture;
 import item.furniture.RepairTable;
@@ -19,7 +21,7 @@ public class Room {
     private ArrayList<Item> items;
     private boolean firstAccess;
 
-    public Room(String name, String description, int enemiesAmount, HashMap<String, Furniture> furniture) {
+    public Room(String name, String description, int enemiesAmount, boolean hasBoss, HashMap<String, Furniture> furniture) {
         this.name = name;
         this.description = description;
         this.firstAccess = true;
@@ -28,13 +30,23 @@ public class Room {
         this.characters = new HashMap<>();
         this.items = new ArrayList<>();
 
+        if (hasBoss) {
+            Boss boss = new Boss((inventory, character) -> {
+                Console.print(Console.RED_BACKGROUND_BRIGHT, "Você matou o boss!");
+            });
+            characters.put(boss.getKey(), boss);
+        }
+
         for (int i = 0; i < enemiesAmount; i++) {
-            Enemy enemy = new Enemy(inventory -> {
-                Console.print(Console.BLACK_UNDERLINED, "------ITENS DROPADOS------");
-                for (Item item: inventory){
-                    if (item != null) {
-                        addItem(item);
-                        Console.print(Console.BLUE_BRIGHT, items.size() - 1 + ": " + item.getDetails());
+            Enemy enemy = new Enemy((inventory, character) -> {
+                if (!inventory.isEmpty()) {
+                    Console.print(Console.BLACK_UNDERLINED, "------ITENS DROPADOS------");
+
+                    for (Item item : inventory) {
+                        if (item != null) {
+                            items.add(item);
+                            Console.print(Console.BLUE_BRIGHT, items.size() - 1 + ": " + item.getDetails());
+                        }
                     }
                 }
             });
@@ -80,6 +92,8 @@ public class Room {
     }
 
     public void addItem(Item item) {
+        Console.print(Console.BLUE_BRIGHT, item.getName() + " caiu ao chão");
+        Console.print(Console.BLUE_BRIGHT, items.size() - 1 + ": " + item.getDetails());
         items.add(item);
     }
 
@@ -91,34 +105,34 @@ public class Room {
     public void describe() {
         if (firstAccess) {
             firstAccess = false;
-            Console.print(Console.BLACK, description);
+            Console.print(Console.BLACK_BOLD, description);
         }
 
-        Console.print(Console.BLACK, "Você está " + name);
-        Console.print(Console.BLACK, "Você pode ir para " + exits.keySet());
+        Console.print(Console.BLACK_BRIGHT, "Você está " + name);
+        Console.print(Console.BLACK_BRIGHT, "Você pode ir para " + exits.keySet());
 
         if (!characters.isEmpty()) {
             String e = "";
             for (Character c : characters.values()) {
                 e = e.concat(c.getName()).concat(", ");
             }
-            Console.print(Console.BLACK, "Há inimigos na sala: " + e.substring(0, e.length() - 2));
+            Console.print(Console.CYAN_BOLD, "Há inimigos na sala: " + e.substring(0, e.length() - 2));
         }
 
         Chest chest = (Chest) furniture.get("Chest");
 
         if (chest != null) {
-            Console.print(Console.BLACK, "Você vê um " + chest.getName());
+            Console.print(Console.GREEN_BOLD, "Você vê um " + chest.getName());
         }
 
         VendingMachine machine = (VendingMachine) furniture.get("Vending");
 
         if (machine != null) {
-            Console.print(Console.BLACK, "Você vê uma máquina de vendas");
+            Console.print(Console.GREEN_BOLD, "Você vê uma máquina de vendas");
         }
 
         if (!items.isEmpty()) {
-            Console.print(Console.BLACK, "Há itens no chão:");
+            Console.print(Console.BLACK_BOLD, "Há itens no chão:");
             for (int i = 0; i < items.size(); i++) {
                 if (items.get(i) != null) {
                     Console.print(Console.BLUE_BRIGHT, i + ": "+ items.get(i).getDetails());

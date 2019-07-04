@@ -37,15 +37,15 @@ public class Item_Creator {
     public Item getSpec(Item_Category category, int lvl) {
         lvl++;
         switch (category){
-            case CoinBag: return createCoinBag(lvl);
-            case Heal: return createHeal(lvl);
-            case Ring: return createRing(lvl);
-            case Weapon: return createWeapon(lvl);
-            case Arm_Piece: return createArm_Piece(lvl);
-            case Chest_Piece: return createChest_Piece(lvl);
-            case Helmet: return createHelmet(lvl);
-            case Leg_Piece: return createLeg_Piece(lvl);
-            case Repair_Piece: return createRepaiPiece(lvl);
+            case COIN: return createCoinBag(lvl);
+            case HEAL: return createHeal(lvl);
+            case RING: return createRing(lvl);
+            case WEAPON: return createWeapon(lvl);
+            case ARM: return createArm_Piece(lvl);
+            case CHEST: return createChest_Piece(lvl);
+            case HELMET: return createHelmet(lvl);
+            case LEG: return createLeg_Piece(lvl);
+            case REPAIR: return createRepaiPiece(lvl);
             default: return null;
         }
 

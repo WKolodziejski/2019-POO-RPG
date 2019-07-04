@@ -20,10 +20,9 @@ public class Chest extends Furniture {
         this.opened = opened;
         this.base = Generator.get().number(6);
         this.password = base + Generator.get().number(4);
-
-        Console.print(Console.BLACK, String.valueOf(password));
-
         this.chances = 2;
+
+        //Console.print(Console.RED, String.valueOf(password));
 
         for (int i = 0; i < Generator.get().number(6); i++) {
             Item item = Item_Creator.get().getRandom();
