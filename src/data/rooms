@@ -116,7 +116,6 @@
     <enemies>
        4
     </enemies>
-    <vending>
     <exits>
         0
         Corredor
@@ -326,6 +325,7 @@
     <description>
         Oh, Deus! O que é isso? Tanques e mais tanques radioativos!
     </description>
+    <vending>
     <exits>
         15
         Corredor
