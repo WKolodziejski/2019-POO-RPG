@@ -57,7 +57,7 @@ public abstract class Character {
     }
 
     public int getAttack() {
-        return attack + getEquippedWeaponDamage();
+        return attack;
     }
 
     public int getLuck(){
@@ -70,11 +70,6 @@ public abstract class Character {
 
     protected int getEnergyCap(){
         return energyCap;
-    }
-
-    protected int getEquippedWeaponDamage(){
-        Weapon weapon = (Weapon)equipped.get(Weapon.class.getSimpleName());
-        return weapon != null ? weapon.getDamage() : 0;
     }
 
     public int getDefense() {
@@ -169,6 +164,14 @@ public abstract class Character {
                 default: break;
         }
      }
+
+     protected void processArmor(int amount){
+        this.defense += amount;
+     }
+
+    protected void processWeapon(int amount){
+        this.attack += amount;
+    }
 
     protected boolean isEquipped(Equipment equip) {
         return equipped.get(equip.getClass().getSimpleName()) != null;

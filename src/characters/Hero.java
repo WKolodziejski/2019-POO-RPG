@@ -1,6 +1,7 @@
 package characters;
 
 import item.*;
+import item.model.Armor;
 import item.model.Equipment;
 import item.model.Item;
 import utils.Console;
@@ -158,6 +159,13 @@ public class Hero extends Character {
             }
             Console.print(Console.CYAN_BOLD, equip.getName() + " foi equipado");
             equipped.put(equip.getClass().getSimpleName(), equip);
+            if(equip instanceof Armor){
+                processArmor(((Armor) equip).getDefense());
+            } else {
+                if(equip instanceof Weapon){
+                    processWeapon(((Weapon) equip).getDamage());
+                }
+            }
         }
     }
 
@@ -169,6 +177,13 @@ public class Hero extends Character {
             processBonus(equip.bonusType(), -equip.bonusAmount());
             if (energyCap > energy) {
                 this.energy = energy - (energyCap - energy);
+            }
+            if(equip instanceof Armor){
+                processArmor(-((Armor) equip).getDefense());
+            } else {
+                if(equip instanceof Weapon){
+                    processWeapon(-((Weapon) equip).getDamage());
+                }
             }
         }
     }

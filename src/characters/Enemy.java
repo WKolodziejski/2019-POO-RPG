@@ -1,8 +1,11 @@
 package characters;
 
 import item.CoinBag;
+import item.Weapon;
+import item.model.Armor;
 import item.model.Equipment;
 import item.model.Item;
+import utils.Console;
 import utils.Generator;
 import utils.Item_Creator;
 
@@ -36,6 +39,13 @@ public class Enemy extends Character {
             if (energyCap > energy) {
                 this.energy = energy - (energyCap - energy);
             }
+            if(equip instanceof Armor){
+                processArmor(-((Armor) equip).getDefense());
+            } else {
+                if(equip instanceof Weapon){
+                    processWeapon(-((Weapon) equip).getDamage());
+                }
+            }
         }
     }
 
@@ -62,9 +72,21 @@ public class Enemy extends Character {
 
     @Override
     protected void equip(Equipment equip){
-        unEquip(equip);
-        equipped.put(equip.getClass().getSimpleName(), equip);
-        processBonus(equip.bonusType(), equip.bonusAmount());
+        Equipment unequip = equipped.get(equip.getClass().getSimpleName());
+        if(unequip != equip){
+            processBonus(equip.bonusType(), equip.bonusAmount());
+            if (unequip != null) {
+                unEquip(unequip);
+            }
+            equipped.put(equip.getClass().getSimpleName(), equip);
+            if(equip instanceof Armor){
+                processArmor(((Armor) equip).getDefense());
+            } else {
+                if(equip instanceof Weapon){
+                    processWeapon(((Weapon) equip).getDamage());
+                }
+            }
+        }
     }
 
 }
