@@ -177,4 +177,7 @@ public abstract class Character {
         return equipped.get(equip.getClass().getSimpleName()) != null;
     }
 
+    public ArrayList<Item> getInventory() {
+        return inventory;
+    }
 }

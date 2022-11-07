@@ -18,7 +18,7 @@ public class FileReader {
         List<String> names = new ArrayList<>();
 
         try {
-            File file = new File("src/data/enemies/common");
+            File file = new File("src/main/java/data/enemies/common");
             Scanner scanner = new Scanner(file);
 
             while (scanner.hasNextLine()) {
@@ -40,7 +40,7 @@ public class FileReader {
         List<String> materials = new ArrayList<>();
 
         try {
-            File file = new File("src/data/items/material");
+            File file = new File("src/main/java/data/items/material");
             Scanner scanner = new Scanner(file);
 
             while (scanner.hasNextLine()) {
@@ -62,7 +62,7 @@ public class FileReader {
         List<String> weapons = new ArrayList<>();
 
         try {
-            File file = new File("src/data/items/weapons");
+            File file = new File("src/main/java/data/items/weapons");
             Scanner scanner = new Scanner(file);
 
             while (scanner.hasNextLine()) {
@@ -86,7 +86,7 @@ public class FileReader {
         List<HashMap<Integer, String>> exits = new ArrayList<>();
 
         try {
-            File file = new File("src/data/rooms");
+            File file = new File("src/main/java/data/rooms");
             Scanner scanner = new Scanner(file);
 
             while (scanner.hasNextLine()) {
