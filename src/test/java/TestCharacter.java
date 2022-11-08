@@ -1,15 +1,15 @@
 import characters.Boss;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestCharacter {
-    private Boss boss;
+    private static Boss boss;
 
-    @Before
-    public void init() {
+    @BeforeAll
+    static void init() {
         boss = new Boss((inventory, character) -> {});
     }
 
